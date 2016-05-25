@@ -1,4 +1,4 @@
 kyoppie is a Yuru Open Source SNS.
 
-# LICENCE
-MIT. [see licence](LICENCE)
+# LICENSE
+MIT. [see license](LICENSE)
