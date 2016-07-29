@@ -1,0 +1,24 @@
+{
+  "name": "kyoppie-api",
+  "version": "1.0.0",
+  "description": "kyoppie is a Yuru Open Source SNS.",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kyoppie/kyoppie-api.git"
+  },
+  "author": "kyoppie-team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kyoppie/kyoppie-api/issues"
+  },
+  "homepage": "https://github.com/kyoppie/kyoppie-api#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "jade": "^1.11.0",
+    "mongoose": "^4.5.7"
+  }
+}
