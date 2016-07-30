@@ -1,10 +1,13 @@
 var express = require("express")
 var app = express();
+var models = require("./models")
+
+
 
 var routes = require("./routes")
 routes.forEach(function(route){
     var login = true;
-    if(route.login !== undefined) login = route.login;
+if(route.login !== undefined) login = route.login;
     var method = route.method;
     var path = route.name;
     app[method](path,require("./handlers/web"+path));
