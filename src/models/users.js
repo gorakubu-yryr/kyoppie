@@ -2,7 +2,9 @@ module.exports = function(mongoose) {
   var schema = new mongoose.Schema({
     name:String,
     screenName:String,
+    screenNameLower:String,
     password:String,
+    passwordSalt:String,
     postsCount:Number,
     followersCount:Number,
     followingCount:Number,
@@ -15,5 +17,11 @@ module.exports = function(mongoose) {
   },{
     timestamps:true
   })
+  schema.methods.toResponseObject = function(){
+    var obj = Object(this);
+    obj._id = undefined;
+    obj.__v = undefined;
+    return obj;
+  }
   return mongoose.model("users",schema)
 };

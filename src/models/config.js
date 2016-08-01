@@ -8,5 +8,5 @@ module.exports = function(mongoose) {
   },{
     timestamps:true
   })
-  return mongoose.model("users",schema)
+  return mongoose.model("config",schema)
 };

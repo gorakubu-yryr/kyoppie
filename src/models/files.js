@@ -1,7 +1,7 @@
 module.exports = function(mongoose) {
   var schema = new mongoose.Schema({
     name:String,
-    server:{type:mongoose.Schema.Types.ObjectID,ref:"file_servers"},
+    server:{type:mongoose.Schema.Types.ObjectId,ref:"file_servers"},
   },{
     timestamps:true
   })
