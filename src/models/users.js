@@ -18,9 +18,14 @@ module.exports = function(mongoose) {
     timestamps:true
   })
   schema.methods.toResponseObject = function(){
-    var obj = Object(this);
+    var obj = this.toObject();
+    obj.id = this._id;
     obj._id = undefined;
     obj.__v = undefined;
+    obj.password = undefined;
+    obj.passwordSalt = undefined;
+    obj.push = undefined;
+    console.log(obj,this)
     return obj;
   }
   return mongoose.model("users",schema)
