@@ -1,15 +1,15 @@
 module.exports = function(mongoose) {
   var schema = new mongoose.Schema({
-    name:String,
-    screenName:String,
-    screenNameLower:String,
-    password:String,
-    passwordSalt:String,
-    postsCount:Number,
-    followersCount:Number,
-    followingCount:Number,
+    name:{type:String,default:"no name"},
+    screenName:{type:String,required:true},
+    screenNameLower:{type:String,required:true},
+    password:{type:String,required:true},
+    passwordSalt:{type:String,required:true},
+    postsCount:{type:Number,default:0},
+    followersCount:{type:Number,default:0},
+    followingCount:{type:Number,default:0},
     adminLevel:{type:Number,default:0},
-    isVerified:Boolean,
+    isVerified:{type:Boolean,default:false},
     push:{
         chrome:[String],
         firefox:[String]
