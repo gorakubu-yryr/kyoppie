@@ -8,7 +8,7 @@ module.exports = function(screenName,id){
         if(!res){
           return reject("not-found-user")
         }
-        return resolve(res.toResponseObject())
+        return resolve(res)
       }
       if(screenName) {
         models.users.findOne({screenNameLower:screenName.toLowerCase()},retUser)

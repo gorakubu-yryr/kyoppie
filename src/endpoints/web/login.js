@@ -8,19 +8,16 @@ module.exports = function(screenName,password){
         if(!screenName && typeof screenName !== "string") return reject("require-screenName")
         if(!password && typeof password !== "string") return reject("require-password")
         models.users.findOne({screenNameLower:screenName.toLowerCase()}).then(function(res){
-            if(res){
-                return reject("duplicate-screenName")
+            if(!res){
+                return reject("not-found-user")
             }
-            var salt = newPasswordHash(screenName)
+            var salt = res.passwordSalt;
             var hashPassword = getHashedPassword(password,salt)
-            var user = new models.users()
-            user.screenName = screenName;
-            user.screenNameLower = screenName.toLowerCase();
-            user.password = hashPassword;
-            user.passwordSalt = salt;
-            user.save(function(err){
-                resolve(user);
-            });
+            if(hashPassword != res.password){
+                return reject("invalid-password")
+            } else {
+                resolve(res)
+            }
        }).catch(reject)
     })
 }

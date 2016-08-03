@@ -1,4 +1,4 @@
-var main = require("../../../endpoints/web/register");
+var main = require("../../../endpoints/web/login");
 
 module.exports = function(req,res){
     main(req.body.screenName,req.body.password).then(function(r){
@@ -6,11 +6,9 @@ module.exports = function(req,res){
     },function(r){
         if(typeof r === "object"){
             console.log(r)
-            res.sendStatus(503)
-            res.send({result:false,error:"server-side-error"})
+            res.send({result:false,error:"server-side-error"},503)
         } else {
-            res.sendStatus(400)
-            res.send({result:false,error:r})
+            res.send({result:false,error:r},400)
         }
     })
 }
