@@ -4,7 +4,8 @@
   "description": "kyoppie is a Yuru Open Source SNS.",
   "main": "src/main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "migrate": "cd src/migrate && node index.js run"
   },
   "repository": {
     "type": "git",

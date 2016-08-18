@@ -24,12 +24,12 @@ switch (process.argv[2]) {
             }
             if(files.length <= loop){
                 console.log("end migrate")
+                process.exit();
                 return;
             }
             var file = files[loop];
-            console.log(file)
+            console.log("start",file)
             models.migrates.findOne({name:file},function(err,res){
-                console.log(arguments)
                 if(res) return next();
                 var migrate = require(__dirname+"/"+file);
                 migrate.up();
@@ -49,9 +49,10 @@ switch (process.argv[2]) {
         fs.writeSync(file,"exports.up = function(models){\n    // write your migrate\n}")
         fs.closeSync(file);
         console.log("writed at "+filename);
+        process.exit();
         break;
     default:
         printHowToUseEnd();
+        process.exit();
         break;
 }
-process.exit();
