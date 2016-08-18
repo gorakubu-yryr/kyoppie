@@ -15,9 +15,24 @@ module.exports = function(screenName,password){
             var hashPassword = getHashedPassword(password,salt)
             if(hashPassword != res.password){
                 return reject("invalid-password")
-            } else {
-                resolve(res)
             }
+            // generate accesstoken
+            // の前にWebのappを取得
+            models.apps.findOne({
+                isWeb:true
+            },function(err,app){
+                if(err) return reject(err);
+                if(!app) return reject("please-run-setup-script")
+                var token = new models.access_tokens()
+                token.userId = res.user;
+                token.appId = app.id;
+                token.save(function(err){
+                    resolve({
+                        token:token.token,
+                        user:res
+                    });
+                })
+            })
        }).catch(reject)
     })
 }

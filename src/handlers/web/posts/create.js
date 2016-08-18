@@ -1,7 +1,7 @@
-var main = require("../../../endpoints/web/register");
+var main = require("../../../endpoints/posts/create");
 
 module.exports = function(req,res){
-    main(req.body.screenName,req.body.password).then(function(r){
+    main(req.user,req.body.text).then(function(r){
         res.send({result:true,response:r.toResponseObject()})
     },function(r){
         if(typeof r === "object"){

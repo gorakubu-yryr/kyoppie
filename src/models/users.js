@@ -25,7 +25,6 @@ module.exports = function(mongoose) {
     obj.password = undefined;
     obj.passwordSalt = undefined;
     obj.push = undefined;
-    console.log(obj,this)
     return obj;
   }
   return mongoose.model("users",schema)

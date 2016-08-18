@@ -10,7 +10,7 @@ module.exports = function(mongoose) {
     obj.id = this._id;
     obj._id = undefined;
     obj.__v = undefined;
-    console.log(obj,this)
+    console.log(obj.user)
     return obj;
   }
   return mongoose.model("posts",schema)
