@@ -2,8 +2,9 @@ module.exports = function(mongoose) {
   var schema = new mongoose.Schema({
     name:String,
     appKey:String,
-    userId:{type:mongoose.Schema.Types.ObjectId,ref:"users"},
-    isWeb:String,
+    appSecret:String,
+    user:{type:mongoose.Schema.Types.ObjectId,ref:"users"},
+    isWeb:Boolean,
   },{
     timestamps:true
   })

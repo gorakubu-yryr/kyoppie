@@ -1,5 +1,12 @@
 var register = require("../endpoints/web/register")
 exports.up = function(models){
     // write your migrate
-    register("admin","admin")
+    return register("admin","admin").then(function(user){
+        if(!user) return new Promise.reject("user is not create")
+        return models.users.findOne({_id:models.mongoose.Types.ObjectId(user.id)})
+    }).then(function(user){
+        if(!user) return new Promise.reject("user is not create")
+        user.adminLevel=-1; // all
+        return user.save();
+    })
 }

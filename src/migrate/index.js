@@ -28,16 +28,16 @@ switch (process.argv[2]) {
                 return;
             }
             var file = files[loop];
-            console.log("start",file)
             models.migrates.findOne({name:file},function(err,res){
                 if(res) return next();
                 var migrate = require(__dirname+"/"+file);
-                migrate.up();
-                var mobj = new models.migrates({name:file});
-                mobj.save(function(){
-                    console.log("migrate up:"+file)
-                    next();
-                })
+                migrate.up(models).then(function(){
+                    var mobj = new models.migrates({name:file});
+                    mobj.save(function(){
+                        console.log("migrate up:"+file)
+                        next();
+                    })
+                });
             })
         }
         startMigrate();
