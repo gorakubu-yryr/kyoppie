@@ -14,7 +14,7 @@ if(route.login !== undefined) login = route.login;
 })
 app.all("*",function(req,res){
     // not found
-    res.send({result:false,error:"not-found-api"},404)
+    res.status(404).send({result:false,error:"not-found-api"})
 })
 app.listen(4005,function(){
     console.log("listen for 4005 port");
