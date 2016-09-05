@@ -41,3 +41,8 @@
 このaccessTokenを`appKey`+`accessToken`+`appSecret`でsha256したものを使う(以下`accessTokenHash`)
 
 実際にアクセスする際は`appKey`と`accessTokenHash`を使う
+
+## 質問と回答
+
+- sha256って何で出力すればいいですか？16進数？base64？ → 16進数です
+- エンドポイントのあとに?hogehogeってありますけどqueryに含めていいんですか？ → bodyだけです
