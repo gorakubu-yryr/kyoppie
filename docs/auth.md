@@ -28,7 +28,8 @@
     }
 }
 ```
-注意:この時点で先程の`sigKey`、`sigHash`、`appSecretHash`は失効する
+注意:この時点で先程の`sigKey`、`sigHash`、`appSecretHash`は失効する。また、上記の`token`は`requestToken`とする
+
 この`requestToken`を`/auth/confirm?request_token=`に付ける
 例:`requestToken`が`test`だったら`/auth/confirm?request_token=test`
 これをブラウザで開くと確認画面が出るのでスクリーンネーム/パスワードを入力するとPINコードが出る
