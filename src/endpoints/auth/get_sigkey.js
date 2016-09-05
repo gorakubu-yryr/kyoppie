@@ -8,7 +8,7 @@ module.exports = function(appKey){
     }).then(function(app){
         if(!app) return Promise.reject("app-is-not-found");
         sig = new models.signatures();
-        sig.appKey = appKey;
+        sig.app = app.id;
         sig.sigKey = newSignatureKey();
         sig.sigHash = newSignatureKey();
         return sig.save();

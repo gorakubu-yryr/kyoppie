@@ -1,6 +1,6 @@
 module.exports = function(mongoose) {
   var schema = new mongoose.Schema({
-    appKey:String,
+    app:{type:mongoose.Schema.Types.ObjectId,ref:"apps"},
     sigKey:String,
     sigHash:String
   })
@@ -8,7 +8,7 @@ module.exports = function(mongoose) {
     var obj = this.toObject();
     obj._id = undefined;
     obj.__v = undefined;
-    obj.appKey = undefined;
+    obj.app = undefined;
     return obj;
   }
   return mongoose.model("signatures",schema)
