@@ -22,7 +22,10 @@
 `POST /auth/get_request_token?appKey=appKey&appSecret=appSecretHash&sigKey=sigKey`
 ```
 {
-    "requestToken":"hoge"
+    "result":true,
+    "response":{
+        "token": "hoge"
+    }
 }
 ```
 注意:この時点で先程の`sigKey`、`sigHash`、`appSecretHash`は失効する
