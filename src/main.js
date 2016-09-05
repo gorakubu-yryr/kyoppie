@@ -10,7 +10,9 @@ routes.forEach(function(route){
 if(route.login !== undefined) login = route.login;
     var method = route.method;
     var path = route.name;
-    app[method](path,require("./handlers/web"+path));
+    app[method](path,function(req,res,next){
+        next();
+    },require("./handlers/web"+path));
 })
 app.all("*",function(req,res){
     // not found
