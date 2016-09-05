@@ -1,0 +1,40 @@
+# APIの認証について (予定)
+- appKey → 晒してもいいもの
+- appSecret → 秘密
+
+`GET /auth/get_sigkey` appKeyだけつける
+```
+{
+    "sigKey":"hoge",
+    "sigHash":"hage"
+}
+```
+が帰ってくるので
+`appSecret`に`sigHash`を付けてsha256する
+
+例:`appSecret`がfooで`sigHash`が`test`だったら`footest`をsha256
+
+これを`appSecretHash`とする
+
+`GET /auth/get_request_token` appKey、appSecretHash、sigKeyを付ける
+```
+{
+    "requestToken":"hoge"
+}
+```
+注意:この時点で先程の`sigKey`、`sigHash`、`appSecretHash`は失効する
+この`requestToken`を`/auth/confirm?request_token=`に付ける
+例:`requestToken`が`test`だったら`/auth/confirm?request_token=test`
+これをブラウザで開くと確認画面が出るのでスクリーンネーム/パスワードを入力するとPINコードが出る
+そうしたら`appSecretHash`の方法で`appSecretHash2`を作る
+
+`GET /auth/get_access_token` appKey,appSecretHash2,sigKey2,pinCodeを付ける
+```
+{
+    "accessToken":"hage"
+}
+```
+
+このaccessTokenを`appKey`+`accessToken`+`appSecret`でsha256したものを使う(以下`accessTokenHash`)
+
+実際にアクセスする際は`appKey`と`accessTokenHash`を使う
