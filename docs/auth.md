@@ -5,8 +5,11 @@
 `GET /auth/get_sigkey` appKeyだけつける
 ```
 {
-    "sigKey":"hoge",
-    "sigHash":"hage"
+    "result": true,
+    "response": {
+        "sigHash": "hoge",
+        "sigKey": "foo"
+    }
 }
 ```
 が帰ってくるので
