@@ -6,11 +6,9 @@ module.exports = function(req,res){
     },function(r){
         if(typeof r === "object"){
             console.log(r)
-            res.sendStatus(503)
-            res.send({result:false,error:"server-side-error"})
+            res.status(503).send({result:false,error:"server-side-error"})
         } else {
-            res.sendStatus(400)
-            res.send({result:false,error:r})
+            res.status(400).send({result:false,error:r})
         }
     })
 }
