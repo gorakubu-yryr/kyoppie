@@ -2,7 +2,7 @@
 - appKey → 晒してもいいもの
 - appSecret → 秘密
 
-`GET /auth/get_sigkey?appKey=appKey`
+`POST /auth/get_sigkey?appKey=appKey`
 ```
 {
     "result": true,
@@ -19,7 +19,7 @@
 
 これを`appSecretHash`とする
 
-`GET /auth/get_request_token?appKey=appKey&appSecret=appSecretHash&sigKey=sigKey`
+`POST /auth/get_request_token?appKey=appKey&appSecret=appSecretHash&sigKey=sigKey`
 ```
 {
     "requestToken":"hoge"
@@ -31,7 +31,7 @@
 これをブラウザで開くと確認画面が出るのでスクリーンネーム/パスワードを入力するとPINコードが出る
 そうしたら`appSecretHash`の方法で`appSecretHash2`を作る
 
-`GET /auth/get_access_token?appKey=appKey&appSecret=appSecretHash2&sigKey=sigKey2&pinCode=pinCode`
+`POST /auth/get_access_token?appKey=appKey&appSecret=appSecretHash2&sigKey=sigKey2&pinCode=pinCode`
 ```
 {
     "accessToken":"hage"

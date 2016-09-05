@@ -1,7 +1,7 @@
 var main = require("../../../endpoints/auth/get_sigkey.js");
 
 module.exports = function(req,res){
-    main(req.query.appKey).then(function(r){
+    main(req.body.appKey).then(function(r){
         res.send({result:true,response:r.toResponseObject()})
     },function(r){
         if(typeof r === "object"){
