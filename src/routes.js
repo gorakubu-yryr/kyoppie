@@ -7,5 +7,6 @@ module.exports = [
     {name:"/users/show",method:"get",login:false},
 
     {name:"/auth/get_sigkey",method:"post",login:false},
+    {name:"/auth/get_request_token",method:"post",login:false}
 
 ]
