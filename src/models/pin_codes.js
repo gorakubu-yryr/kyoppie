@@ -10,6 +10,7 @@ module.exports = function(mongoose) {
     app:{type:mongoose.Schema.Types.ObjectId,ref:"apps"},
     request_token:{type:mongoose.Schema.Types.ObjectId,ref:"request_tokens"},
     code:{type:String,default:generatePinCode},
+    user:{type:mongoose.Schema.Types.ObjectId,ref:"users"},
   })
   schema.methods.toResponseObject = function(){
     var obj = this.toObject();
