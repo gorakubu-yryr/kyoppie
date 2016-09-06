@@ -23,9 +23,5 @@ module.exports = function(requestToken,screenName,password){
         pin_code.request_token = request_token.id;
         pin_code.user = user.id;
         return pin_code.save();
-    }).then(function(_){
-        return models.request_tokens.findOne({token:requestToken}).remove().then(function(){
-            return Promise.resolve(_)
-        })
     })
 }
