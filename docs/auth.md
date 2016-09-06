@@ -45,7 +45,7 @@
     }
 }
 ```
-
+(上記の`token`は以下`accessToken`)
 このaccessTokenを`appKey`+`accessToken`+`appSecret`でsha256したものを使う(以下`accessTokenHash`)
 
 実際にアクセスする際は`appKey`と`accessTokenHash`を使う
