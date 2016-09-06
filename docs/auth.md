@@ -39,7 +39,10 @@
 `POST /auth/get_access_token?appKey=appKey&appSecret=appSecretHash2&sigKey=sigKey2&pinCode=pinCode&requestToken=requestToken`
 ```
 {
-    "accessToken":"hage"
+    "result":true,
+    "response":{
+        "token":"hoge"
+    }
 }
 ```
 
