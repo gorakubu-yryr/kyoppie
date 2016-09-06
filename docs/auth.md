@@ -1,6 +1,7 @@
 # APIの認証について (予定)
 - appKey → 晒してもいいもの
 - appSecret → 秘密
+- **初めて叩く場合は最後の"質問と回答"も見るべし**
 
 `POST /auth/get_sigkey?appKey=appKey`
 ```
@@ -35,7 +36,7 @@
 これをブラウザで開くと確認画面が出るのでスクリーンネーム/パスワードを入力するとPINコードが出る
 そうしたら`appSecretHash`の方法で`appSecretHash2`を作る
 
-`POST /auth/get_access_token?appKey=appKey&appSecret=appSecretHash2&sigKey=sigKey2&pinCode=pinCode`
+`POST /auth/get_access_token?appKey=appKey&appSecret=appSecretHash2&sigKey=sigKey2&pinCode=pinCode&requestToken=requestToken`
 ```
 {
     "accessToken":"hage"
@@ -46,7 +47,21 @@
 
 実際にアクセスする際は`appKey`と`accessTokenHash`を使う
 
+## パスワード認証
+Twitterで言うxAuth
+
+`POST /auth/login?requestToken=requestToken&screenName=screenName&password=hoge`
+```
+{
+    "result":true,
+    "response":{
+        "pinCode":"12345678"
+    }
+}
+```
+
 ## 質問と回答
 
 - sha256って何で出力すればいいですか？16進数？base64？ → 16進数です
 - エンドポイントのあとに?hogehogeってありますけどqueryに含めていいんですか？ → bodyだけです
+ 
