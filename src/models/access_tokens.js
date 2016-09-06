@@ -5,12 +5,19 @@ module.exports = function(mongoose) {
   }
   var schema = new mongoose.Schema({
     name:String,
-    appId:{type:mongoose.Schema.Types.ObjectId,ref:"apps"},
-    userId:{type:mongoose.Schema.Types.ObjectId,ref:"users"},
+    app:{type:mongoose.Schema.Types.ObjectId,ref:"apps"},
+    user:{type:mongoose.Schema.Types.ObjectId,ref:"users"},
     token:{type:String,default:generateAccessToken},
-    isDeleted:{type:Boolean,default:false},
   },{
     timestamps:true
   })
+  schema.methods.toResponseObject = function(){
+    var obj = this.toObject();
+    obj._id = undefined;
+    obj.__v = undefined;
+    obj.app = undefined;
+    obj.user = undefined;
+    return obj;
+  }
   return mongoose.model("access_tokens",schema)
 };
