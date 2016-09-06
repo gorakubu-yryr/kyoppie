@@ -4,8 +4,6 @@ exports.up = function(models){
     // write your migrate
     var app = new models.apps();
     app.name="web";
-    app.appKey = newApplicationKey();
-    app.appSecret = newApplicationKey();
     app.isWeb = true;
     var config;
     var configFilePath = __dirname+"/../../web_config.json";
