@@ -2,7 +2,7 @@ var models = require("../../models")
 module.exports = function(screenName,id){
     return new Promise(function(resolve,reject){
       if(!screenName && !id){
-        return reject("require-screenName-or-id")
+        return reject("screenName-or-id-require")
       }
       function retUser(err,res){
         if(!res){
