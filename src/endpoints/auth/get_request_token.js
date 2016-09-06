@@ -5,6 +5,8 @@ module.exports = function(appKey,appSecretHash,sigKey){
     var request_token
     return new Promise(function(resolve,reject){
         if(!appKey) return reject("appKey-is-require");
+        if(!appSecretHash) return reject("appSecret-is-require");
+        if(!sigKey) return reject("sigKey-is-require");
         Promise.all([
             models.apps.findOne({appKey}),
             models.signatures.findOne({sigKey})
