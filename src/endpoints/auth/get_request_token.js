@@ -23,6 +23,11 @@ module.exports = function(appKey,appSecretHash,sigKey){
         request_token = new models.request_tokens();
         request_token.app = app.id;
         request_token.token = newRequestToken();
-        return request_token.save();
+        return Promise.all([
+            request_token.save(),
+            models.signatures.findOne({sigKey}).remove()
+        ]);
+    }).then(function(_){
+        return Promise.resolve(_[0])
     });
 }
