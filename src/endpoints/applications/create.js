@@ -7,9 +7,6 @@ module.exports = function(user,name,isWeb = false){
         app.appKey = newApplicationKey();
         app.user = user.id;
         app.name = name;
-        app.save(function(err){
-            if(err) return reject(err);
-            resolve(app.toResponseObject());
-        })
+        return app.save();
     });
 }
