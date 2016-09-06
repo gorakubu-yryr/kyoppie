@@ -47,6 +47,7 @@
 ```
 (上記の`token`は以下`accessToken`)
 このaccessTokenを`appKey`+`accessToken`+`appSecret`でsha256したものを使う(以下`accessTokenHash`)
+ちなみにpinCodeが間違っているなどでエラーが出た場合も`appSecretHash`,`sigKey`,`sigHash`は失効するので注意
 
 実際にアクセスする際は`appKey`と`accessTokenHash`を使う
 
