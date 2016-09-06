@@ -1,4 +1,4 @@
-var main = require("../../../endpoints/web/login");
+var main = require("../../../endpoints/auth/login");
 
 module.exports = function(req,res){
     main(req.body.screenName,req.body.password).then(function(r){
