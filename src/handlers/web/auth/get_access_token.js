@@ -2,6 +2,7 @@ var main = require("../../../endpoints/auth/get_access_token");
 
 module.exports = function(req,res){
     main(req.body.appKey,req.body.appSecret,req.body.sigKey,req.body.pinCode,req.body.requestToken).then(function(r){
+        console.log(r)
         res.send({result:true,response:r.toResponseObject()})
     },function(r){
         if(typeof r === "object"){

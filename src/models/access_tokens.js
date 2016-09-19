@@ -18,7 +18,7 @@ module.exports = function(mongoose) {
         obj.__v = undefined;
         obj.app = undefined;
         obj.user = undefined;
-        obj.secret = "";
+        obj.secret = undefined;
         return obj;
     }
     return mongoose.model("access_tokens",schema)
