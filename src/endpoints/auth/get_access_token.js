@@ -14,7 +14,6 @@ module.exports = function(appKey,appSecretHash,sigKey,pinCode,requestToken){
             models.request_tokens.findOne({token:requestToken}),
         ]).then(resolve,reject);
     }).then(function(_){
-        console.log(_);
         var app=_[0];
         var sig=_[1];
         var request_token=_[2];
@@ -58,7 +57,6 @@ module.exports = function(appKey,appSecretHash,sigKey,pinCode,requestToken){
             models.pin_codes.findOne({id:pin_code.id}).remove()
         ]);
     }).then(function(_){
-        console.log(_)
         return Promise.resolve(_[0])
     });
 }
