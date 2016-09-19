@@ -17,6 +17,8 @@ module.exports = function(mongoose) {
         obj._id = undefined;
         obj.__v = undefined;
         obj.app = undefined;
+        obj.request_token = undefined;
+        if(typeof obj.user === "object") obj.user = this.user.toResponseObject();
         return obj;
     }
     return mongoose.model("pin_codes",schema)
