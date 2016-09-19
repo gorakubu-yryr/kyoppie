@@ -21,7 +21,7 @@ module.exports = function(requestToken,screenName,password){
         var pin_code = new models.pin_codes()
         pin_code.app = request_token.app;
         pin_code.request_token = request_token.id;
-        pin_code.user = user.id;
+        pin_code.user = user;
         return pin_code.save();
     })
 }
