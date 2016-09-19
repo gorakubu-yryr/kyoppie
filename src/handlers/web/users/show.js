@@ -1,14 +1,9 @@
 var main = require("../../../endpoints/users/show");
+var wrap = require("../wrap")
 
 module.exports = function(req,res){
-    main(req.query.screenName,req.query.id).then(function(r){
-        res.send({result:true,response:r.toResponseObject()})
-    },function(r){
-        if(typeof r === "object"){
-            console.log(r)
-            res.status(503).send({result:false,error:"server-side-error"})
-        } else {
-            res.status(400).send({result:false,error:r})
-        }
-    })
+    wrap(main(
+        req.query.screenName,
+        req.query.id
+    ),req,res);
 }
