@@ -40,21 +40,16 @@ module.exports = function(appKey,appSecretHash,sigKey,pinCode,requestToken){
         if(pin_code.request_token != request_token.id) return Promise.reject("pinCode-not-found");
         return Promise.all([
             models.access_tokens.findOne({user:pin_code.user,app:app.id}),
-            Promise.resolve(pin_code),
-        ])
-    }).then(function(_){
-        var access_token=_[0];
-        var pin_code=_[1];
-        if(access_token) return Promise.resolve([access_token]);
-        access_token = new models.access_tokens();
-        access_token.user = pin_code.user;
-        access_token.app = pin_code.app;
-        return Promise.all([
-            access_token.save(),
             models.request_tokens.findOne({token:requestToken}).remove(),
             models.pin_codes.findOne({code:pinCode}).remove()
         ])
     }).then(function(_){
-        return Promise.resolve(_[0])
+        var access_token=_[0];
+        if(access_token) return Promise.resolve(access_token);
+        access_token = new models.access_tokens();
+        access_token.user = pin_code.user;
+        access_token.app = pin_code.app;
+        access_token.secret = crypto.createHash("sha256").update(app.appKey+access_token.token+app.appSecret)
+        return access_token.save();
     });
 }

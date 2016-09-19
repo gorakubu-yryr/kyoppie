@@ -8,6 +8,7 @@ module.exports = function(mongoose) {
         app:{type:mongoose.Schema.Types.ObjectId,ref:"apps"},
         user:{type:mongoose.Schema.Types.ObjectId,ref:"users"},
         token:{type:String,default:generateAccessToken},
+        secret:{type:String},
     },{
         timestamps:true
     })
@@ -17,6 +18,7 @@ module.exports = function(mongoose) {
         obj.__v = undefined;
         obj.app = undefined;
         obj.user = undefined;
+        obj.secret = "";
         return obj;
     }
     return mongoose.model("access_tokens",schema)
