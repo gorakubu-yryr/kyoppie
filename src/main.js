@@ -11,6 +11,9 @@ app.use(function(req,res,next){
     res.append("Access-Control-Max-Age","86400")
     next();
 })
+app.options('*',function(req,res){
+    res.end();
+})
 
 var routes = require("./routes")
 routes.forEach(function(route){
