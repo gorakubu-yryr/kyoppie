@@ -6,7 +6,7 @@ kyoppie is a Yuru Open Source SNS.
 ```
 npm install
 npm run migrate
-npm start`
+npm start
 ```
 
 ## LICENSE
