@@ -10,4 +10,5 @@ module.exports = [
     {name:"/auth/login",method:"post",login:false},
     {name:"/auth/get_access_token",method:"post",login:false},
 
+    {name:"/account/show",method:"get"},
 ]
