@@ -33,6 +33,12 @@ routes.forEach(function(route){
         } else {
             next();
         }
+    },function(req,res,next){
+        if(login && !req.token){
+            res.status(403).send({response:false,error:"please-login"})
+        } else {
+            next();
+        }
     },require("./handlers/web"+path));
 })
 app.all("*",function(req,res){
