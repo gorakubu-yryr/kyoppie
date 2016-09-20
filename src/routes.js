@@ -13,4 +13,5 @@ module.exports = [
     {name:"/account/show",method:"get"},
 
     {name:"/posts/create",method:"post"},
+    {name:"/posts/timeline",method:"get"},
 ]
