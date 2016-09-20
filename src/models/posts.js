@@ -10,7 +10,7 @@ module.exports = function(mongoose) {
         obj.id = this._id;
         obj._id = undefined;
         obj.__v = undefined;
-        if(typeof obj.user == "object") obj.user=this.user.toResponseObject();
+        if(this.user.toResponseObject) obj.user=this.user.toResponseObject();
         return obj;
     }
     return mongoose.model("posts",schema)

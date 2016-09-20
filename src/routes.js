@@ -11,4 +11,6 @@ module.exports = [
     {name:"/auth/get_access_token",method:"post",login:false},
 
     {name:"/account/show",method:"get"},
+
+    {name:"/posts/create",method:"post"},
 ]

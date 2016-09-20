@@ -4,8 +4,8 @@ module.exports = function(token,text){
         // validate
         if(!text) return reject("text-is-require")
         var post = new models.posts();
-        post.user = user.id;
+        post.user = token.user;
         post.text = text;
-        post.save.then(resolve,reject);
+        post.save().then(resolve,reject);
     })
 }
