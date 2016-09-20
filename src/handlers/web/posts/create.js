@@ -3,7 +3,7 @@ var wrap = require("../wrap")
 
 module.exports = function(req,res){
     wrap(main(
-        req.user,
+        req.token,
         req.body.text
     ),req,res)
 }
