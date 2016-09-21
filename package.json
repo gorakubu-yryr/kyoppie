@@ -4,6 +4,7 @@
   "description": "kyoppie is a Yuru Open Source SNS.",
   "main": "src/main.js",
   "scripts": {
+    "start": "node ./src/main.js",
     "test": "mocha",
     "migrate": "cd src/migrate && node index.js run"
   },
