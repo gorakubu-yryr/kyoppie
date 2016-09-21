@@ -2,18 +2,16 @@ var models = require("../../models")
 var newRequestToken = require("../../utils/newRequestToken")
 var crypto = require("crypto");
 module.exports = function(appKey,appSecretHash,sigKey,pinCode,requestToken){
-    return new Promise(function(resolve,reject){
-        if(!appKey) return reject("appKey-is-require");
-        if(!appSecretHash) return reject("appSecret-is-is-require")
-        if(!sigKey) return reject("sigKey-is-require")
-        if(!pinCode) return reject("pinCode-is-require")
-        if(!requestToken) return reject("requestToken-is-require")
-        Promise.all([
-            models.apps.findOne({appKey}),
-            models.signatures.findOne({sigKey}),
-            models.request_tokens.findOne({token:requestToken}),
-        ]).then(resolve,reject);
-    }).then(function(_){
+    if(!appKey) return Promise.reject("appKey-is-require");
+    if(!appSecretHash) return Promise.reject("appSecret-is-is-require")
+    if(!sigKey) return Promise.reject("sigKey-is-require")
+    if(!pinCode) return Promise.reject("pinCode-is-require")
+    if(!requestToken) return Promise.reject("requestToken-is-require")
+    return Promise.all([
+        models.apps.findOne({appKey}),
+        models.signatures.findOne({sigKey}),
+        models.request_tokens.findOne({token:requestToken}),
+    ]).then(function(_){
         var app=_[0];
         var sig=_[1];
         var request_token=_[2];

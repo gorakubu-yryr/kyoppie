@@ -1,5 +1,3 @@
 module.exports = function(){
-    return new Promise(function(resolve,reject){
-        resolve({status:"ok"})
-    })
+    return Promise.resolve({status:"ok"})
 }

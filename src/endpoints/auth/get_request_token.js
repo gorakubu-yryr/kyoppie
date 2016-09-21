@@ -3,15 +3,13 @@ var newRequestToken = require("../../utils/newRequestToken")
 var crypto = require("crypto");
 module.exports = function(appKey,appSecretHash,sigKey){
     var request_token
-    return new Promise(function(resolve,reject){
-        if(!appKey) return reject("appKey-is-require");
-        if(!appSecretHash) return reject("appSecret-is-require");
-        if(!sigKey) return reject("sigKey-is-require");
-        Promise.all([
-            models.apps.findOne({appKey}),
-            models.signatures.findOne({sigKey})
-        ]).then(resolve,reject);
-    }).then(function(_){
+    if(!appKey) return Promise.reject("appKey-is-require");
+    if(!appSecretHash) return Promise.reject("appSecret-is-require");
+    if(!sigKey) return Promise.reject("sigKey-is-require");
+    return Promise.all([
+        models.apps.findOne({appKey}),
+        models.signatures.findOne({sigKey})
+    ]).then(function(_){
         var app=_[0];
         var sig=_[1];
         if(!app) return Promise.reject("app-not-found");

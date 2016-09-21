@@ -2,11 +2,11 @@ var models = require("../../models")
 var getHashedPassword = require("../../utils/getHashedPassword")
 module.exports = function(requestToken,screenName,password){
     var request_token;
-    return new Promise(function(resolve,reject){
-        if(!requestToken) return reject("require-requestToken")
-        if(!screenName || typeof screenName !== "string") return reject("require-screenName")
-        if(!password || typeof password !== "string") return reject("require-password")
-        models.request_tokens.findOne({token:requestToken}).then(resolve,reject);
+    if(!requestToken) return Promise.reject("require-requestToken")
+    if(!screenName || typeof screenName !== "string") return Promise.reject("require-screenName")
+    if(!password || typeof password !== "string") return Promise.reject("require-password")
+    return models.request_tokens.findOne({
+        token:requestToken
     }).then(function(_){
         if(!_) return Promise.reject("requestToken-invalid")
         request_token=_;
