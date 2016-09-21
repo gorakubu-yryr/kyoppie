@@ -1,4 +1,7 @@
 var express = require("express")
+var ws = require("ws");
+var server = require("http").createServer();
+var ws_server = new ws.Server({server});
 var app = express();
 var models = require("./models")
 var bodyParser = require("body-parser")
@@ -48,6 +51,7 @@ app.all("*",function(req,res){
     // not found
     res.status(404).send({result:false,error:"not-found-api"})
 })
-app.listen(4005,function(){
-    console.log("listen for 4005 port");
+server.on("request",app);
+server.listen(4005,function(){
+    console.log("listen for "+server.address().port+" port");
 })
