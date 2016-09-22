@@ -77,7 +77,6 @@ wss.on("connection",function(ws){
             }).populate("app user").then(function(token){
                 console.log(token)
                 if(token){
-                    console.log(token)
                     ws.token=token;
                     ws_route[url].callback(ws);
                 } else {

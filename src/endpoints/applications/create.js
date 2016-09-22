@@ -1,8 +1,9 @@
 var models = require("../../models")
-module.exports = function(user,name,isWeb = false){
+module.exports = function(token,name,isWeb = false){
     if(!name) return Promise.reject("name-is-require");
     var app = new models.apps();
-    app.user = user.id;
+    app.user = token.user.id;
     app.name = name;
+    app.isWeb = isWeb;
     return app.save();
 }

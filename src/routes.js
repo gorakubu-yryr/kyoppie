@@ -15,6 +15,9 @@ module.exports = {
 
         {name:"/posts/create",method:"post"},
         {name:"/posts/timeline",method:"get"},
+
+        {name:"/applications/create",method:"post",isWeb:true},
+        {name:"/applications/my",method:"get",isWeb:true}
     ],
     websocket:[
         {name:"/posts/timeline"}
