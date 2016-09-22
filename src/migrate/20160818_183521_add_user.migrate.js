@@ -1,4 +1,4 @@
-var register = require("../endpoints/web/register")
+var register = require("../endpoints/web/register_")
 exports.up = function(models){
     // write your migrate
     return register("admin","admin").then(function(user){
