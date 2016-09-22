@@ -5,6 +5,7 @@ module.exports = {
         {name:"/web/register",method:"post",login:false},
 
         {name:"/users/show",method:"get",login:false},
+        {name:"/users/list",method:"get",login:false},
         {name:"/users/follow",method:"post"},
         {name:"/users/timeline",method:"get"},
 
