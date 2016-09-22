@@ -64,30 +64,40 @@ app.all("*",function(req,res){
 wss.on("connection",function(ws){
     var location = url_module.parse(ws.upgradeReq.url,true);
     var url = location.pathname;
-    console.log(url)
     if(!ws_route[url]){
         ws.send(JSON.stringify({result:false,error:"api-not-found"}))
         ws.close();
         return
     }
+    console.log(ws_route)
     if(ws_route[url].login){
         if(location.query.access_token){
             models.access_tokens.findOne({
                 secret:location.query.access_token
             }).populate("app user").then(function(token){
+                console.log(token)
                 if(token){
+                    console.log(token)
                     ws.token=token;
+                    ws_route[url].callback(ws);
+                } else {
+                    ws.send(JSON.stringify({result:false,error:"please-auth"}))
+                    ws.close()
+                    return
                 }
             },function(){
                 ws.send(JSON.strigify({response:false,error:"server-side-auth-error"}))
                 ws.close()
+                return
             })
         } else {
             ws.send(JSON.stringify({result:false,error:"please-auth"}))
             ws.close()
+            return
         }
+    } else {
+        ws_route[url].callback(ws);
     }
-    ws_route([url].callback)
 })
 server.on("request",app);
 server.listen(4005,function(){
