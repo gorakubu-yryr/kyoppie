@@ -1,4 +1,4 @@
-var main = require("../../../endpoints/account/show");
+var main = require("../../../endpoints/account/change_password");
 var wrap = require("../wrap")
 
 module.exports = function(req,res){
