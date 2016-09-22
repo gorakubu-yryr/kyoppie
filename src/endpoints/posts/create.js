@@ -10,11 +10,15 @@ module.exports = function(token,text){
     post.text = text;
     return Promise.all([
         post.save(),
-        post.user.save()
+        post.user.save(),
+        models.follows.find({toUser:token.user.id})
     ]).then(function(_){
         var post = _[0]
         var redis = getRedisConnection();
         redis.publish("kyoppie:posts-timeline:"+token.user.id,post.id)
+        _[2].forEach(function(following){
+            redis.publish("kyoppie:posts-timeline:"+following.fromUser,post.id)
+        })
         redis.quit();
         return Promise.resolve(post)
     });
