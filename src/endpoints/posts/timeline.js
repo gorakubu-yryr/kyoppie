@@ -3,9 +3,13 @@ module.exports = function(token){
     return models.follows.find({
         fromUser:token.user.id
     }).then(function(followings){
-        followings.push(token.user);
+        var _=[];
+        followings.forEach(function(follow){
+            _.push(follow.toUser);
+        })
+        _.push(token.user.id)
         return models.posts.find({
-            user:{$in:followings}
+            user:{$in:_}
         }).populate("app user").sort('-createdAt')
     })
 }
