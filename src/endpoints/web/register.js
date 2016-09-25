@@ -2,11 +2,13 @@ var crypto = require("crypto")
 var models = require("../../models")
 var getHashedPassword = require("../../utils/getHashedPassword")
 var newPasswordHash = require("../../utils/newPasswordHash")
+var isValidScreenName = require("../../utils/isValidScreenName")
 module.exports = function(requestToken,screenName,password){
     var request_token;
     if(!requestToken) return Promise.reject("require-requestToken")
-    if(!screenName && typeof screenName !== "string") return Promise.reject("require-screenName")
-    if(!password && typeof password !== "string") return Promise.reject("require-password")
+    if(!screenName || typeof screenName !== "string") return Promise.reject("require-screenName")
+    if(!password || typeof password !== "string") return Promise.reject("require-password")
+    if(!isValidScreenName(screenName)) return Promise.reject("invalid-screenName")
     return models.request_tokens.findOne({
         token:requestToken
     }).populate("app").then(function(_){
