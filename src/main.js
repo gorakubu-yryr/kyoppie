@@ -29,7 +29,7 @@ routes.rest.forEach(function(route){
             models.access_tokens.findOne({
                 secret:req.headers["x-kyoppie-access-token"]
             }).populate("app user").then(function(token){
-                if(!token.isWeb && route.isWeb) return Promise.reject("damedesu")
+                if(!token.app.isWeb && route.isWeb) return Promise.reject("damedesu")
                 if(token){
                     req.token=token;
                 }
