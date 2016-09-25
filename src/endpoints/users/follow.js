@@ -18,6 +18,13 @@ module.exports = function(token,screenName,id){
             follow.fromUser = token.user.id;
             follow.toUser = user.id;
             return follow.save();
+        }).then(function(){
+            token.user.followingCount += 1;
+            user.followersCount += 1;
+            return Promise.all([
+                token.user.save(),
+                user.save()
+            ])
         })
     }).then(function(follow){
         return Promise.resolve("ok")
