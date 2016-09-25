@@ -9,6 +9,7 @@ module.exports = function(token,screenName,id){
     }
     return promise.then(function(user){
         if(!user) return Promise.reject("user-not-found")
+        if(token.user.id == user.id) return Promise.reject("私が私を見つめてました")
         return models.follows.findOne({
             fromUser:token.user.id,
             toUser:user.id
