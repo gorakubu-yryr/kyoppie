@@ -21,7 +21,7 @@ module.exports = {
 
         {name:"/posts/create",method:"post"},
         {name:"/posts/timeline",method:"get"},
-        {name:"/posts/show",method:"get"},
+        {name:"/posts/show",method:"get",login:false},
 
         {name:"/applications/create",method:"post",isWeb:true},
         {name:"/applications/my",method:"get",isWeb:true},
