@@ -18,6 +18,7 @@ module.exports = {
 
         {name:"/account/show",method:"get"},
         {name:"/account/change_password",method:"post",isWeb:true},
+        {name:"/account/update_name",method:"post"},
 
         {name:"/posts/create",method:"post"},
         {name:"/posts/timeline",method:"get"},
