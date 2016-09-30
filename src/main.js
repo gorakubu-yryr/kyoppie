@@ -30,6 +30,7 @@ routes.rest.forEach(function(route){
                 secret:req.headers["x-kyoppie-access-token"]
             }).populate("app user").then(function(token){
                 if(!token.app.isWeb && route.isWeb) return Promise.reject("damedesu")
+                if(!token.app.isAdmin && route.isAdmin) return Promise.reject("damedesu-admin")
                 if(token){
                     req.token=token;
                 }

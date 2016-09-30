@@ -6,6 +6,7 @@ module.exports = function(mongoose) {
         appSecret:{type:String,default:newApplicationKey},
         user:{type:mongoose.Schema.Types.ObjectId,ref:"users"},
         isWeb:Boolean,
+        isAdmin:Boolean,
         isXAuth:Boolean,
     },{
         timestamps:true

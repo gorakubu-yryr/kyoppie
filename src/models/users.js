@@ -11,8 +11,11 @@ module.exports = function(mongoose) {
         adminLevel:{type:Number,default:0},
         isVerified:{type:Boolean,default:false},
         push:{
-                chrome:[String],
-                firefox:[String]
+            chrome:[String],
+            firefox:[String]
+        },
+        adminFlag:{
+            fileServer:Boolean,
         }
     },{
         timestamps:true
