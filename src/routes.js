@@ -29,6 +29,7 @@ module.exports = {
         {name:"/applications/show",method:"get",isWeb:true},
 
         {name:"/admin/file_servers/add",method:"post",isAdmin:true},
+        {name:"/admin/file_servers/list",method:"get",isAdmin:true},
     ],
     websocket:[
         {name:"/posts/timeline"}
