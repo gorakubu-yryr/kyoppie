@@ -7,7 +7,7 @@ module.exports = function(token,text){
     post.app = token.app;
     post.user = token.user;
     post.user.postsCount++;
-    post.text = text;
+    post.text = text.replace(/\n+/g,"\n");
     return Promise.all([
         post.save(),
         post.user.save(),
