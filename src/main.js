@@ -5,6 +5,7 @@ var app = express();
 var models = require("./models")
 var bodyParser = require("body-parser")
 var url_module = require("url")
+var tokenAuth = require("./utils/tokenAuth")
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
 app.use(function(req,res,next){
@@ -24,30 +25,8 @@ routes.rest.forEach(function(route){
     if(route.login !== undefined) login = route.login;
     var method = route.method;
     var path = route.name;
-    app[method](path,function(req,res,next){
-        if(req.headers["x-kyoppie-access-token"]){
-            models.access_tokens.findOne({
-                secret:req.headers["x-kyoppie-access-token"]
-            }).populate("app user").then(function(token){
-                if(!token.app.isWeb && route.isWeb) return Promise.reject("damedesu")
-                if(!token.app.isAdmin && route.isAdmin) return Promise.reject("damedesu-admin")
-                if(token){
-                    req.token=token;
-                }
-                next();
-            },function(){
-                res.status(500).send({response:false,error:"server-side-auth-error"})
-            })
-        } else {
-            next();
-        }
-    },function(req,res,next){
-        if(login && !req.token){
-            res.status(403).send({response:false,error:"please-login"})
-        } else {
-            next();
-        }
-    },require("./handlers/web"+path));
+    app[method](path,tokenAuth(route),require("./handlers/web"+path));
+    app[method](path+".json",tokenAuth(route),require("./handlers/web"+path));
 })
 var ws_route = {};
 routes.websocket.forEach(function(route){
