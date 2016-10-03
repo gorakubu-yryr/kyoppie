@@ -1,5 +1,5 @@
 var models = require("../models")
-module.exports = function(route){
+module.exports = function(route,login){
     return function(req,res,next_){
         function next(){
             if(login && !req.token){

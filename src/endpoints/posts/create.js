@@ -19,6 +19,7 @@ module.exports = function(token,text){
         _[2].forEach(function(following){
             redis.publish("kyoppie:posts-timeline:"+following.fromUser,post.id)
         })
+        redis.publish("kyoppie:posts-public_timeline",post.id);
         redis.quit();
         return Promise.resolve(post)
     });

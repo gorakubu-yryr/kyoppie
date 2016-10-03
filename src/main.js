@@ -25,8 +25,9 @@ routes.rest.forEach(function(route){
     if(route.login !== undefined) login = route.login;
     var method = route.method;
     var path = route.name;
-    app[method](path,tokenAuth(route),require("./handlers/web"+path));
-    app[method](path+".json",tokenAuth(route),require("./handlers/web"+path));
+    var authFunc = tokenAuth(route,login)
+    app[method](path,authFunc,require("./handlers/web"+path));
+    app[method](path+".json",authFunc,require("./handlers/web"+path));
 })
 var ws_route = {};
 routes.websocket.forEach(function(route){

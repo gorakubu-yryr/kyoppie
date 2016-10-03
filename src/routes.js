@@ -23,6 +23,7 @@ module.exports = {
         {name:"/posts/create",method:"post"},
         {name:"/posts/timeline",method:"get"},
         {name:"/posts/show",method:"get",login:false},
+        {name:"/posts/public_timeline",method:"get",login:false},
 
         {name:"/applications/create",method:"post",isWeb:true},
         {name:"/applications/my",method:"get",isWeb:true},
@@ -33,6 +34,7 @@ module.exports = {
         {name:"/admin/file_servers/show",method:"get",isAdmin:true},
     ],
     websocket:[
-        {name:"/posts/timeline"}
+        {name:"/posts/timeline"},
+        {name:"/posts/public_timeline",login:false},
     ]
 }
