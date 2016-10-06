@@ -6,6 +6,7 @@ var models = require("./models")
 var bodyParser = require("body-parser")
 var url_module = require("url")
 var tokenAuth = require("./utils/tokenAuth")
+var multer = require("multer")()
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
 app.use(function(req,res,next){
@@ -26,8 +27,10 @@ routes.rest.forEach(function(route){
     var method = route.method;
     var path = route.name;
     var authFunc = tokenAuth(route,login)
-    app[method](path,authFunc,require("./handlers/web"+path));
-    app[method](path+".json",authFunc,require("./handlers/web"+path));
+    if(route.file)
+        app[method](path,multer.single("file"),authFunc,require("./handlers/web"+path));
+    else
+        app[method](path,authFunc,require("./handlers/web"+path));
 })
 var ws_route = {};
 routes.websocket.forEach(function(route){
@@ -46,8 +49,11 @@ app.all("*",function(req,res){
 wss.on("connection",function(ws){
     var location = url_module.parse(ws.upgradeReq.url,true);
     var url = location.pathname;
+    ws.sendJSON = function(json){
+        ws.send(JSON.stringify(json))
+    }
     if(!ws_route[url]){
-        ws.send(JSON.stringify({result:false,error:"api-not-found"}))
+        ws.sendJSON({result:false,error:"api-not-found"})
         ws.close();
         return
     }
@@ -62,7 +68,7 @@ wss.on("connection",function(ws){
                     ws.token=token;
                     ws_route[url].callback(ws);
                 } else {
-                    ws.send(JSON.stringify({result:false,error:"please-auth"}))
+                    ws.sendJSON({result:false,error:"please-auth"})
                     ws.close()
                     return
                 }
@@ -72,7 +78,7 @@ wss.on("connection",function(ws){
                 return
             })
         } else {
-            ws.send(JSON.stringify({result:false,error:"please-auth"}))
+            ws.sendJSON({result:false,error:"please-auth"})
             ws.close()
             return
         }

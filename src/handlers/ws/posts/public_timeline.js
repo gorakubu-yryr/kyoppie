@@ -6,10 +6,10 @@ module.exports = function(ws){
     streaming.on("message",function(_,msg){
         console.log(msg)
         show(msg).then(function(post){
-            ws.send(JSON.stringify({
+            ws.sendJSON({
                 result:true,
                 response:post.toResponseObject()
-            }))
+            })
         })
     })
     ws.on("close",function(){

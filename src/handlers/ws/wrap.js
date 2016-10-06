@@ -1,4 +1,3 @@
-
 module.exports = function(promise,req,res){
     promise.then(function(r){
         if(Array.isArray(r)){
