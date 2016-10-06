@@ -7,6 +7,7 @@ var bodyParser = require("body-parser")
 var url_module = require("url")
 var tokenAuth = require("./utils/tokenAuth")
 var multer = require("multer")()
+var models = require("./models")
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
 app.use(function(req,res,next){
@@ -18,6 +19,33 @@ app.use(function(req,res,next){
 })
 app.options('*',function(req,res){
     res.end();
+})
+app.post('*',function(req,res,next){
+    var log = new models.logs();
+    log.ipaddr = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    log.path = req.originalUrl;
+    res.send_ = res.send;
+    res.code_ = res.code;
+    res.code = function(code){
+        var obj_ = res.code_(code);
+        return {
+            send:function(obj){
+                obj_.send(obj)
+                try{
+                    log.response = JSON.stringify(obj);
+                    log.save();
+                }catch(e){}
+            }
+        }
+    }
+    res.send = function(obj){
+        res.send_(obj)
+        try{
+            log.response = JSON.stringify(obj);
+            log.save();
+        }catch(e){}
+    }
+    next();
 })
 
 var routes = require("./routes")
