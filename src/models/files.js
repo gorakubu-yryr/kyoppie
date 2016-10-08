@@ -18,8 +18,9 @@ module.exports = function(mongoose) {
         if(!obj.isUse){
             obj.host = undefined;
             obj.path = undefined;
+        } else {
+            obj.url = obj.host+obj.path
         }
-        obj.url = obj.host+obj.path
         return obj;
     }
     return mongoose.model("files",schema)
