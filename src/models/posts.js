@@ -2,7 +2,8 @@ module.exports = function(mongoose) {
     var schema = new mongoose.Schema({
         text:String,
         app:{type:mongoose.Schema.Types.ObjectId,ref:"apps"},
-        user:{type:mongoose.Schema.Types.ObjectId,ref:"users"}
+        user:{type:mongoose.Schema.Types.ObjectId,ref:"users"},
+        files:[{type:mongoose.Schema.Types.ObjectId,ref:"files"}]
     },{
         timestamps:true
     })
