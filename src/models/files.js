@@ -6,6 +6,7 @@ module.exports = function(mongoose) {
         type:String,
         isUse:Boolean,
         hash:String,
+        isAdminDeleted:Boolean,
     },{
         timestamps:true
     })
@@ -18,6 +19,9 @@ module.exports = function(mongoose) {
         if(!obj.isUse){
             obj.host = undefined;
             obj.path = undefined;
+        } else if(obj.isAdminDeleted) {
+            obj.url = obj.host+"/public/admin_deleted.png";
+            obj.path = "/public/admin_deleted.png";
         } else {
             obj.url = obj.host+obj.path
         }
