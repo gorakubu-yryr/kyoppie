@@ -1,6 +1,6 @@
 var models = require("../../models")
 var getRedisConnection = require("../../utils/getRedisConnection")
-module.exports = function(token,text){
+module.exports = function(token,text,files){
     // validate
     if(!text) return Promise.reject("text-is-require")
     var post = new models.posts();
@@ -8,11 +8,24 @@ module.exports = function(token,text){
     post.user = token.user;
     post.user.postsCount++;
     post.text = text.replace(/\n+/g,"\n");
-    return Promise.all([
-        post.save(),
-        post.user.save(),
-        models.follows.find({toUser:token.user.id})
-    ]).then(function(_){
+    return models.files.find({
+        id:{$in:files.split(",")}
+    }).then(function(files){
+        if(files.length > 1) return Promise.reject("file-too-many")
+        post.files = files;
+        var promises = [
+            post.save(),
+            post.user.save(),
+            models.follows.find({toUser:token.user.id})
+        ]
+        for(var i = 0;i < files.length;i++){ // ファイルがどこかで使われているフラグを立てる
+            if(!files[i].isUse){
+                files[i].isUse = true;
+                promises.push(files[i].save())
+            }
+        }
+        return Promise.all(promises);
+    }).then(function(_){
         var post = _[0]
         var redis = getRedisConnection();
         redis.publish("kyoppie:posts-timeline:"+token.user.id,post.id)
