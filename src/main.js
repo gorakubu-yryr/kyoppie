@@ -8,6 +8,12 @@ var url_module = require("url")
 var tokenAuth = require("./utils/tokenAuth")
 var multer = require("multer")()
 var models = require("./models")
+
+console.log("###################")
+console.log("### Kyoppie API ###")
+console.log("###################")
+console.log("Repository: https://github.com/kyoppie/kyoppie-api")
+
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
 app.use(function(req,res,next){
@@ -69,7 +75,6 @@ routes.websocket.forEach(function(route){
     ws_route[path]["login"] = login;
     ws_route[path]["callback"] = require("./handlers/ws"+path)
 })
-console.log(ws_route)
 app.all("*",function(req,res){
     // not found
     res.status(404).send({result:false,error:"not-found-api"})
