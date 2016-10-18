@@ -20,18 +20,21 @@ module.exports = function(mongoose) {
         }
         if(this.files && this.files.length){
             for(let i=0;i<this.files.length;i++){
-                if(!this.files[i].toResponseObject) break;
+                if(!this.files[i].toResponseObject){
+                    obj.files = [];
+                    break;
+                }
                 obj.files[i] = this.files[i].toResponseObject();
             }
         }
-        obj.text_html = obj.text;
-        obj.text_html = obj.text_html.split('&').join("&amp;")
-        obj.text_html = obj.text_html.split("<").join("&lt;")
-        obj.text_html = obj.text_html.split(">").join("&gt;")
-        // obj.text_html = obj.text_html.split('"').join("&quot;")
-        obj.text_html = obj.text_html.split("\n").join("<br>")
-        obj.text_html = obj.text_html.replace(/(^| |　)@([A-Za-z0-9_]+)/g,'$1<a href="/u/$2">@$2</a>');
-        obj.text_html = obj.text_html.replace(/(https?:\/\/[a-zA-Z0-9-\.]+(:[0-9]+)?(\/?[a-zA-Z0-9-\._~\!#$&'\(\)\*\+,\/:;=\?@\[\]]*))/g,'<a href="$1" rel="nofollow" target="_blank">$1</a>');
+        obj.html = obj.text;
+        obj.html = obj.html.split('&').join("&amp;")
+        obj.html = obj.html.split("<").join("&lt;")
+        obj.html = obj.html.split(">").join("&gt;")
+        // obj.html = obj.html.split('"').join("&quot;")
+        obj.html = obj.html.split("\n").join("<br>")
+        obj.html = obj.html.replace(/(^| |　)@([A-Za-z0-9_]+)/g,'$1<a href="/u/$2">@$2</a>');
+        obj.html = obj.html.replace(/(https?:\/\/[a-zA-Z0-9-\.]+(:[0-9]+)?(\/?[a-zA-Z0-9-\._~\!#$&'\(\)\*\+,\/:;=\?@\[\]]*))/g,'<a href="$1" rel="nofollow" target="_blank">$1</a>');
         return obj;
     }
     return mongoose.model("posts",schema)

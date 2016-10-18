@@ -11,6 +11,6 @@ module.exports = function(screenName,id){
         if(!user) return Promise.reject("user-not-found")
         return models.posts.find({
             user:user.id
-        }).populate("app user").sort('-createdAt')
+        }).populate("app user files").sort('-createdAt')
     })
 }

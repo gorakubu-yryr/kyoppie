@@ -22,6 +22,7 @@ module.exports = function(mongoose) {
         } else if(obj.isAdminDeleted) {
             obj.url = obj.host+"/public/admin_deleted.png";
             obj.path = "/public/admin_deleted.png";
+            obj.type = "image";
         } else {
             obj.url = obj.host+obj.path
         }
