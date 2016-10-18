@@ -9,7 +9,8 @@ module.exports = function(token,text,files){
     post.user.postsCount++;
     post.text = text.replace(/\n+/g,"\n");
     var file_ids = files.split(",").map(function(id){
-            return new models.mongoose.Types.ObjectId(id);
+        if(id.length != 24) return undefined;
+        return id;
     });
     console.log(file_ids);
     return models.files.find({
