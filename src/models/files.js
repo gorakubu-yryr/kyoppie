@@ -7,7 +7,7 @@ module.exports = function(mongoose) {
         isUse:Boolean,
         hash:String,
         isAdminDeleted:Boolean,
-        thumbnailUrl:String,
+        thumbnailPath:String,
     },{
         timestamps:true
     })
@@ -17,19 +17,18 @@ module.exports = function(mongoose) {
         obj._id = undefined;
         obj.__v = undefined;
         obj.server = undefined;
-        obj.thumbnail = undefined;
-        obj.thumbnailUrl = this.thumbnailUrl;
+        obj.thumbnailPath = undefined;
+        obj.thumbnailUrl = this.host + this.thumbnailPath;
         if(!obj.isUse){
             obj.host = undefined;
             obj.path = undefined;
         } else if(obj.isAdminDeleted) {
             obj.url = obj.host+"/public/admin_deleted.png";
             obj.path = "/public/admin_deleted.png";
-            obj.thumbnailUrl = "/public/admin_deleted.png";
             obj.type = "image";
         } else {
             obj.url = obj.host+obj.path;
-            if(!obj.thumbnailUrl){
+            if(!this.thumbnailPath){
                 switch(obj.type){
                     case 'video':
                         obj.thumbnailUrl = obj.url + ".thumbnail.jpg";

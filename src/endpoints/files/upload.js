@@ -46,7 +46,7 @@ module.exports = function(buffer){
             file.host = file_server.url;
             file.path = body.url;
             file.hash = hash;
-            file.thumbnailUrl = body.thumbnail;
+            file.thumbnailPath = body.thumbnail;
             return file.save();
         })
     })
