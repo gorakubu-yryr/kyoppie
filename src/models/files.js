@@ -7,6 +7,7 @@ module.exports = function(mongoose) {
         isUse:Boolean,
         hash:String,
         isAdminDeleted:Boolean,
+        thumbnailUrl:String,
     },{
         timestamps:true
     })
@@ -16,17 +17,26 @@ module.exports = function(mongoose) {
         obj._id = undefined;
         obj.__v = undefined;
         obj.server = undefined;
+        obj.thumbnail = undefined;
+        obj.thumbnailUrl = this.thumbnailUrl;
         if(!obj.isUse){
             obj.host = undefined;
             obj.path = undefined;
         } else if(obj.isAdminDeleted) {
             obj.url = obj.host+"/public/admin_deleted.png";
             obj.path = "/public/admin_deleted.png";
+            obj.thumbnailUrl = "/public/admin_deleted.png";
             obj.type = "image";
         } else {
-            obj.url = obj.host+obj.path
-            if(obj.type == "video"){
-                obj.thumbnailUrl = obj.url + ".thumbnail.jpg";
+            obj.url = obj.host+obj.path;
+            if(!obj.thumbnailUrl){
+                switch(obj.type){
+                    case 'video':
+                        obj.thumbnailUrl = obj.url + ".thumbnail.jpg";
+                        break;
+                    case 'image':
+                        obj.thumbnailUrl = obj.url;
+                }
             }
         }
         return obj;
