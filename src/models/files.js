@@ -25,6 +25,9 @@ module.exports = function(mongoose) {
             obj.type = "image";
         } else {
             obj.url = obj.host+obj.path
+            if(obj.type == "video"){
+                obj.thumbnailUrl = obj.url + ".thumbnail.jpg";
+            }
         }
         return obj;
     }
