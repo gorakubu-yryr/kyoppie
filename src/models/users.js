@@ -12,7 +12,8 @@ module.exports = function(mongoose) {
         isVerified:{type:Boolean,default:false},
         push:{
             chrome:[String],
-            firefox:[String]
+            firefox:[String],
+            pushbullet:[String]
         },
         adminFlag:{
             fileServer:Boolean,
