@@ -44,7 +44,7 @@ module.exports = function(buffer){
             file.type = body.type;
             file.server = file_server.id;
             file.host = file_server.url;
-            file.path = body.path;
+            file.path = body.url;
             file.hash = hash;
             return file.save();
         })

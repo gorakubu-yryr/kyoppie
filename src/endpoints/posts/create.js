@@ -8,9 +8,14 @@ module.exports = function(token,text,files){
     post.user = token.user;
     post.user.postsCount++;
     post.text = text.replace(/\n+/g,"\n");
+    var file_ids = files.split(",").map(function(id){
+            return new models.mongoose.Types.ObjectId(id);
+    });
+    console.log(file_ids);
     return models.files.find({
-        id:{$in:files.split(",")}
+        _id:{$in:file_ids}
     }).then(function(files){
+        console.log(files)
         if(files.length > 1) return Promise.reject("file-too-many")
         post.files = files;
         var promises = [
