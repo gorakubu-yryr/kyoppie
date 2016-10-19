@@ -3,11 +3,13 @@ var models = require("../../models")
 var getHashedPassword = require("../../utils/getHashedPassword")
 var newPasswordHash = require("../../utils/newPasswordHash")
 var isValidScreenName = require("../../utils/isValidScreenName")
-module.exports = function(requestToken,screenName,password){
+module.exports = function(requestToken,name,screenName,password){
     var request_token;
     if(!requestToken) return Promise.reject("require-requestToken")
+    if(!name || typeof name !== "string") return Promise.reject("require-name")
     if(!screenName || typeof screenName !== "string") return Promise.reject("require-screenName")
     if(!password || typeof password !== "string") return Promise.reject("require-password")
+    if(name.length<1 || name.length > 20) return Promise.reject("invalid-name");
     if(!isValidScreenName(screenName)) return Promise.reject("invalid-screenName")
     return models.request_tokens.findOne({
         token:requestToken
@@ -21,6 +23,7 @@ module.exports = function(requestToken,screenName,password){
         var salt = newPasswordHash(screenName)
         var hashPassword = getHashedPassword(password,salt)
         var user = new models.users()
+        user.name = name;
         user.screenName = screenName;
         user.screenNameLower = screenName.toLowerCase();
         user.password = hashPassword;
