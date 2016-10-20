@@ -17,7 +17,8 @@ module.exports = function(mongoose) {
         },
         adminFlag:{
             fileServer:Boolean,
-        }
+        },
+        isSuspended:{type:Boolean,default:false},
     },{
         timestamps:true
     })
