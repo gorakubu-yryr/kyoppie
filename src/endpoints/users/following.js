@@ -9,13 +9,14 @@ module.exports = function(screenName,id){
     }
     return promise.then(function(user){
         if(!user) return Promise.reject("user-not-found")
+        if(user.isSuspended) return Promise.reject("this-user-is-suspended")
         return models.follows.find({
             fromUser:user.id
         }).populate("toUser")
     }).then(function(follows){
         var following_users = [];
         follows.forEach(function(follow){
-            following_users.push(follow.toUser);
+            if(!follow.toUser.isSuspended) following_users.push(follow.toUser);
         })
         return Promise.resolve(following_users)
     })

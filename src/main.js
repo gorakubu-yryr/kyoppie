@@ -61,10 +61,17 @@ routes.rest.forEach(function(route){
     var method = route.method;
     var path = route.name;
     var authFunc = tokenAuth(route,login)
+    var checkSuspended = function(req,res,next){
+        if(req.method == "POST" && req.token.user.isSuspended){
+            res.status(403).send({result:false,error:"this-user-is-suspended"})
+        } else {
+            next();
+        }
+    }
     if(route.file)
-        app[method](path,multer.single("file"),authFunc,require("./handlers/web"+path));
+        app[method](path,multer.single("file"),authFunc,checkSuspended,require("./handlers/web"+path));
     else
-        app[method](path,authFunc,require("./handlers/web"+path));
+        app[method](path,authFunc,checkSuspended,require("./handlers/web"+path));
 })
 var ws_route = {};
 routes.websocket.forEach(function(route){
