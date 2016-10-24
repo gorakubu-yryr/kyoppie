@@ -62,7 +62,7 @@ routes.rest.forEach(function(route){
     var path = route.name;
     var authFunc = tokenAuth(route,login)
     var checkSuspended = function(req,res,next){
-        if(req.method == "POST" && req.token.user.isSuspended){
+        if(req.method == "POST" && login && req.token.user.isSuspended){
             res.status(403).send({result:false,error:"this-user-is-suspended"})
         } else {
             next();
