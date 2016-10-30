@@ -8,6 +8,8 @@ var url_module = require("url")
 var tokenAuth = require("./utils/tokenAuth")
 var multer = require("multer")()
 var models = require("./models")
+var msgpack = require("msgpack5")()
+var yaml = require("yamljs")
 
 console.log("###################")
 console.log("### Kyoppie API ###")
@@ -30,10 +32,10 @@ app.post('*',function(req,res,next){
     var log = new models.logs();
     log.ipaddr = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
     log.path = req.originalUrl;
-    res.send_ = res.send;
-    res.code_ = res.code;
+    res.send_nolog = res.send;
+    res.code_nolog = res.code;
     res.code = function(code){
-        var obj_ = res.code_(code);
+        var obj_ = res.code_nolog(code);
         return {
             send:function(obj){
                 obj_.send(obj)
@@ -45,7 +47,7 @@ app.post('*',function(req,res,next){
         }
     }
     res.send = function(obj){
-        res.send_(obj)
+        res.send_nolog(obj)
         try{
             log.response = JSON.stringify(obj);
             log.save();
@@ -53,7 +55,46 @@ app.post('*',function(req,res,next){
     }
     next();
 })
-
+function msgpackHack(req,res,next){
+    res.send_nomsgpackhack = res.send;
+    res.send = function(obj){
+        obj = JSON.parse(JSON.stringify(obj));
+        res.set("Content-Type","application/x-msgpack")
+        res.send_nomsgpackhack(msgpack.encode(obj));
+    }
+    res.code_nomsgpackhack = res.code;
+    res.code = function(code){
+        res.set("Content-Type","application/x-msgpack")
+        var obj_ = res.code_nomsgpackhack(code);
+        return {
+            send:function(obj){
+                obj = JSON.parse(JSON.stringify(obj))
+                obj_.send(encode(msgpack.encode(obj)))
+            }
+        }
+    }
+    next();
+}
+function yamlHack(req,res,next){
+    res.send_noyamlhack = res.send;
+    res.send = function(obj){
+        obj = JSON.parse(JSON.stringify(obj));
+        res.set("Content-Type","text/yaml")
+        res.send_noyamlhack(yaml.stringify(obj));
+    }
+    res.code_nomsgpackhack = res.code;
+    res.code = function(code){
+        res.set("Content-Type","text/yaml")
+        var obj_ = res.code_nomsgpackhack(code);
+        return {
+            send:function(obj){
+                obj = JSON.parse(JSON.stringify(obj))
+                obj_.send(encode(yaml.stringify(obj)))
+            }
+        }
+    }
+    next();
+}
 var routes = require("./routes")
 routes.rest.forEach(function(route){
     var login = true;
@@ -68,10 +109,15 @@ routes.rest.forEach(function(route){
             next();
         }
     }
-    if(route.file)
+    if(route.file){
         app[method](path,multer.single("file"),authFunc,checkSuspended,require("./handlers/web"+path));
-    else
+        app[method](path+".msgpack",msgpackHack,multer.single("file"),authFunc,checkSuspended,require("./handlers/web"+path));
+        app[method](path+".yaml",yamlHack,multer.single("file"),authFunc,checkSuspended,require("./handlers/web"+path));
+    }else{
         app[method](path,authFunc,checkSuspended,require("./handlers/web"+path));
+        app[method](path+".msgpack",msgpackHack,authFunc,checkSuspended,require("./handlers/web"+path));
+        app[method](path+".yaml",yamlHack,authFunc,checkSuspended,require("./handlers/web"+path));
+    }
 })
 var ws_route = {};
 routes.websocket.forEach(function(route){
