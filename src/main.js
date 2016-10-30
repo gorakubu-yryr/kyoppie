@@ -111,10 +111,12 @@ routes.rest.forEach(function(route){
     }
     if(route.file){
         app[method](path,multer.single("file"),authFunc,checkSuspended,require("./handlers/web"+path));
+        app[method](path+".json",multer.single("file"),authFunc,checkSuspended,require("./handlers/web"+path));
         app[method](path+".msgpack",msgpackHack,multer.single("file"),authFunc,checkSuspended,require("./handlers/web"+path));
         app[method](path+".yaml",yamlHack,multer.single("file"),authFunc,checkSuspended,require("./handlers/web"+path));
     }else{
         app[method](path,authFunc,checkSuspended,require("./handlers/web"+path));
+        app[method](path+".json",authFunc,checkSuspended,require("./handlers/web"+path));
         app[method](path+".msgpack",msgpackHack,authFunc,checkSuspended,require("./handlers/web"+path));
         app[method](path+".yaml",yamlHack,authFunc,checkSuspended,require("./handlers/web"+path));
     }
