@@ -2,14 +2,6 @@ var models = require("../models")
 module.exports = function (route,login){
     return function* (next_){
         var this_ = this;
-        function* next(){
-            if(login && !this_.token){
-                this.status_code = 403;
-                this.body = {response:false,error:"please-login"}
-            } else {
-                yield next_;
-            }
-        }
         if(this.request.headers["x-kyoppie-access-token"]){
             var token = yield models.access_tokens.findOne({
                 secret:this.request.headers["x-kyoppie-access-token"]
@@ -19,9 +11,12 @@ module.exports = function (route,login){
             if(token){
                 this.token=token;
             }
-            yield next();
+        }
+        if(login && !this_.token){
+            this.status_code = 403;
+            this.body = {response:false,error:"please-login"}
         } else {
-            yield next();
+            yield next_;
         }
     }
 }

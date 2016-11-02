@@ -1,6 +1,7 @@
 var koa = require("koa")
-// var wss = new require("ws").Server({server});
 var app = koa();
+var server = require("http").createServer()
+var wss = new require("ws").Server({server});
 var models = require("./models")
 var bodyParser = require("body-parser")
 var url_module = require("url")
@@ -28,18 +29,12 @@ app.use(function* (next){
     yield next;
 })
 app.use(function* (next){
-    if(this.request.method === "OPTIONS") return;
+    if(this.request.method === "OPTIONS"){
+        this.response_code = 200;
+        this.body = "ok";
+        return;
+    }
     yield next;
-})
-// MongoDB Logger
-app.use(function* (next){
-    if(this.request.method !== "POST") return yield next;
-    var log = new models.logs();
-    log.ipaddr = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-    log.path = req.originalUrl;
-    yield next;
-    log.response = JSON.stringify(obj);
-    yield log.save();
 })
 app.use(function* (next){
     var origpath = this.request.path;
@@ -59,6 +54,16 @@ app.use(function* (next){
         this.body = JSON.stringify(this.body)
     }
 })
+// MongoDB Logger
+app.use(function* (next){
+    if(this.request.method !== "POST") return yield next;
+    var log = new models.logs();
+    log.ipaddr = this.request.header['x-forwarded-for'] || this.socket.remoteAddress;
+    log.path = this.path;
+    yield next;
+    log.response = JSON.stringify(this.body);
+    yield log.save();
+})
 var routes = require("./routes")
 routes.rest.forEach(function(route){
     var login = true;
@@ -74,12 +79,11 @@ routes.rest.forEach(function(route){
         }
         yield next;
     }
-    if(login) app.use(_[method](path,authFunc))
+    app.use(_[method](path,authFunc));
     if(login) app.use(_[method](path,checkSuspended))
     // if(route.file) 
     app.use(_[method](path,require("./handlers/web"+path)))
 })
-/*
 var ws_route = {};
 routes.websocket.forEach(function(route){
     var login = true;
@@ -129,7 +133,6 @@ wss.on("connection",function(ws){
         ws_route[url].callback(ws);
     }
 })
-*/
 app.use(function *(){
     this.status_code = 404;
     this.body = {result:false,error:"not-found"}
@@ -138,7 +141,7 @@ app.on("error",function(err){
     console.log(err)
     this.body = {result:false,error:"server-side-error"}
 })
-// server.on("request",app);
-app.listen(4005,function(){
-    console.log("listen for "+app.port+" port");
+server.on("request",app.callback());
+server.listen(4005,function(){
+    console.log("listen for "+server.address().port+" port");
 })
