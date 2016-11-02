@@ -1,10 +1,10 @@
 var main = require("../../../endpoints/auth/login");
 var wrap = require("../wrap")
 
-module.exports = function(req,res){
-    wrap(main(
-        req.body.requestToken,
-        req.body.screenName,
-        req.body.password
-    ),req,res)
+module.exports = function* (){
+    yield wrap(main(
+        this.request.body.requestToken,
+        this.request.body.screenName,
+        this.request.body.password
+    ),this)
 }

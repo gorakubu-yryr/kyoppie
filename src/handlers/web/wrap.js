@@ -1,19 +1,23 @@
 
-module.exports = function(promise,req,res){
-    promise.then(function(r){
+module.exports = function* (promise,this_){
+    try{
+        var r = yield promise;
         if(Array.isArray(r)){
             for(var i = 0; i<r.length; i++){
                 if(r[i].toResponseObject) r[i] = r[i].toResponseObject();
             }
         }
         if(r.toResponseObject) r = r.toResponseObject();
-        res.send({result:true,response:r})
-    },function(r){
+        console.log(r)
+        this_.body = {result:true,response:r};
+    }catch(r){
         if(typeof r === "object"){
             console.log(r)
-            res.status(503).send({result:false,error:"server-side-error"})
+            this_.status_code = 503;
+            this_.body = {result:false,error:"server-side-error"}
         } else {
-            res.status(400).send({result:false,error:r})
+            this_.status_code = 400;
+            this_.body = {result:false,error:r}
         }
-    })
+    }
 }

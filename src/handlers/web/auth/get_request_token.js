@@ -1,10 +1,10 @@
 var main = require("../../../endpoints/auth/get_request_token");
 var wrap = require("../wrap")
 
-module.exports = function(req,res){
-    wrap(main(
-        req.body.appKey,
-        req.body.appSecret,
-        req.body.sigKey
-    ),req,res);
+module.exports = function* (){
+    yield wrap(main(
+        this.request.body.appKey,
+        this.request.body.appSecret,
+        this.request.body.sigKey
+    ),this);
 }
