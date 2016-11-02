@@ -1,4 +1,4 @@
 var models = require("../../models")
-module.exports = function(token){
-    return Promise.resolve(token.user)
+module.exports = function* (token){
+    return token.user;
 }
