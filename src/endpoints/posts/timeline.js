@@ -11,7 +11,7 @@ module.exports = function(token){
         _.push(token.user.id)
         return models.posts.find({
             user:{$in:_}
-        }).populate("app user files").sort('-createdAt')
+        }).populate("app user user.avatar files").sort('-createdAt')
     }).then(function(posts){
         return posts.filter(function(post){
             return !post.user.isSuspended;

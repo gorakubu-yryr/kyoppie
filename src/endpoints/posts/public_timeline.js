@@ -4,6 +4,6 @@ module.exports = function(){
         users = users.map(function(user){
             return user._id;
         })
-        return models.posts.find({user:{$ne:users}}).populate("app user files").sort('-createdAt');
+        return models.posts.find({user:{$ne:users}}).populate("app user user.avatar files").sort('-createdAt');
     });
 }

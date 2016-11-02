@@ -19,6 +19,7 @@ module.exports = function(mongoose) {
             fileServer:Boolean,
         },
         isSuspended:{type:Boolean,default:false},
+        avatar:{type:mongoose.Schema.Types.ObjectId,ref:"files"},
     },{
         timestamps:true
     })
@@ -30,6 +31,9 @@ module.exports = function(mongoose) {
         obj.password = undefined;
         obj.passwordSalt = undefined;
         obj.push = undefined;
+        if(obj.avatar && obj.avatar.toResponseObject){
+            obj.avatar = this.avatar.toResponseObject();
+        }
         return obj;
     }
     return mongoose.model("users",schema)

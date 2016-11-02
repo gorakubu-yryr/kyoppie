@@ -3,16 +3,16 @@ module.exports = function(screenName,id){
     if(!screenName && !id) return Promise.reject("screenName-or-id-require")
     var promise;
     if(screenName) {
-        promise = models.users.findOne({screenNameLower:screenName.toLowerCase()})
+        promise = models.users.findOne({screenNameLower:screenName.toLowerCase()}).populate("avatar")
     } else {
-        promise = models.users.findOne({_id:models.mongoose.Types.ObjectId(id)})
+        promise = models.users.findOne({_id:models.mongoose.Types.ObjectId(id)}).populate("avatar")
     }
     return promise.then(function(user){
         if(!user) return Promise.reject("user-not-found")
         if(user.isSuspended) return Promise.reject("this-user-is-suspended")
         return models.follows.find({
             fromUser:user.id
-        }).populate("toUser")
+        }).populate("toUser toUser.avatar")
     }).then(function(follows){
         var following_users = [];
         follows.forEach(function(follow){
