@@ -16,4 +16,5 @@ module.exports = function* (screenName,id){
         post.user = user;
         return post;
     })
+    return posts;
 }
