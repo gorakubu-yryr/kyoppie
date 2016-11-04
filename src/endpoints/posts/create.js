@@ -12,7 +12,6 @@ module.exports = function* (token,text,files){
         if(id.length != 24) return undefined;
         return id;
     });
-    console.log(file_ids);
     var files = yield models.files.find({
         _id:{$in:file_ids}
     })

@@ -34,7 +34,6 @@ module.exports = function* (buffer){
             resolve(body)
         })
     })
-    console.log(body)
     body = JSON.parse(body)
     if(body.error) return Promise.reject(body.error)
     var file = new models.files();
