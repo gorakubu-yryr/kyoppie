@@ -6,7 +6,7 @@ module.exports = function* (requestToken,screenName,password){
     if(!password || typeof password !== "string") return Promise.reject("require-password")
     var request_token = yield models.request_tokens.findOne({token:requestToken})
     if(!request_token) return Promise.reject("requestToken-invalid")
-    var user = models.users.findOne({screenNameLower:screenName.toLowerCase()})
+    var user = yield models.users.findOne({screenNameLower:screenName.toLowerCase()})
     if(!user) return Promise.reject("user-not-found")
     var salt = user.passwordSalt;
     var hashPassword = getHashedPassword(password,salt)
