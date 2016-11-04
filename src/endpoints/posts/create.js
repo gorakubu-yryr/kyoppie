@@ -29,7 +29,6 @@ module.exports = function* (token,text,files){
         }
     }
     // タイムラインのストリーミングに垂れ流す
-    var post = _[0]
     var following = yield models.follows.find({toUser:token.user.id})
     var redis = getRedisConnection();
     redis.publish("kyoppie:posts-timeline:"+token.user.id,post.id)
