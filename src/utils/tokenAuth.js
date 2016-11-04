@@ -1,28 +1,22 @@
 var models = require("../models")
-module.exports = function(route,login){
-    return function(req,res,next_){
-        function next(){
-            if(login && !req.token){
-                res.status(403).send({response:false,error:"please-login"})
-            } else {
-                next_();
+module.exports = function (route,login){
+    return function* (next_){
+        var this_ = this;
+        if(this.request.headers["x-kyoppie-access-token"]){
+            var token = yield models.access_tokens.findOne({
+                secret:this.request.headers["x-kyoppie-access-token"]
+            }).populate("app user")
+            if(!token.app.isWeb && route.isWeb) return Promise.reject("damedesu")
+            if(!token.app.isAdmin && route.isAdmin) return Promise.reject("damedesu-admin")
+            if(token){
+                this.token=token;
             }
         }
-        if(req.headers["x-kyoppie-access-token"]){
-            models.access_tokens.findOne({
-                secret:req.headers["x-kyoppie-access-token"]
-            }).populate("app user").then(function(token){
-                if(!token.app.isWeb && route.isWeb) return Promise.reject("damedesu")
-                if(!token.app.isAdmin && route.isAdmin) return Promise.reject("damedesu-admin")
-                if(token){
-                    req.token=token;
-                }
-                next();
-            },function(){
-                res.status(500).send({response:false,error:"server-side-auth-error"})
-            })
+        if(login && !this_.token){
+            this.status_code = 403;
+            this.body = {response:false,error:"please-login"}
         } else {
-            next();
+            yield next_;
         }
     }
 }
