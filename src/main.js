@@ -63,6 +63,13 @@ app.use(function* (next){
     log.response = JSON.stringify(this.body);
     yield log.save();
 })
+// console logger
+app.use(function* (next){
+    yield next;
+    var log_string = this.request.method+" "+this.request.path+" "+this.status+" ";
+    if(this.body.result === false) log_string += this.body.error;
+    console.log(log_string)
+})
 // REST APIのrouter
 var routes = require("./routes")
 routes.rest.forEach(function(route){

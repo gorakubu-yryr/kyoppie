@@ -8,7 +8,6 @@ module.exports = function* (promise,this_){
             }
         }
         if(r.toResponseObject) r = r.toResponseObject();
-        console.log(r)
         this_.body = {result:true,response:r};
     }catch(r){
         if(typeof r === "object"){
