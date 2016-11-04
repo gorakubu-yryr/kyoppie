@@ -6,7 +6,8 @@ module.exports = function* (token,file){
     if(file.type != "image") return Promise.reject("invalid-file")
     var user = token.user;
     user.avatar = file.id;
-    user.avatarUrl = file.host+file.path;
+    user.avatarUrl = file.getUrl();
+    user.avatarThumbnailUrl = file.getThumbnailUrl();
     yield user.save();
     file.isUse = true;
     yield file.save();

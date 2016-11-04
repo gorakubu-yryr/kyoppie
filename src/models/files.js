@@ -11,6 +11,20 @@ module.exports = function(mongoose) {
     },{
         timestamps:true
     })
+    schema.methods.getUrl= function(){
+        return this.host+this.path;
+    }
+    schema.methods.getThumbnailUrl = function(){
+        if(!this.thumbnailPath){
+            switch(this.type){
+                case 'video':
+                    return this.getUrl() + ".thumbnail.jpg";
+                case 'image':
+                    return this.getUrl();
+            }
+        }
+        return this.host+this.thumbnailPath;
+    }
     schema.methods.toResponseObject = function(){
         var obj = this.toObject();
         obj.id = this._id;

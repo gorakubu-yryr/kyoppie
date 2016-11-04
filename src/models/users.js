@@ -20,7 +20,8 @@ module.exports = function(mongoose) {
         },
         isSuspended:{type:Boolean,default:false},
         avatar:{type:mongoose.Schema.Types.ObjectId,ref:"files"},
-        avatarUrl:String
+        avatarUrl:String,
+        avatarThumbnailUrl:String,
     },{
         timestamps:true
     })
