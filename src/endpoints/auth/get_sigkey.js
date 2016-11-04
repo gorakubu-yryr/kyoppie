@@ -3,7 +3,7 @@ var newSignatureKey = require("../../utils/newSignatureKey")
 module.exports = function* (appKey){
     var sig;
     if(!appKey) return reject("appKey-is-require");
-    var app = models.apps.findOne({appKey})
+    var app = yield models.apps.findOne({appKey})
     if(!app) return Promise.reject("app-is-not-found");
     sig = new models.signatures();
     sig.app = app.id;
