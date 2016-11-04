@@ -12,7 +12,7 @@ module.exports = function(screenName,id){
         if(user.isSuspended) return Promise.reject("this-user-is-suspended")
         return models.follows.find({
             fromUser:user.id
-        }).populate("toUser toUser.avatar")
+        }).populate("toUser")
     }).then(function(follows){
         var following_users = [];
         follows.forEach(function(follow){

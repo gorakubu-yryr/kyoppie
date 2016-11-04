@@ -11,6 +11,6 @@ module.exports = function* (screenName,id){
     if(user.isSuspended) return Promise.reject("this-user-is-suspended")
     var followers = yield models.follows.find({
         toUser:user.id
-    }).populate("fromUser fromUser.avatar")
+    }).populate("fromUser")
     return followers.filter((follower)=>{return !follower.isSuspended})
 }

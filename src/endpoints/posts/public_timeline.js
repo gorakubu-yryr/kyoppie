@@ -4,6 +4,6 @@ module.exports = function* (){
     users = users.map(function(user){
         return user._id;
     })
-    posts = yield models.posts.find({user:{$ne:users}}).populate("app user user.avatar files").sort('-createdAt');
+    posts = yield models.posts.find({user:{$ne:users}}).populate("app user files").sort('-createdAt');
     return posts;
 }
