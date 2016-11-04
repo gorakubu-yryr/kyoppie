@@ -63,6 +63,7 @@ app.use(function* (next){
     log.response = JSON.stringify(this.body);
     yield log.save();
 })
+// REST APIのrouter
 var routes = require("./routes")
 routes.rest.forEach(function(route){
     var login = true;
@@ -83,6 +84,7 @@ routes.rest.forEach(function(route){
     // if(route.file) 
     app.use(_[method](path,require("./handlers/web"+path)))
 })
+// WebSocket APIのrouter
 var ws_route = {};
 routes.websocket.forEach(function(route){
     var login = true;
@@ -103,13 +105,11 @@ wss.on("connection",function(ws){
         ws.close();
         return
     }
-    console.log(ws_route)
     if(ws_route[url].login){
         if(location.query.access_token){
             models.access_tokens.findOne({
                 secret:location.query.access_token
             }).populate("app user").then(function(token){
-                console.log(token)
                 if(token){
                     ws.token=token;
                     ws_route[url].callback(ws);
