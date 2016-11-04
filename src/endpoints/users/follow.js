@@ -10,7 +10,7 @@ module.exports = function* (token,screenName,id){
     if(!user) return Promise.reject("user-not-found")
     if(user.isSuspended) return Promise.reject("this-user-is-suspended");
     if(token.user.id == user.id) return Promise.reject("私が私を見つめてました")
-    var follow = models.follows.findOne({
+    var follow = yield models.follows.findOne({
         fromUser:token.user.id,
         toUser:user.id
     })
