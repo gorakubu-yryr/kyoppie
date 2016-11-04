@@ -6,7 +6,7 @@ var models = require("./models")
 var bodyParser = require("body-parser")
 var url_module = require("url")
 var tokenAuth = require("./utils/tokenAuth")
-var multer = require("multer")()
+var multer = require("koa-multer")()
 var models = require("./models")
 var msgpack = require("msgpack5")()
 var yaml = require("yamljs")
@@ -30,7 +30,7 @@ app.use(function* (next){
 })
 app.use(function* (next){
     if(this.request.method === "OPTIONS"){
-        this.response_code = 200;
+        this.status = 200;
         this.body = "ok";
         return;
     }
@@ -73,7 +73,7 @@ routes.rest.forEach(function(route){
     var authFunc = tokenAuth(route,login)
     var checkSuspended = function* (next){
         if(this.request.method == "POST" && login && this.token.user.isSuspended){
-            this.status_code = 403
+            this.status = 403
             this.body = {result:false,error:"this-user-is-suspended"}
             return
         }
@@ -81,7 +81,14 @@ routes.rest.forEach(function(route){
     }
     app.use(_[method](path,authFunc));
     if(login) app.use(_[method](path,checkSuspended))
-    // if(route.file) 
+    if(route.file){
+        var multer_func = multer.single("file")
+        app.use(_[method](path,function* (next){
+            yield multer_func(this)
+            this.file = this.req.file;
+            yield next
+        })) 
+    }
     app.use(_[method](path,require("./handlers/web"+path)))
 })
 // WebSocket APIのrouter
@@ -133,11 +140,12 @@ wss.on("connection",function(ws){
     }
 })
 app.use(function *(){
-    this.status_code = 404;
+    this.status = 404;
     this.body = {result:false,error:"not-found"}
 })
 app.on("error",function(err){
     console.log(err)
+    this.status = 500;
     this.body = {result:false,error:"server-side-error"}
 })
 server.on("request",app.callback());

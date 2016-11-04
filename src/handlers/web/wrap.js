@@ -13,10 +13,10 @@ module.exports = function* (promise,this_){
     }catch(r){
         if(typeof r === "object"){
             console.log(r)
-            this_.status_code = 503;
+            this_.status = 503;
             this_.body = {result:false,error:"server-side-error"}
         } else {
-            this_.status_code = 400;
+            this_.status = 400;
             this_.body = {result:false,error:r}
         }
     }
