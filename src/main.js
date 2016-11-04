@@ -41,7 +41,6 @@ app.use(function* (next){
     this.path = this.path.replace(/\.msgpack$/,"");
     this.path = this.path.replace(/\.yaml$/,"");
     yield next;
-    console.log(JSON.stringify(this.body))
     this.body = JSON.parse(JSON.stringify(this.body));
     if(/.*\.msgpack$/.test(origpath)){ // msgpack hack
         this.set("Content-Type","application/x-msgpack");
