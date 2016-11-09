@@ -1,9 +1,17 @@
 var models = require("../../models")
-module.exports = function* (){
+var isValidDateString = require("../../utils/isValidDateString")
+var getSinceMaxDateObject = require("../../utils/getSinceMaxDateObject")
+module.exports = function* (sinceDate,maxDate,limit){
+    if(sinceDate && !isValidDateString(sinceDate)) return Promise.reject("invalid-sinceDate")
+    if(maxDate && !isValidDateString(maxDate)) return Promise.reject("invalid-maxDate")
+    if(isFinite(limit)){
+        if(limit < 1) return Promise.reject("invalid-limit")
+    } else limit = 100;
     var users = yield models.users.find({isSuspended:true}).select("_id")
-    users = users.map(function(user){
-        return user._id;
-    })
-    posts = yield models.posts.find({user:{$ne:users}}).populate("app user files").sort('-createdAt');
+    users = users.map(user => user._id);
+    var posts = yield models.posts.find({
+        user:{$ne:users},
+        createdAt:getSinceMaxDateObject(sinceDate,maxDate)
+    }).populate("app user files").sort('-createdAt');
     return posts;
 }
