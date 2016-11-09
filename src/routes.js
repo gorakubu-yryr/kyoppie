@@ -29,6 +29,7 @@ module.exports = {
         {name:"/applications/create",method:"post",isWeb:true},
         {name:"/applications/my",method:"get",isWeb:true},
         {name:"/applications/show",method:"get",isWeb:true},
+        {name:"/applications/get_my_access_token",method:"post",isWeb:true},
 
         {name:"/admin/file_servers/add",method:"post",isAdmin:true},
         {name:"/admin/file_servers/list",method:"get",isAdmin:true},
