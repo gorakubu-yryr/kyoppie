@@ -36,6 +36,8 @@ module.exports = {
         {name:"/admin/file_servers/list",method:"get",isAdmin:true},
         {name:"/admin/file_servers/show",method:"get",isAdmin:true},
 
+        {name:"/admin/users/list",method:"get",isAdmin:true},
+
         {name:"/files/upload",method:"post",file:true}
     ],
     websocket:[
