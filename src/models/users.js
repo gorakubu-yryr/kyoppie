@@ -17,6 +17,7 @@ module.exports = function(mongoose) {
         },
         adminFlag:{
             fileServer:Boolean,
+            userMng:Boolean,
         },
         isSuspended:{type:Boolean,default:false},
         avatar:{type:mongoose.Schema.Types.ObjectId,ref:"files"},
