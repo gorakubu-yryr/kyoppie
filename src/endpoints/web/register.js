@@ -1,7 +1,5 @@
 var crypto = require("crypto")
 var models = require("../../models")
-var getHashedPassword = require("../../utils/getHashedPassword")
-var newPasswordHash = require("../../utils/newPasswordHash")
 var isValidScreenName = require("../../utils/isValidScreenName")
 module.exports = function* (requestToken,name,screenName,password){
     // バリデーション
@@ -21,16 +19,12 @@ module.exports = function* (requestToken,name,screenName,password){
     // 既存ユーザーがいないか確認する
     var res = yield models.users.findOne({screenNameLower:screenName.toLowerCase()})
     if(res) return Promise.reject("duplicate-screenName")
-    // パスワードにソルトをかけてハッシュにする
-    var salt = newPasswordHash(screenName)
-    var hashPassword = getHashedPassword(password,salt)
     // userのもろもろをやる
     var user = new models.users()
     user.name = name;
     user.screenName = screenName;
     user.screenNameLower = screenName.toLowerCase();
-    user.password = hashPassword;
-    user.passwordSalt = salt;
+    user.setPassword(password);
     yield user.save();
     // PINコードを作成
     var pin_code = new models.pin_codes()

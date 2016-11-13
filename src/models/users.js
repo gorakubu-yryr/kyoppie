@@ -1,3 +1,5 @@
+var getHashedPassword = require("../utils/getHashedPassword")
+var newPasswordHash = require("../utils/newPasswordHash")
 module.exports = function(mongoose) {
     var schema = new mongoose.Schema({
         name:{type:String,default:"no name"},
@@ -26,6 +28,12 @@ module.exports = function(mongoose) {
     },{
         timestamps:true
     })
+    schema.methods.setPassword = function(password){
+        var salt = newPasswordHash(this.screenName)
+        var hashPassword = getHashedPassword(password,salt)
+        this.password = hashPassword;
+        this.passwordSalt = salt;
+    }
     schema.methods.toResponseObject = function(){
         var obj = this.toObject();
         obj.id = this._id;
