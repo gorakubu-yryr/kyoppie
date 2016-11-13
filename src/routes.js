@@ -38,6 +38,7 @@ module.exports = {
 
         {name:"/admin/users/list",method:"get",isAdmin:true},
         {name:"/admin/users/show",method:"get",isAdmin:true},
+        {name:"/admin/users/change_password",method:"post",isAdmin:true},
 
         {name:"/files/upload",method:"post",file:true}
     ],
