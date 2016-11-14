@@ -13,7 +13,7 @@ module.exports = function (route,login){
             }
         }
         if(login && !this_.token){
-            this.status_code = 403;
+            this.status = 403;
             this.body = {response:false,error:"please-login"}
         } else {
             yield next_;
