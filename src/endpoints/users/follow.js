@@ -23,5 +23,12 @@ module.exports = function* (token,screenName,id){
     user.followersCount += 1;
     yield token.user.save()
     yield user.save()
+    // 通知作成
+    var notification = new models.notifications();
+    notification.type = "follow";
+    notification.receiveUser = user.id
+    notification.targetUser = token.user.id
+    yield notification.save();
+    notification.publish();
     return Promise.resolve("ok")
 }
