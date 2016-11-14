@@ -42,6 +42,8 @@ module.exports = {
         {name:"/admin/users/suspend",method:"post",isAdmin:true},
         {name:"/admin/users/unsuspend",method:"post",isAdmin:true},
 
+        {name:"/notifications/list",method:"get"},
+
         {name:"/files/upload",method:"post",file:true}
     ],
     websocket:[
