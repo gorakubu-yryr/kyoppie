@@ -43,6 +43,7 @@ module.exports = {
         {name:"/admin/users/unsuspend",method:"post",isAdmin:true},
 
         {name:"/notifications/list",method:"get"},
+        {name:"/notifications/show",method:"get"},
 
         {name:"/files/upload",method:"post",file:true}
     ],
