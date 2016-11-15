@@ -11,7 +11,7 @@ module.exports = function(mongoose) {
         timestamps:true
     })
     schema.methods.publish = function(){
-        var userId = receiveUser;
+        var userId = this.receiveUser;
         if(userId.id) userId = userId.id;
         var redis = getRedisConnection();
         redis.publish("kyoppie:notifications:"+userId,this.id);

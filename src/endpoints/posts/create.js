@@ -27,6 +27,27 @@ module.exports = function* (token,text,files){
             yield files[i].save()
         }
     }
+    // リプライをチェック
+    var re = /(^| |　)@([A-Za-z0-9_]+)/g
+    var match
+    var users = []
+    while(match = re.exec(post.text)){
+        if(-1 === users.indexOf(match[2])) users.push(match[2])
+    }
+    users = yield models.users.find({screenName:{$in:users}});
+    var promises = [];
+    users.forEach(function(user){
+        var notification = new models.notifications;
+        notification.type = "reply";
+        notification.receiveUser = user.id;
+        notification.targetUser = post.user.id;
+        notification.targetPost = post.id;
+        promises.push(notification.save().then(function(){
+            console.log(notification)
+            notification.publish();
+        }));
+    })
+    yield Promise.all(promises);
     // タイムラインのストリーミングに垂れ流す
     var following = yield models.follows.find({toUser:token.user.id})
     var redis = getRedisConnection();
