@@ -6,7 +6,7 @@ module.exports = function(mongoose) {
         targetApp:{type:mongoose.Schema.Types.ObjectId,ref:"apps"},
         targetUser:{type:mongoose.Schema.Types.ObjectId,ref:"users"},
         targetPost:{type:mongoose.Schema.Types.ObjectId,ref:"posts"},
-        isRead:{type:Boolean,defualt:false},
+        isRead:{type:Boolean,default:false},
     },{
         timestamps:true
     })
