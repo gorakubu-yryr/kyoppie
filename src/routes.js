@@ -44,6 +44,7 @@ module.exports = {
 
         {name:"/notifications/list",method:"get"},
         {name:"/notifications/show",method:"get"},
+        {name:"/notifications/read",method:"post"},
 
         {name:"/files/upload",method:"post",file:true}
     ],

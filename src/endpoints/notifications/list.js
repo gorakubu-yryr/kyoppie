@@ -8,6 +8,7 @@ module.exports = function* (token,sinceDate,maxDate,limit){
         if(limit < 1) return Promise.reject("invalid-limit")
     } else limit = 100;
     var notifications = yield models.notifications.find({
+        isRead:false,
         receiveUser:token.user.id,
         createdAt:getSinceMaxDateObject(sinceDate,maxDate)
     }).populate("targetApp targetUser targetPost").sort('-createdAt').limit(limit)
