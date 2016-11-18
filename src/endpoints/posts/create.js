@@ -3,6 +3,7 @@ var getRedisConnection = require("../../utils/getRedisConnection")
 module.exports = function* (token,text,files){
     // validate
     if(!text) return Promise.reject("text-is-require")
+    if(!files) files = "";
     var post = new models.posts();
     post.app = token.app;
     post.user = token.user;
