@@ -7,7 +7,7 @@ exports.up = function(models){
                 toUser:user.id
             }).then(function(following){
                 if(!following) return;
-                return models.follows.find({id:following.id}).remove().then(function(){
+                return models.follows.findByIdAndRemove(following.id).then(function(){
                     user.followingCount--;
                     user.followersCount--;
                     return user.save();
