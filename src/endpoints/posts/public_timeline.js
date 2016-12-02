@@ -10,9 +10,8 @@ module.exports = function* (sinceDate,maxDate,limit){
     var users = yield models.users.find({isSuspended:true}).select("_id")
     users = users.map(user => {return {user:user._id}});
     console.log(users);
-    var posts = yield models.posts.find({
-        $nor:users,
-        createdAt:getSinceMaxDateObject(sinceDate,maxDate)
-    }).populate("app user files").sort('-createdAt');
+    var query = {createdAt:getSinceMaxDateObject(sinceDate,maxDate)};
+    if(users.length) query.$nor = users;
+    var posts = yield models.posts.find(query).populate("app user files").sort('-createdAt');
     return posts;
 }
