@@ -8,9 +8,10 @@ module.exports = function* (sinceDate,maxDate,limit){
         if(limit < 1) return Promise.reject("invalid-limit")
     } else limit = 100;
     var users = yield models.users.find({isSuspended:true}).select("_id")
-    users = users.map(user => user._id);
+    users = users.map(user => {return {user:user._id}});
+    console.log(users);
     var posts = yield models.posts.find({
-        user:{$ne:users},
+        $nor:users,
         createdAt:getSinceMaxDateObject(sinceDate,maxDate)
     }).populate("app user files").sort('-createdAt');
     return posts;
