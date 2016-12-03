@@ -24,6 +24,7 @@ module.exports = function* (requestToken,name,screenName,password){
     user.name = name;
     user.screenName = screenName;
     user.screenNameLower = screenName.toLowerCase();
+    user.rulesAgree = true;
     user.setPassword(password);
     yield user.save();
     // PINコードを作成

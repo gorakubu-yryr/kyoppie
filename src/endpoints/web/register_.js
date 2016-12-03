@@ -8,6 +8,7 @@ module.exports = function(screenName,password){
         var user = new models.users()
         user.screenName = screenName;
         user.screenNameLower = screenName.toLowerCase();
+        user.rulesAgree = true;
         user.setPassword(password);
         return user.save();
     })

@@ -12,6 +12,7 @@ var msgpack = require("msgpack5")()
 var yaml = require("yamljs")
 var bodyParser = require("koa-bodyparser");
 var _ = require("koa-route")
+var rulesAgreePeriod = new Date("2016-12-05T09:00:00Z")-0;
 
 console.log("###################")
 console.log("### Kyoppie API ###")
@@ -83,6 +84,10 @@ routes.rest.forEach(function(route){
             this.status = 403
             this.body = {result:false,error:"this-user-is-suspended"}
             return
+        }
+        if(this.request.method == "POST" && login && !this.token.user.rulesAgree && Date.now() > rulesAgreePeriod){
+            this.status = 403
+            this.body = {result:false,error:"please-rules-agree"}
         }
         yield next;
     }

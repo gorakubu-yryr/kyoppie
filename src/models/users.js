@@ -25,6 +25,7 @@ module.exports = function(mongoose) {
         avatar:{type:mongoose.Schema.Types.ObjectId,ref:"files"},
         avatarUrl:String,
         avatarThumbnailUrl:String,
+        rulesAgree:{type:Boolean,defualt:false},
     },{
         timestamps:true
     })
@@ -33,6 +34,11 @@ module.exports = function(mongoose) {
         var hashPassword = getHashedPassword(password,salt)
         this.password = hashPassword;
         this.passwordSalt = salt;
+    }
+    schema.methos.isValidPassword = function(password){
+        var salt = this.passwordSalt;
+        var hashPassword = getHashedPassword(password,salt)
+        return this.password === hashPassword;
     }
     schema.methods.toResponseObject = function(){
         var obj = this.toObject();
