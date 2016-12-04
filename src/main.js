@@ -85,7 +85,7 @@ routes.rest.forEach(function(route){
             this.body = {result:false,error:"this-user-is-suspended"}
             return
         }
-        if(this.request.method == "POST" && login && !this.token.user.rulesAgree && Date.now() > rulesAgreePeriod){
+        if(!route.allowNotAgree && login && !this.token.user.rulesAgree && Date.now() > rulesAgreePeriod){
             this.status = 403
             this.body = {result:false,error:"please-rules-agree"}
         }

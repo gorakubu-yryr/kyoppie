@@ -17,7 +17,7 @@ module.exports = {
         {name:"/auth/login",method:"post",login:false},
         {name:"/auth/get_access_token",method:"post",login:false},
 
-        {name:"/account/show",method:"get"},
+        {name:"/account/show",method:"get",allowNotAgree:true},
         {name:"/account/change_password",method:"post",isWeb:true},
         {name:"/account/update_name",method:"post"},
         {name:"/account/update/avatar",method:"post"},
