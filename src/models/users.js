@@ -35,7 +35,7 @@ module.exports = function(mongoose) {
         this.password = hashPassword;
         this.passwordSalt = salt;
     }
-    schema.methos.isValidPassword = function(password){
+    schema.methods.isValidPassword = function(password){
         var salt = this.passwordSalt;
         var hashPassword = getHashedPassword(password,salt)
         return this.password === hashPassword;
