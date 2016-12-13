@@ -4,10 +4,10 @@ module.exports = function* (promise,this_){
         var r = yield promise;
         if(Array.isArray(r)){
             for(var i = 0; i<r.length; i++){
-                if(r[i].toResponseObject) r[i] = r[i].toResponseObject();
+                if(r[i].toResponseObject) r[i] = yield r[i].toResponseObject(this_.token);
             }
         }
-        if(r.toResponseObject) r = r.toResponseObject();
+        if(r.toResponseObject) r = yield r.toResponseObject(this_.token);
         this_.body = {result:true,response:r};
     }catch(r){
         if(typeof r === "object"){

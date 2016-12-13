@@ -1,3 +1,4 @@
+var co = require("co")
 var getRedisConnection = require("../utils/getRedisConnection")
 module.exports = function(mongoose) {
     var schema = new mongoose.Schema({
@@ -17,7 +18,7 @@ module.exports = function(mongoose) {
         redis.publish("kyoppie:notifications:"+userId,this.id);
         redis.quit();
     }
-    schema.methods.toResponseObject = function(){
+    schema.methods.toResponseObject = function* (token){
         var obj = this.toObject();
         obj.id = this._id;
         obj._id = undefined;
@@ -29,9 +30,13 @@ module.exports = function(mongoose) {
             "targetPost"
         ];
         var this_ = this;
+        var promises = []
         toResponseObjects.forEach(function(name){
-            if(this_[name] && this_[name].toResponseObject) obj[name]=this_[name].toResponseObject();
+            promises.push(co(function*(){
+                if(this_[name] && this_[name].toResponseObject) obj[name]=yield this_[name].toResponseObject(token);
+            }))
         });
+        yield Promise.all(promises)
         return obj;
     }
     return mongoose.model("notifications",schema)

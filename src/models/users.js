@@ -40,7 +40,7 @@ module.exports = function(mongoose) {
         var hashPassword = getHashedPassword(password,salt)
         return this.password === hashPassword;
     }
-    schema.methods.toResponseObject = function(){
+    schema.methods.toResponseObject = function* (token){
         var obj = this.toObject();
         obj.id = this._id;
         obj._id = undefined;
@@ -49,7 +49,7 @@ module.exports = function(mongoose) {
         obj.passwordSalt = undefined;
         obj.push = undefined;
         if(obj.avatar && obj.avatar.toResponseObject){
-            obj.avatar = this.avatar.toResponseObject();
+            obj.avatar = yield this.avatar.toResponseObject(token);
         }
         return obj;
     }

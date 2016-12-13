@@ -7,7 +7,7 @@ module.exports = function(mongoose) {
     },{
         timestamps:true
     })
-    schema.methods.toResponseObject = function(){
+    schema.methods.toResponseObject = function* (token){
         var obj = this.toObject();
         obj.id = this._id;
         obj._id = undefined;

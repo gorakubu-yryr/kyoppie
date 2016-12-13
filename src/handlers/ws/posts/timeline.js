@@ -5,10 +5,11 @@ module.exports = function(ws){
     var streaming = getRedisConnection();
     streaming.subscribe("kyoppie:posts-timeline:"+ws.token.user.id);
     streaming.on("message",function(_,msg){
-        co(show(msg)).then(function(post){
+        co(function*() {
+            var post = yield show(msg)
             ws.sendJSON({
                 result:true,
-                response:post.toResponseObject()
+                response:yield post.toResponseObject(ws.token)
             })
         })
     })

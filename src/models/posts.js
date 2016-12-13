@@ -8,14 +8,14 @@ module.exports = function(mongoose) {
     },{
         timestamps:true
     })
-    schema.methods.toResponseObject = function(){
+    schema.methods.toResponseObject = function* (token){
         var obj = this.toObject();
         obj.id = this._id;
         obj._id = undefined;
         obj.__v = undefined;
-        if(this.user.toResponseObject) obj.user=this.user.toResponseObject();
+        if(this.user.toResponseObject) obj.user=yield this.user.toResponseObject(token);
         if(this.app && this.app.toResponseObject){
-            obj.app=this.app.toResponseObject();
+            obj.app=yield this.app.toResponseObject(token);
             delete obj.app.appKey;
             delete obj.app.appSecret;
         }
@@ -25,7 +25,7 @@ module.exports = function(mongoose) {
                     obj.files = [];
                     break;
                 }
-                obj.files[i] = this.files[i].toResponseObject();
+                obj.files[i] = yield this.files[i].toResponseObject(token);
             }
         }
         obj.html = obj.text;

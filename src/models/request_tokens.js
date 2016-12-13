@@ -3,7 +3,7 @@ module.exports = function(mongoose) {
         app:{type:mongoose.Schema.Types.ObjectId,ref:"apps"},
         token:String
     })
-    schema.methods.toResponseObject = function(){
+    schema.methods.toResponseObject = function* (token){
         var obj = this.toObject();
         obj._id = undefined;
         obj.__v = undefined;

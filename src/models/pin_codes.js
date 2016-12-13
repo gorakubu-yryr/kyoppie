@@ -12,13 +12,13 @@ module.exports = function(mongoose) {
         code:{type:String,default:generatePinCode},
         user:{type:mongoose.Schema.Types.ObjectId,ref:"users"},
     })
-    schema.methods.toResponseObject = function(){
+    schema.methods.toResponseObject = function* (token){
         var obj = this.toObject();
         obj._id = undefined;
         obj.__v = undefined;
         obj.app = undefined;
         obj.request_token = undefined;
-        if(typeof obj.user === "object") obj.user = this.user.toResponseObject();
+        if(typeof obj.user === "object") obj.user = yield this.user.toResponseObject(token);
         return obj;
     }
     return mongoose.model("pin_codes",schema)
