@@ -1,3 +1,3 @@
-module.exports = function(){
+module.exports = function() {
     return Promise.resolve({status:"ok"})
 }

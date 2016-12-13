@@ -1,6 +1,6 @@
 var main = require("../../endpoints/index")
 var wrap = require("./wrap")
 
-module.exports = function* (){
+module.exports = function* () {
     yield wrap(main(),this)
 }

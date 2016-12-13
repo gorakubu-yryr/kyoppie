@@ -11,12 +11,12 @@ module.exports = function(mongoose) {
     },{
         timestamps:true
     })
-    schema.methods.getUrl= function(){
+    schema.methods.getUrl= function() {
         return this.host+this.path
     }
-    schema.methods.getThumbnailUrl = function(){
-        if(!this.thumbnailPath){
-            switch(this.type){
+    schema.methods.getThumbnailUrl = function() {
+        if (!this.thumbnailPath) {
+            switch (this.type) {
                 case 'video':
                     return this.getUrl() + ".thumbnail.jpg"
                 case 'image':
@@ -25,7 +25,7 @@ module.exports = function(mongoose) {
         }
         return this.host+this.thumbnailPath
     }
-    schema.methods.toResponseObject = function* (token){
+    schema.methods.toResponseObject = function* (token) {
         var obj = this.toObject()
         obj.id = this._id
         obj._id = undefined
@@ -33,17 +33,17 @@ module.exports = function(mongoose) {
         obj.server = undefined
         obj.thumbnailPath = undefined
         obj.thumbnailUrl = this.host + this.thumbnailPath
-        if(!obj.isUse){
+        if (!obj.isUse) {
             obj.host = undefined
             obj.path = undefined
-        } else if(obj.isAdminDeleted) {
+        } else if (obj.isAdminDeleted) {
             obj.url = obj.host+"/public/admin_deleted.png"
             obj.path = "/public/admin_deleted.png"
             obj.type = "image"
         } else {
             obj.url = obj.host+obj.path
-            if(!this.thumbnailPath){
-                switch(obj.type){
+            if (!this.thumbnailPath) {
+                switch (obj.type) {
                     case 'video':
                         obj.thumbnailUrl = obj.url + ".thumbnail.jpg"
                         break

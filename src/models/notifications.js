@@ -11,14 +11,14 @@ module.exports = function(mongoose) {
     },{
         timestamps:true
     })
-    schema.methods.publish = function(){
+    schema.methods.publish = function() {
         var userId = this.receiveUser
-        if(userId.id) userId = userId.id
+        if (userId.id) userId = userId.id
         var redis = getRedisConnection()
         redis.publish("kyoppie:notifications:"+userId,this.id)
         redis.quit()
     }
-    schema.methods.toResponseObject = function* (token){
+    schema.methods.toResponseObject = function* (token) {
         var obj = this.toObject()
         obj.id = this._id
         obj._id = undefined
@@ -31,9 +31,9 @@ module.exports = function(mongoose) {
         ]
         var this_ = this
         var promises = []
-        toResponseObjects.forEach(function(name){
-            promises.push(co(function*(){
-                if(this_[name] && this_[name].toResponseObject) obj[name]=yield this_[name].toResponseObject(token)
+        toResponseObjects.forEach(function(name) {
+            promises.push(co(function*() {
+                if (this_[name] && this_[name].toResponseObject) obj[name]=yield this_[name].toResponseObject(token)
             }))
         })
         yield Promise.all(promises)

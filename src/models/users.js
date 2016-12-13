@@ -29,18 +29,18 @@ module.exports = function(mongoose) {
     },{
         timestamps:true
     })
-    schema.methods.setPassword = function(password){
+    schema.methods.setPassword = function(password) {
         var salt = newPasswordHash(this.screenName)
         var hashPassword = getHashedPassword(password,salt)
         this.password = hashPassword
         this.passwordSalt = salt
     }
-    schema.methods.isValidPassword = function(password){
+    schema.methods.isValidPassword = function(password) {
         var salt = this.passwordSalt
         var hashPassword = getHashedPassword(password,salt)
         return this.password === hashPassword
     }
-    schema.methods.toResponseObject = function* (token){
+    schema.methods.toResponseObject = function* (token) {
         var obj = this.toObject()
         obj.id = this._id
         obj._id = undefined
@@ -48,7 +48,7 @@ module.exports = function(mongoose) {
         obj.password = undefined
         obj.passwordSalt = undefined
         obj.push = undefined
-        if(obj.avatar && obj.avatar.toResponseObject){
+        if (obj.avatar && obj.avatar.toResponseObject) {
             obj.avatar = yield this.avatar.toResponseObject(token)
         }
         return obj

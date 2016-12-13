@@ -1,4 +1,4 @@
 var redis = require("redis")
-module.exports = function(){
+module.exports = function() {
     return redis.createClient(6379,"localhost")
 }

@@ -1,8 +1,8 @@
 var models = require("../../models")
 var newApplicationKey = require("../../utils/newApplicationKey")
-module.exports = function* (token,id){
+module.exports = function* (token,id) {
     var app = yield models.apps.findById(id)
-    if(app.user != token.user.id){
+    if (app.user != token.user.id) {
         return Promise.reject("damedesu")
     }
     app.appKey = newApplicationKey()

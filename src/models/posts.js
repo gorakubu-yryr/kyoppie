@@ -8,27 +8,27 @@ module.exports = function(mongoose) {
     },{
         timestamps:true
     })
-    schema.methods.toResponseObject = function* (token){
+    schema.methods.toResponseObject = function* (token) {
         var obj = this.toObject()
         obj.id = this._id
         obj._id = undefined
         obj.__v = undefined
-        if(this.user.toResponseObject) obj.user=yield this.user.toResponseObject(token)
-        if(this.app && this.app.toResponseObject){
+        if (this.user.toResponseObject) obj.user=yield this.user.toResponseObject(token)
+        if (this.app && this.app.toResponseObject) {
             obj.app=yield this.app.toResponseObject(token)
             delete obj.app.appKey
             delete obj.app.appSecret
         }
-        if(this.files && this.files.length){
-            for(let i=0;i<this.files.length;i++){
-                if(!this.files[i].toResponseObject){
+        if (this.files && this.files.length) {
+            for (let i=0;i<this.files.length;i++) {
+                if (!this.files[i].toResponseObject) {
                     obj.files = []
                     break
                 }
                 obj.files[i] = yield this.files[i].toResponseObject(token)
             }
         }
-        if(token){
+        if (token) {
             obj.isFavorited = !!(yield mongoose.model("favorites").findOne({user:token.user.id,post:this.id}))
         }
         obj.html = obj.text

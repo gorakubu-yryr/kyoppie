@@ -1,3 +1,3 @@
-module.exports = function* (token){
+module.exports = function* (token) {
     return token.user
 }

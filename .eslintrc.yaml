@@ -23,3 +23,29 @@ rules:
     semi:
         - error
         - never
+    keyword-spacing:
+        - error
+        -
+            before: true
+            after: true
+    space-before-blocks:
+        - error
+        - always
+    no-multi-spaces:
+        - error
+        -
+            exceptions:
+                Property: true
+                VariableDeclarator: true
+                ImportDeclaration: true
+    no-trailing-spaces:
+        - error
+        -
+            skipBlankLines: true
+    no-whitespace-before-property: error
+    spaced-comment:
+        - error
+        - always
+    unicode-bom:
+        - error
+        - never

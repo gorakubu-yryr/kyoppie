@@ -4,7 +4,7 @@ module.exports = function(mongoose) {
         sigKey:String,
         sigHash:String
     })
-    schema.methods.toResponseObject = function* (token){
+    schema.methods.toResponseObject = function* (token) {
         var obj = this.toObject()
         obj._id = undefined
         obj.__v = undefined

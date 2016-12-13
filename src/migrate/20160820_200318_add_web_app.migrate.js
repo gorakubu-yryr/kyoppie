@@ -1,14 +1,14 @@
 var fs = require("fs")
-exports.up = function(models){
+exports.up = function(models) {
     // write your migrate
     var app = new models.apps()
     app.name="web"
     app.isWeb = true
     var config
     var configFilePath = __dirname+"/../../web_config.json"
-    try{
+    try {
         config = JSON.parse(fs.readFileSync(configFilePath))
-    } catch (e){
+    } catch (e) {
         config = {}
     }
     config.appKey = app.appKey
@@ -16,7 +16,7 @@ exports.up = function(models){
     fs.writeFileSync(configFilePath,JSON.stringify(config,null,4))
     return models.users.find({
         adminLevel:-1
-    }).sort({createdAt:1}).limit(1).then(function(user){
+    }).sort({createdAt:1}).limit(1).then(function(user) {
         app.user = user.id
         return app.save()
     })
