@@ -11,6 +11,7 @@ module.exports = {
         {name:"/users/timeline",method:"get",login:false},
         {name:"/users/following",method:"get",login:false},
         {name:"/users/followers",method:"get",login:false},
+        {name:"/users/favorites",method:"get",login:false},
 
         {name:"/auth/get_sigkey",method:"post",login:false},
         {name:"/auth/get_request_token",method:"post",login:false},
@@ -26,6 +27,7 @@ module.exports = {
         {name:"/posts/timeline",method:"get"},
         {name:"/posts/show",method:"get",login:false},
         {name:"/posts/public_timeline",method:"get",login:false},
+        {name:"/posts/favorite",method:"post"},
 
         {name:"/applications/create",method:"post",isWeb:true},
         {name:"/applications/my",method:"get",isWeb:true},
