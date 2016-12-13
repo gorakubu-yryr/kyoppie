@@ -1,4 +1,3 @@
-var crypto = require("crypto")
 var models = require("../../models")
 var isValidScreenName = require("../../utils/isValidScreenName")
 module.exports = function* (requestToken,name,screenName,password){

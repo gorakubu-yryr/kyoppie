@@ -13,7 +13,7 @@ module.exports = function* (token,text,files){
         if(id.length != 24) return undefined;
         return id;
     });
-    var files = yield models.files.find({
+    files = yield models.files.find({
         _id:{$in:file_ids}
     })
     if(files.length > 1) return Promise.reject("file-too-many")

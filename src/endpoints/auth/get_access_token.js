@@ -1,5 +1,4 @@
 var models = require("../../models")
-var newRequestToken = require("../../utils/newRequestToken")
 var crypto = require("crypto");
 module.exports = function* (appKey,appSecretHash,sigKey,pinCode,requestToken){
     // 必須パラメータがあるかどうか

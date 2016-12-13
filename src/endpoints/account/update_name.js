@@ -1,4 +1,3 @@
-var models = require("../../models")
 module.exports = function* (token,name){
     var user = token.user;
     if(!name || typeof name !== "string") return Promise.reject("name-is-required")

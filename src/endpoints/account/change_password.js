@@ -1,4 +1,3 @@
-var models = require("../../models")
 module.exports = function* (token,password){
     var user = token.user;
     user.setPassword(password);

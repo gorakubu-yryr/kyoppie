@@ -1,4 +1,3 @@
-var newApplicationKey = require("../utils/newApplicationKey");
 var fs = require("fs");
 exports.up = function(models){
     // write your migrate

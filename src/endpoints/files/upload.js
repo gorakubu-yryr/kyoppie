@@ -8,15 +8,14 @@ module.exports = function* (buffer){
             return Promise.resolve(server)
         });
     }
-    var ok_flag = false;
     var _hash = crypto.createHash("sha256");
     _hash.update(buffer);
     var hash = _hash.digest("hex")
-    var file = yield models.files.findOne({hash})
+    file = yield models.files.findOne({hash})
     if(file) return file
     var file_server = yield getFileServer()
     var body = yield new Promise(function(resolve,reject){
-        var req = request.post({
+        request.post({
             url:file_server.url+"/api/v1/upload",
             formData:{
                 file:{

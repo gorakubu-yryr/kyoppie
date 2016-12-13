@@ -1,4 +1,3 @@
-var newFileServerSecretKey = require("../utils/newFileServerSecretKey")
 module.exports = function(mongoose) {
     var schema = new mongoose.Schema({
         ipaddr:String,

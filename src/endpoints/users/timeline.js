@@ -9,7 +9,7 @@ module.exports = function* (screenName,id){
     }
     if(!user) return Promise.reject("user-not-found")
     if(user.isSuspended) return Promise.reject("this-user-is-suspended")
-    posts = yield models.posts.find({
+    var posts = yield models.posts.find({
         user:user.id
     }).populate("app files").sort('-createdAt')
     posts = posts.map(function(post){
