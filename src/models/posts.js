@@ -3,7 +3,8 @@ module.exports = function(mongoose) {
         text:String,
         app:{type:mongoose.Schema.Types.ObjectId,ref:"apps"},
         user:{type:mongoose.Schema.Types.ObjectId,ref:"users"},
-        files:[{type:mongoose.Schema.Types.ObjectId,ref:"files"}]
+        files:[{type:mongoose.Schema.Types.ObjectId,ref:"files"}],
+        favoriteCount:{type:Number,default:0}
     },{
         timestamps:true
     })
