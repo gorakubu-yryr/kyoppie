@@ -49,5 +49,10 @@ rules:
     unicode-bom:
         - error
         - never
-    yield-star-spacing:
+    yield-star-spacing: error
+    func-call-spacing:
         - error
+        - never
+    array-bracket-spacing:
+        - error
+        - never
