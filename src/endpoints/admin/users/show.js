@@ -9,5 +9,5 @@ module.exports = function* (token,screenName,id){
         user = yield models.users.findOne({_id:models.mongoose.Types.ObjectId(id)})
     }
     if(!user) return Promise.reject("user-not-found")
-    return user;
+    return user
 }

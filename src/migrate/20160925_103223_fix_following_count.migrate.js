@@ -6,11 +6,11 @@ exports.up = function(models){
             var promise = models.follows.find({
                 fromUser:user.id
             }).then(function(follows){
-                user.followingCount = follows.length;
-                return user.save();
+                user.followingCount = follows.length
+                return user.save()
             })
-            promises.push(promise);
+            promises.push(promise)
         })
         return Promise.all(promises)
-    });
+    })
 }

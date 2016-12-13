@@ -4,6 +4,6 @@ module.exports = function* (id){
         _id:id
     }).populate("app user files")
     if(!post) return Promise.reject("post-not-found")
-    if(post.user.isSuspended) return Promise.reject("this-user-is-suspended");
-    return post;
+    if(post.user.isSuspended) return Promise.reject("this-user-is-suspended")
+    return post
 }

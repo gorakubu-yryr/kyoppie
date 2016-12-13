@@ -3,9 +3,9 @@ exports.up = function(models){
     return models.users.find({
         adminLevel:-1
     }).then(function(users){
-        var promises = [];
+        var promises = []
         users.forEach(function(user){
-            user.adminFlag.fileServer = true;
+            user.adminFlag.fileServer = true
             promises.push(user.save())
         })
         return Promise.all(promises)

@@ -6,7 +6,7 @@ function printHowToUseEnd(){
     console.log("  new - create migrate")
     process.exit(1)
 }
-if(process.argv.length < 3 || process.argv.length > 4) printHowToUseEnd();
+if(process.argv.length < 3 || process.argv.length > 4) printHowToUseEnd()
 var fs = require("fs")
 var moment = require("moment")
 var models = require("../models")
@@ -14,45 +14,45 @@ switch (process.argv[2]) {
     case "run":
         // ディレクトリのファイル一覧を取得
         var files = fs.readdirSync(__dirname).filter(function(file){
-            return fs.statSync(__dirname+"/"+file).isFile() && /.*\.migrate\.js/.test(file);
-        });
-        var loop=0;
+            return fs.statSync(__dirname+"/"+file).isFile() && /.*\.migrate\.js/.test(file)
+        })
+        var loop=0
         function startMigrate(){
             function next(){
-                loop++;
-                startMigrate();
+                loop++
+                startMigrate()
             }
             if(files.length <= loop){
                 console.log("end migrate")
-                process.exit();
-                return;
+                process.exit()
+                return
             }
-            var file = files[loop];
+            var file = files[loop]
             models.migrates.findOne({name:file},function(err,res){
-                if(res) return next();
-                var migrate = require(__dirname+"/"+file);
+                if(res) return next()
+                var migrate = require(__dirname+"/"+file)
                 migrate.up(models).then(function(){
-                    var mobj = new models.migrates({name:file});
+                    var mobj = new models.migrates({name:file})
                     mobj.save(function(){
                         console.log("migrate up:"+file)
-                        next();
+                        next()
                     })
-                });
+                })
             })
         }
-        startMigrate();
-        break;
+        startMigrate()
+        break
     case "new":
         var name = process.argv.length === 4 ? process.argv[3] : "no_name"
-        var filename = moment().format("YYYYMMDD_HHmmss")+"_"+name+".migrate.js";
-        var file = fs.openSync(__dirname+"/"+filename,"w");
+        var filename = moment().format("YYYYMMDD_HHmmss")+"_"+name+".migrate.js"
+        var file = fs.openSync(__dirname+"/"+filename,"w")
         fs.writeSync(file,"exports.up = function(models){\n    // write your migrate\n}")
-        fs.closeSync(file);
-        console.log("writed at "+filename);
-        process.exit();
-        break;
+        fs.closeSync(file)
+        console.log("writed at "+filename)
+        process.exit()
+        break
     default:
-        printHowToUseEnd();
-        process.exit();
-        break;
+        printHowToUseEnd()
+        process.exit()
+        break
 }

@@ -6,7 +6,7 @@ exports.up = function(models){
         return models.users.findOne({_id:models.mongoose.Types.ObjectId(user.id)})
     }).then(function(user){
         if(!user) return new Promise.reject("user is not create")
-        user.adminLevel=-1; // all
-        return user.save();
+        user.adminLevel=-1 // all
+        return user.save()
     })
 }

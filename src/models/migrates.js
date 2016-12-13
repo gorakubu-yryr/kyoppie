@@ -5,4 +5,4 @@ module.exports = function(mongoose) {
         timestamps:true
     })
     return mongoose.model("migrates",schema)
-};
+}

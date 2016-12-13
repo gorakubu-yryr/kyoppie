@@ -6,10 +6,10 @@ module.exports = function* (buffer){
         return models.file_servers.findOne().then(function(server){
             if(!server) return Promise.reject("not-found-fileserver")
             return Promise.resolve(server)
-        });
+        })
     }
-    var _hash = crypto.createHash("sha256");
-    _hash.update(buffer);
+    var _hash = crypto.createHash("sha256")
+    _hash.update(buffer)
     var hash = _hash.digest("hex")
     file = yield models.files.findOne({hash})
     if(file) return file
@@ -29,18 +29,18 @@ module.exports = function* (buffer){
                 "X-Kyoppie-File-Key":file_server.secretKey
             }
         },function(err,res,body){
-            if(err) reject(err);
+            if(err) reject(err)
             resolve(body)
         })
     })
     body = JSON.parse(body)
     if(body.error) return Promise.reject(body.error)
-    var file = new models.files();
-    file.type = body.type;
-    file.server = file_server.id;
-    file.host = file_server.url;
-    file.path = body.url;
-    file.hash = hash;
-    file.thumbnailPath = body.thumbnail;
-    return yield file.save();
+    var file = new models.files()
+    file.type = body.type
+    file.server = file_server.id
+    file.host = file_server.url
+    file.path = body.url
+    file.hash = hash
+    file.thumbnailPath = body.thumbnail
+    return yield file.save()
 }

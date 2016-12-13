@@ -8,14 +8,14 @@ module.exports = function* (requestToken,screenName,password){
     if(!request_token) return Promise.reject("requestToken-invalid")
     var user = yield models.users.findOne({screenNameLower:screenName.toLowerCase()})
     if(!user) return Promise.reject("user-not-found")
-    var salt = user.passwordSalt;
+    var salt = user.passwordSalt
     var hashPassword = getHashedPassword(password,salt)
     if(hashPassword != user.password){
         return Promise.reject("invalid-password")
     }
     var pin_code = new models.pin_codes()
-    pin_code.app = request_token.app;
-    pin_code.request_token = request_token.id;
-    pin_code.user = user;
-    return yield pin_code.save();
+    pin_code.app = request_token.app
+    pin_code.request_token = request_token.id
+    pin_code.user = user
+    return yield pin_code.save()
 }

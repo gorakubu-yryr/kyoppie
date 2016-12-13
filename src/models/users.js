@@ -32,26 +32,26 @@ module.exports = function(mongoose) {
     schema.methods.setPassword = function(password){
         var salt = newPasswordHash(this.screenName)
         var hashPassword = getHashedPassword(password,salt)
-        this.password = hashPassword;
-        this.passwordSalt = salt;
+        this.password = hashPassword
+        this.passwordSalt = salt
     }
     schema.methods.isValidPassword = function(password){
-        var salt = this.passwordSalt;
+        var salt = this.passwordSalt
         var hashPassword = getHashedPassword(password,salt)
-        return this.password === hashPassword;
+        return this.password === hashPassword
     }
     schema.methods.toResponseObject = function* (token){
-        var obj = this.toObject();
-        obj.id = this._id;
-        obj._id = undefined;
-        obj.__v = undefined;
-        obj.password = undefined;
-        obj.passwordSalt = undefined;
-        obj.push = undefined;
+        var obj = this.toObject()
+        obj.id = this._id
+        obj._id = undefined
+        obj.__v = undefined
+        obj.password = undefined
+        obj.passwordSalt = undefined
+        obj.push = undefined
         if(obj.avatar && obj.avatar.toResponseObject){
-            obj.avatar = yield this.avatar.toResponseObject(token);
+            obj.avatar = yield this.avatar.toResponseObject(token)
         }
-        return obj;
+        return obj
     }
     return mongoose.model("users",schema)
-};
+}

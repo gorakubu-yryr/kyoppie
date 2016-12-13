@@ -6,10 +6,10 @@ module.exports = function(screenName,password){
     return models.users.findOne({screenNameLower:screenName.toLowerCase()}).then(function(res){
         if(res) return Promise.reject("duplicate-screenName")
         var user = new models.users()
-        user.screenName = screenName;
-        user.screenNameLower = screenName.toLowerCase();
-        user.rulesAgree = true;
-        user.setPassword(password);
-        return user.save();
+        user.screenName = screenName
+        user.screenNameLower = screenName.toLowerCase()
+        user.rulesAgree = true
+        user.setPassword(password)
+        return user.save()
     })
 }

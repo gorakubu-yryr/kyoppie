@@ -6,7 +6,7 @@ module.exports = function* (requestToken,name,screenName,password){
     if(!name || typeof name !== "string") return Promise.reject("require-name")
     if(!screenName || typeof screenName !== "string") return Promise.reject("require-screenName")
     if(!password || typeof password !== "string") return Promise.reject("require-password")
-    if(name.length<1 || name.length > 20) return Promise.reject("invalid-name");
+    if(name.length<1 || name.length > 20) return Promise.reject("invalid-name")
     if(!isValidScreenName(screenName)) return Promise.reject("invalid-screenName")
     // リクエストトークンを探す
     var request_token = yield models.request_tokens.findOne({
@@ -20,16 +20,16 @@ module.exports = function* (requestToken,name,screenName,password){
     if(res) return Promise.reject("duplicate-screenName")
     // userのもろもろをやる
     var user = new models.users()
-    user.name = name;
-    user.screenName = screenName;
-    user.screenNameLower = screenName.toLowerCase();
-    user.rulesAgree = true;
-    user.setPassword(password);
-    yield user.save();
+    user.name = name
+    user.screenName = screenName
+    user.screenNameLower = screenName.toLowerCase()
+    user.rulesAgree = true
+    user.setPassword(password)
+    yield user.save()
     // PINコードを作成
     var pin_code = new models.pin_codes()
-    pin_code.app = request_token.app;
-    pin_code.request_token = request_token.id;
-    pin_code.user = user;
-    return yield pin_code.save();
+    pin_code.app = request_token.app
+    pin_code.request_token = request_token.id
+    pin_code.user = user
+    return yield pin_code.save()
 }

@@ -1,7 +1,7 @@
-var rndstr = require("rndstr");
+var rndstr = require("rndstr")
 module.exports = function(mongoose) {
     function generateAccessToken() {
-            return rndstr()+"-"+rndstr();
+            return rndstr()+"-"+rndstr()
     }
     var schema = new mongoose.Schema({
         name:String,
@@ -13,13 +13,13 @@ module.exports = function(mongoose) {
         timestamps:true
     })
     schema.methods.toResponseObject = function* (token){
-        var obj = this.toObject();
-        obj._id = undefined;
-        obj.__v = undefined;
-        obj.app = undefined;
-        obj.user = undefined;
-        obj.secret = undefined;
-        return obj;
+        var obj = this.toObject()
+        obj._id = undefined
+        obj.__v = undefined
+        obj.app = undefined
+        obj.user = undefined
+        obj.secret = undefined
+        return obj
     }
     return mongoose.model("access_tokens",schema)
-};
+}

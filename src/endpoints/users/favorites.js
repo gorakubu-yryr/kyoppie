@@ -8,7 +8,7 @@ module.exports = function* (screenName,id){
         user = yield models.users.findOne({_id:models.mongoose.Types.ObjectId(id)})
     }
     if(!user) return Promise.reject("user-not-found")
-    if(user.isSuspended) return Promise.reject("this-user-is-suspended");
+    if(user.isSuspended) return Promise.reject("this-user-is-suspended")
     var favorites = yield models.favorites.find({
         user:user.id
     })

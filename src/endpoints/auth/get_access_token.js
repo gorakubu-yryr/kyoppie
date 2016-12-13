@@ -1,8 +1,8 @@
 var models = require("../../models")
-var crypto = require("crypto");
+var crypto = require("crypto")
 module.exports = function* (appKey,appSecretHash,sigKey,pinCode,requestToken){
     // 必須パラメータがあるかどうか
-    if(!appKey) return Promise.reject("appKey-is-require");
+    if(!appKey) return Promise.reject("appKey-is-require")
     if(!appSecretHash) return Promise.reject("appSecret-is-is-require")
     if(!sigKey) return Promise.reject("sigKey-is-require")
     if(!pinCode) return Promise.reject("pinCode-is-require")

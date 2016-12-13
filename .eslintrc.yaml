@@ -20,3 +20,6 @@ rules:
         - error
         -
             skipRegExps: true
+    semi:
+        - error
+        - never

@@ -7,6 +7,6 @@ module.exports = function* (token,name,url){
     var server = new models.file_servers({
         name,
         url
-    });
-    return yield server.save();
+    })
+    return yield server.save()
 }

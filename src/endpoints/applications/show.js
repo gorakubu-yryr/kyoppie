@@ -6,5 +6,5 @@ module.exports = function* (token,id){
     if(app.user != token.user.id){
         return Promise.reject("damedesu")
     }
-    return app;
+    return app
 }

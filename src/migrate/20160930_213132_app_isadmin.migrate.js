@@ -3,9 +3,9 @@ exports.up = function(models){
     return models.apps.find({
         isWeb:true
     }).then(function(apps){
-        var promises = [];
+        var promises = []
         apps.forEach(function(app){
-            app.isAdmin = true;
+            app.isAdmin = true
             promises.push(app.save())
         })
         return Promise.all(promises)

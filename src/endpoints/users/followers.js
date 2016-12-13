@@ -1,7 +1,7 @@
 var models = require("../../models")
 module.exports = function* (screenName,id){
     if(!screenName && !id) return Promise.reject("screenName-or-id-require")
-    var user;
+    var user
     if(screenName) {
         user = yield models.users.findOne({screenNameLower:screenName.toLowerCase()})
     } else {
@@ -14,5 +14,5 @@ module.exports = function* (screenName,id){
     }).populate("fromUser")
     followers = followers.map(follow => follow.fromUser).filter(user => !user.isSuspended)
     console.log(followers)
-    return followers;
+    return followers
 }

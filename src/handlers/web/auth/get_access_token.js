@@ -1,4 +1,4 @@
-var main = require("../../../endpoints/auth/get_access_token");
+var main = require("../../../endpoints/auth/get_access_token")
 var wrap = require("../wrap")
 
 module.exports = function* (){

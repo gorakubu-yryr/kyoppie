@@ -6,7 +6,7 @@ module.exports = function* (token,sinceDate,maxDate,limit){
     if(maxDate && !isValidDateString(maxDate)) return Promise.reject("invalid-maxDate")
     if(isFinite(limit)){
         if(limit < 1) return Promise.reject("invalid-limit")
-    } else limit = 100;
+    } else limit = 100
     var notifications = yield models.notifications.find({
         isRead:false,
         receiveUser:token.user.id,

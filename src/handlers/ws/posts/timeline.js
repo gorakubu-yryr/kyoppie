@@ -1,9 +1,9 @@
-var getRedisConnection = require("../../../utils/getRedisConnection");
+var getRedisConnection = require("../../../utils/getRedisConnection")
 var show = require("../../../endpoints/posts/show")
 var co = require("co")
 module.exports = function(ws){
-    var streaming = getRedisConnection();
-    streaming.subscribe("kyoppie:posts-timeline:"+ws.token.user.id);
+    var streaming = getRedisConnection()
+    streaming.subscribe("kyoppie:posts-timeline:"+ws.token.user.id)
     streaming.on("message",function(_,msg){
         co(function*() {
             var post = yield show(msg)
@@ -14,6 +14,6 @@ module.exports = function(ws){
         })
     })
     ws.on("close",function(){
-        streaming.quit();
+        streaming.quit()
     })
 }

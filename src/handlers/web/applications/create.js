@@ -1,4 +1,4 @@
-var main = require("../../../endpoints/applications/create");
+var main = require("../../../endpoints/applications/create")
 var wrap = require("../wrap")
 
 module.exports = function* (){

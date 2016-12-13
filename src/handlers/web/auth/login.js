@@ -1,4 +1,4 @@
-var main = require("../../../endpoints/auth/login");
+var main = require("../../../endpoints/auth/login")
 var wrap = require("../wrap")
 
 module.exports = function* (){

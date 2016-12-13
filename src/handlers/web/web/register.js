@@ -1,4 +1,4 @@
-var main = require("../../../endpoints/web/register");
+var main = require("../../../endpoints/web/register")
 var wrap = require("../wrap")
 
 module.exports = function* (){
