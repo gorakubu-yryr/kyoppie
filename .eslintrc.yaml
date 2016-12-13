@@ -4,5 +4,15 @@ parserOptions:
 env:
     node: true
 extends: eslint:recommended
+globals:
+    Promise: false
 rules:
     no-console: off
+    no-unused-vars:
+        - error
+        - 
+            args: none
+    require-yield: off
+    no-case-declarations: off
+    no-inner-declarations: off
+    no-cond-assign: off
