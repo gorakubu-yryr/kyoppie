@@ -49,3 +49,5 @@ rules:
     unicode-bom:
         - error
         - never
+    yield-star-spacing:
+        - error
