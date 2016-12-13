@@ -28,6 +28,9 @@ module.exports = function(mongoose) {
                 obj.files[i] = yield this.files[i].toResponseObject(token);
             }
         }
+        if(token){
+            obj.isFavorited = !!(yield mongoose.model("favorites").findOne({user:token.user.id,post:this.id}))
+        }
         obj.html = obj.text;
         obj.html = obj.html.split('&').join("&amp;")
         obj.html = obj.html.split("<").join("&lt;")
