@@ -1,5 +1,4 @@
-var cluster = require('cluster');  
-var express = require('express');  
+var cluster = require('cluster');
 var numCPUs = require('os').cpus().length;
  
 if (cluster.isMaster) {
