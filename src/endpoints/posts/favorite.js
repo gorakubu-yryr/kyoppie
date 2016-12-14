@@ -13,5 +13,16 @@ module.exports = function* (token,id) {
     yield favorite.save()
     post.favoriteCount += 1
     yield post.save()
+    // 通知
+    try {
+        var notification = new models.notifications()
+        notification.type = "favorite"
+        notification.receiveUser = post.user.id
+        notification.targetUser = favorite.user.id
+        notification.targetPost = favorite.post.id
+        yield notification.save()
+    } catch (e) {
+        console.log("notification-error")
+    }
     return {status:"ok"}
 }
