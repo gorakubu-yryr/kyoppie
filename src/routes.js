@@ -51,7 +51,8 @@ module.exports = {
 
         {name:"/files/upload",method:"post",file:true},
 
-        {name:"/talks/rooms/create",method:"post"}
+        {name:"/talks/rooms/create",method:"post"},
+        {name:"/talks/rooms/list",method:"get"},
     ],
     websocket:[
         {name:"/posts/timeline"},
