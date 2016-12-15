@@ -3,6 +3,7 @@ module.exports = {
         {name:"/",method:"get",login:false},
 
         {name:"/web/register",method:"post",login:false},
+        {name:"/web/rules_agree",method:"post",isWeb:true,allowNotAgree:true},
 
         {name:"/users/show",method:"get",login:false},
         {name:"/users/list",method:"get",login:false},
@@ -10,13 +11,14 @@ module.exports = {
         {name:"/users/timeline",method:"get",login:false},
         {name:"/users/following",method:"get",login:false},
         {name:"/users/followers",method:"get",login:false},
+        {name:"/users/favorites",method:"get",login:false},
 
         {name:"/auth/get_sigkey",method:"post",login:false},
         {name:"/auth/get_request_token",method:"post",login:false},
         {name:"/auth/login",method:"post",login:false},
         {name:"/auth/get_access_token",method:"post",login:false},
 
-        {name:"/account/show",method:"get"},
+        {name:"/account/show",method:"get",allowNotAgree:true},
         {name:"/account/change_password",method:"post",isWeb:true},
         {name:"/account/update_name",method:"post"},
         {name:"/account/update/avatar",method:"post"},
@@ -25,6 +27,7 @@ module.exports = {
         {name:"/posts/timeline",method:"get"},
         {name:"/posts/show",method:"get",login:false},
         {name:"/posts/public_timeline",method:"get",login:false},
+        {name:"/posts/favorite",method:"post"},
 
         {name:"/applications/create",method:"post",isWeb:true},
         {name:"/applications/my",method:"get",isWeb:true},

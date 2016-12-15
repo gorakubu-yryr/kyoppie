@@ -11,13 +11,13 @@ module.exports = function(mongoose) {
     },{
         timestamps:true
     })
-    schema.methods.toResponseObject = function(){
-        var obj = this.toObject();
-        obj.id = this._id;
-        obj._id = undefined;
-        obj.__v = undefined;
-        if(this.user && this.user.toResponseObject) obj.user=this.user.toResponseObject();
-        return obj;
+    schema.methods.toResponseObject = function* (token) {
+        var obj = this.toObject()
+        obj.id = this._id
+        obj._id = undefined
+        obj.__v = undefined
+        if (this.user && this.user.toResponseObject) obj.user=yield this.user.toResponseObject(token)
+        return obj
     }
     return mongoose.model("apps",schema)
-};
+}

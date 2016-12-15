@@ -3,12 +3,12 @@ module.exports = function(mongoose) {
         app:{type:mongoose.Schema.Types.ObjectId,ref:"apps"},
         token:String
     })
-    schema.methods.toResponseObject = function(){
-        var obj = this.toObject();
-        obj._id = undefined;
-        obj.__v = undefined;
-        obj.app = undefined;
-        return obj;
+    schema.methods.toResponseObject = function* (token) {
+        var obj = this.toObject()
+        obj._id = undefined
+        obj.__v = undefined
+        obj.app = undefined
+        return obj
     }
     return mongoose.model("request_tokens",schema)
-};
+}

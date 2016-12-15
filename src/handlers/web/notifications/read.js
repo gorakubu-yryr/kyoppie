@@ -1,9 +1,9 @@
-var main = require("../../../endpoints/notifications/read");
+var main = require("../../../endpoints/notifications/read")
 var wrap = require("../wrap")
 
-module.exports = function* (){
+module.exports = function* () {
     yield wrap(main(
         this.token,
         this.request.body.id
-    ),this);
+    ),this)
 }

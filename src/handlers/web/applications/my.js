@@ -1,7 +1,7 @@
-var main = require("../../../endpoints/applications/my");
+var main = require("../../../endpoints/applications/my")
 var wrap = require("../wrap")
 
-module.exports = function* (){
+module.exports = function* () {
     yield wrap(main(
         this.token
     ),this)

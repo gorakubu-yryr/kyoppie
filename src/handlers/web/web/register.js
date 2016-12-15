@@ -1,7 +1,7 @@
-var main = require("../../../endpoints/web/register");
+var main = require("../../../endpoints/web/register")
 var wrap = require("../wrap")
 
-module.exports = function* (){
+module.exports = function* () {
     yield wrap(main(
         this.request.body.requestToken,
         this.request.body.name,

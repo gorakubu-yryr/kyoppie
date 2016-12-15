@@ -1,7 +1,7 @@
-var main = require("../../../endpoints/posts/create");
+var main = require("../../../endpoints/posts/create")
 var wrap = require("../wrap")
 
-module.exports = function* (){
+module.exports = function* () {
     yield wrap(main(
         this.token,
         this.request.body.text,

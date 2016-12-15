@@ -4,12 +4,12 @@ module.exports = function(mongoose) {
         sigKey:String,
         sigHash:String
     })
-    schema.methods.toResponseObject = function(){
-        var obj = this.toObject();
-        obj._id = undefined;
-        obj.__v = undefined;
-        obj.app = undefined;
-        return obj;
+    schema.methods.toResponseObject = function* (token) {
+        var obj = this.toObject()
+        obj._id = undefined
+        obj.__v = undefined
+        obj.app = undefined
+        return obj
     }
     return mongoose.model("signatures",schema)
-};
+}
