@@ -53,6 +53,7 @@ module.exports = {
 
         {name:"/talks/rooms/create",method:"post"},
         {name:"/talks/rooms/list",method:"get"},
+        {name:"/talks/rooms/show",method:"get"},
     ],
     websocket:[
         {name:"/posts/timeline"},
