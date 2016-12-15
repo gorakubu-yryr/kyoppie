@@ -49,7 +49,9 @@ module.exports = {
         {name:"/notifications/show",method:"get"},
         {name:"/notifications/read",method:"post"},
 
-        {name:"/files/upload",method:"post",file:true}
+        {name:"/files/upload",method:"post",file:true},
+
+        {name:"/talks/rooms/create",method:"post"}
     ],
     websocket:[
         {name:"/posts/timeline"},

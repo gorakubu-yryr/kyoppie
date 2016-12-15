@@ -13,9 +13,16 @@ module.exports = function(mongoose) {
         obj.__v = undefined
         if (this.users && this.users.length) {
             for (let i=0;i<this.users.length;i++) {
-                if (!this.users[i].toResponseObject) {
-                    // obj.users = []
-                    break
+                if (!this.users[i].toResponseObject) { // collectionでない
+                    if (!(typeof obj.users[i] !== "string")) { // IDでもなさそう
+                        // その要素をなかったことに
+                        obj.users.splice(i,1)
+                        this.users.splice(i,1)
+                        i--
+                        continue
+                    }
+                    // ユーザーを取得
+                    this.users[i] = yield mongoose.model("users").findById(obj.users[i])
                 }
                 obj.users[i] = yield this.users[i].toResponseObject(token)
             }
