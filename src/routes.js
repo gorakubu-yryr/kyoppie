@@ -54,6 +54,7 @@ module.exports = {
         {name:"/talks/rooms/create",method:"post"},
         {name:"/talks/rooms/list",method:"get"},
         {name:"/talks/rooms/show",method:"get"},
+        {name:"/talks/rooms/members/add",method:"post"},
     ],
     websocket:[
         {name:"/posts/timeline"},
