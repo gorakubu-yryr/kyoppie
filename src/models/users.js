@@ -51,6 +51,10 @@ module.exports = function(mongoose) {
         if (obj.avatar && obj.avatar.toResponseObject) {
             obj.avatar = yield this.avatar.toResponseObject(token)
         }
+        if (token) {
+            obj.isFollowing = !!(yield mongoose.model("follows").findOne({fromUser:token.user.id,toUser:obj.id}))
+            obj.isFollowers = !!(yield mongoose.model("follows").findOne({toUser:token.user.id,fromUser:obj.id}))
+        }
         return obj
     }
     return mongoose.model("users",schema)
