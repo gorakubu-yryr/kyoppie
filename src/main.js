@@ -86,6 +86,7 @@ routes.rest.forEach(function(route) {
         if (!route.allowNotAgree && login && !this.token.user.rulesAgree && Date.now() > rulesAgreePeriod) {
             this.status = 403
             this.body = {result:false,error:"please-rules-agree"}
+            return
         }
         yield next
     }
