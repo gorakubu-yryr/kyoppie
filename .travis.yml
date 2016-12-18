@@ -1,0 +1,7 @@
+language: node_js
+node_js:
+    - "7.1.0"
+before_script:
+    - npm install -g eslint
+script:
+    - npm run lint
