@@ -28,7 +28,7 @@ module.exports = function* (appKey,appSecretHash,sigKey,pinCode,requestToken) {
     var access_token = yield models.access_tokens.findOne({user:pin_code.user,app:app.id})
     // access_tokenがすでにあるならそれを使う
     if (access_token) {
-        yield models.pin_codes.findOne({id:pin_code.id}).remove()
+        yield models.pin_codes.findById(pin_code.id).remove()
         return access_token
     }
     // ないなら作る
@@ -37,6 +37,6 @@ module.exports = function* (appKey,appSecretHash,sigKey,pinCode,requestToken) {
     access_token.app = pin_code.app
     access_token.secret = crypto.createHash("sha256").update(app.appKey+access_token.token+app.appSecret).digest("hex")
     yield access_token.save()
-    yield models.pin_codes.findOne({id:pin_code.id}).remove()
+    yield models.pin_codes.findById(pin_code.id).remove()
     return access_token
 }

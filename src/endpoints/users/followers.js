@@ -5,7 +5,7 @@ module.exports = function* (screenName,id) {
     if (screenName) {
         user = yield models.users.findOne({screenNameLower:screenName.toLowerCase()})
     } else {
-        user = yield models.users.findOne({_id:models.mongoose.Types.ObjectId(id)})
+        user = yield models.users.findById(id)
     }
     if (!user) return Promise.reject("user-not-found")
     if (user.isSuspended) return Promise.reject("this-user-is-suspended")
