@@ -7,11 +7,12 @@ module.exports = {
 
         {name:"/users/show",method:"get",login:false},
         {name:"/users/list",method:"get",login:false},
-        {name:"/users/follow",method:"post"},
         {name:"/users/timeline",method:"get",login:false},
         {name:"/users/following",method:"get",login:false},
         {name:"/users/followers",method:"get",login:false},
         {name:"/users/favorites",method:"get",login:false},
+        {name:"/users/follow",method:"post"},
+        {name:"/users/unfollow",method:"post"},
 
         {name:"/auth/get_sigkey",method:"post",login:false},
         {name:"/auth/get_request_token",method:"post",login:false},
