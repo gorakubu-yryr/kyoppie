@@ -4,6 +4,7 @@ module.exports = {
 
         {name:"/web/register",method:"post",login:false},
         {name:"/web/rules_agree",method:"post",isWeb:true,allowNotAgree:true},
+        {name:"/web/rules_agree_period",method:"get",login:false},
 
         {name:"/users/show",method:"get",login:false},
         {name:"/users/list",method:"get",login:false},
