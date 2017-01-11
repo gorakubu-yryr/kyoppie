@@ -14,21 +14,14 @@ module.exports = function* (token,screenName,id) {
         fromUser:token.user.id,
         toUser:user.id
     })
-    if (follow) return Promise.reject("already-follow")
-    follow = new models.follows
-    follow.fromUser = token.user.id
-    follow.toUser = user.id
-    yield follow.save()
-    token.user.followingCount += 1
-    user.followersCount += 1
+    if (!follow) return Promise.reject("not-follow")
+    yield models.follows.remove({
+        fromUser: token.user.id,
+        toUser: user.id
+    })
+    token.user.followingCount -= 1
+    user.followersCount -= 1
     yield token.user.save()
     yield user.save()
-    // 通知作成
-    var notification = new models.notifications()
-    notification.type = "follow"
-    notification.receiveUser = user.id
-    notification.targetUser = token.user.id
-    yield notification.save()
-    notification.publish()
     return Promise.resolve("ok")
 }

@@ -4,14 +4,16 @@ module.exports = {
 
         {name:"/web/register",method:"post",login:false},
         {name:"/web/rules_agree",method:"post",isWeb:true,allowNotAgree:true},
+        {name:"/web/rules_agree_period",method:"get",login:false},
 
         {name:"/users/show",method:"get",login:false},
         {name:"/users/list",method:"get",login:false},
-        {name:"/users/follow",method:"post"},
         {name:"/users/timeline",method:"get",login:false},
         {name:"/users/following",method:"get",login:false},
         {name:"/users/followers",method:"get",login:false},
         {name:"/users/favorites",method:"get",login:false},
+        {name:"/users/follow",method:"post"},
+        {name:"/users/unfollow",method:"post"},
         {name:"/users/search",method:"get",login:false},
 
         {name:"/auth/get_sigkey",method:"post",login:false},

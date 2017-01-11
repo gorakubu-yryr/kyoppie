@@ -1,5 +1,7 @@
 # kyoppie-api
 
+[![Build Status](https://travis-ci.org/kyoppie/kyoppie-api.svg?branch=master)](https://travis-ci.org/kyoppie/kyoppie-api)
+  
 kyoppie is a Yuru Open Source SNS.
 
 ## how to run
