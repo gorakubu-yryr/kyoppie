@@ -12,6 +12,7 @@ module.exports = {
         {name:"/users/following",method:"get",login:false},
         {name:"/users/followers",method:"get",login:false},
         {name:"/users/favorites",method:"get",login:false},
+        {name:"/users/search",method:"get",login:false},
 
         {name:"/auth/get_sigkey",method:"post",login:false},
         {name:"/auth/get_request_token",method:"post",login:false},
