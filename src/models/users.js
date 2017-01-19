@@ -23,8 +23,8 @@ module.exports = function(mongoose) {
         },
         isSuspended:{type:Boolean,default:false},
         avatar:{type:mongoose.Schema.Types.ObjectId,ref:"files"},
-        avatarUrl:String,
-        avatarThumbnailUrl:String,
+        avatarUrl:{type:String,default:"https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&f=y"},
+        avatarThumbnailUrl:{type:String,default:"https://www.gravatar.com/avatar/00000000000000000000000000000000.jpg?d=mm&f=y"},
         rulesAgree:{type:Boolean,defualt:false},
     },{
         timestamps:true
