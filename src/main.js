@@ -150,7 +150,7 @@ wss.on("connection",function(ws) {
         ws_route[url].callback(ws)
     }
 })
-app.use(function *() {
+app.use(function* () {
     this.status = 404
     this.body = {result:false,error:"not-found"}
 })
