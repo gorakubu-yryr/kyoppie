@@ -8,14 +8,14 @@ module.exports = function(mongoose) {
     },{
         timestamps:true
     })
-    schema.methods.toResponseObject = function* (token) {
+    schema.methods.toResponseObject = async function (token) {
         var obj = this.toObject()
         obj.id = this._id
         obj._id = undefined
         obj.__v = undefined
-        if (this.user.toResponseObject) obj.user=yield this.user.toResponseObject(token)
+        if (this.user.toResponseObject) obj.user=await this.user.toResponseObject(token)
         if (this.app && this.app.toResponseObject) {
-            obj.app=yield this.app.toResponseObject(token)
+            obj.app=await this.app.toResponseObject(token)
             delete obj.app.appKey
             delete obj.app.appSecret
         }
@@ -25,11 +25,11 @@ module.exports = function(mongoose) {
                     obj.files = []
                     break
                 }
-                obj.files[i] = yield this.files[i].toResponseObject(token)
+                obj.files[i] = await this.files[i].toResponseObject(token)
             }
         }
         if (token) {
-            obj.isFavorited = !!(yield mongoose.model("favorites").findOne({user:token.user.id,post:this.id}))
+            obj.isFavorited = !!(await mongoose.model("favorites").findOne({user:token.user.id,post:this.id}))
         }
         obj.html = obj.text
         obj.html = obj.html.split('&').join("&amp;")

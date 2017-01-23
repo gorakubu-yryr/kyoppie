@@ -1,5 +1,5 @@
 var models = require("../../../models")
-module.exports = function* (token) {
+module.exports = async function (token) {
     if (!token.user.adminFlag.userMng) return Promise.reject("no-permission")
-    return yield models.users.find().sort("createdAt")
+    return await models.users.find().sort("createdAt")
 }

@@ -1,13 +1,13 @@
 
-module.exports = function* (promise,this_) {
+module.exports = async function (promise,this_) {
     try {
-        var r = yield promise
+        var r = await promise
         if (Array.isArray(r)) {
             for (var i = 0; i<r.length; i++) {
-                if (r[i].toResponseObject) r[i] = yield r[i].toResponseObject(this_.token)
+                if (r[i].toResponseObject) r[i] = await r[i].toResponseObject(this_.token)
             }
         }
-        if (r.toResponseObject) r = yield r.toResponseObject(this_.token)
+        if (r.toResponseObject) r = await r.toResponseObject(this_.token)
         this_.body = {result:true,response:r}
     } catch (r) {
         if (typeof r === "object") {

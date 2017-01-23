@@ -1,5 +1,5 @@
-var koa = require("koa")
-var app = koa()
+var Koa = require("koa")
+var app = new Koa()
 var server = require("http").createServer()
 var wss = new require("ws").Server({server})
 var models = require("./models")
@@ -20,26 +20,26 @@ console.log("Repository: https://github.com/kyoppie/kyoppie-api")
 app.use(bodyParser())
 
 // CORS
-app.use(function* (next) {
+app.use(async function (next) {
     this.append("Access-Control-Allow-Origin","*")
     this.append("Access-Control-Allow-Method","GET, POST, OPTIONS")
     this.append("Access-Control-Allow-Headers","X-Kyoppie-Access-Token")
     this.append("Access-Control-Max-Age","86400")
-    yield next
+    await next
 })
-app.use(function* (next) {
+app.use(async function (next) {
     if (this.request.method === "OPTIONS") {
         this.status = 200
         this.body = "ok"
         return
     }
-    yield next
+    await next
 })
-app.use(function* (next) {
+app.use(async function (next) {
     var origpath = this.request.path
     this.path = this.path.replace(/\.msgpack$/,"")
     this.path = this.path.replace(/\.yaml$/,"")
-    yield next
+    await next
     this.body = JSON.parse(JSON.stringify(this.body))
     if (/.*\.msgpack$/.test(origpath)) { // msgpack hack
         this.set("Content-Type","application/x-msgpack")
@@ -53,18 +53,18 @@ app.use(function* (next) {
     }
 })
 // MongoDB Logger
-app.use(function* (next) {
-    if (this.request.method !== "POST") return yield next
+app.use(async function (next) {
+    if (this.request.method !== "POST") return await next
     var log = new models.logs()
     log.ipaddr = this.request.header['x-forwarded-for'] || this.socket.remoteAddress
     log.path = this.path
-    yield next
+    await next
     log.response = JSON.stringify(this.body)
-    yield log.save()
+    await log.save()
 })
 // console logger
-app.use(function* (next) {
-    yield next
+app.use(async function (next) {
+    await next
     var log_string = this.request.method+" "+this.request.path+" "+this.status+" "
     if (this.body.result === false) log_string += this.body.error
     console.log(log_string)
@@ -77,7 +77,7 @@ routes.rest.forEach(function(route) {
     var method = route.method
     var path = route.name
     var authFunc = tokenAuth(route,login)
-    var checkSuspended = function* (next) {
+    var checkSuspended = async function (next) {
         if (this.request.method == "POST" && login && this.token.user.isSuspended) {
             this.status = 403
             this.body = {result:false,error:"this-user-is-suspended"}
@@ -88,16 +88,16 @@ routes.rest.forEach(function(route) {
             this.body = {result:false,error:"please-rules-agree"}
             return
         }
-        yield next
+        await next
     }
     app.use(_[method](path,authFunc))
     if (login) app.use(_[method](path,checkSuspended))
     if (route.file) {
         var multer_func = multer.single("file")
-        app.use(_[method](path,function* (next) {
-            yield multer_func(this)
+        app.use(_[method](path,async function (next) {
+            await multer_func(this)
             this.file = this.req.file
-            yield next
+            await next
         }))
     }
     app.use(_[method](path,require("./handlers/web"+path)))
@@ -150,7 +150,7 @@ wss.on("connection",function(ws) {
         ws_route[url].callback(ws)
     }
 })
-app.use(function* () {
+app.use(async function () {
     this.status = 404
     this.body = {result:false,error:"not-found"}
 })

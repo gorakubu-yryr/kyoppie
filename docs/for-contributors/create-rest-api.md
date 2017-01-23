@@ -10,7 +10,7 @@
 テンプレート↓
 ```
 var models = require("../../models")
-module.exports = function* (){
+module.exports = async function (){
 }
 ```
 基本的に、ここでreturnしたものが*クライアント向けに整形されてから*返ります。

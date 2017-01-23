@@ -1,6 +1,6 @@
 var models = require("../../../models")
 
-module.exports = function* (token,name,url) {
+module.exports = async function (token,name,url) {
     if (!token.user.adminFlag.fileServer) return Promise.reject("not-permission")
     if (!name || typeof name != 'string') return Promise.reject("name-is-required")
     if (!url || typeof url != 'string') return Promise.reject("name-is-required")
@@ -8,5 +8,5 @@ module.exports = function* (token,name,url) {
         name,
         url
     })
-    return yield server.save()
+    return await server.save()
 }

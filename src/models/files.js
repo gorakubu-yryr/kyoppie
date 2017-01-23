@@ -25,7 +25,7 @@ module.exports = function(mongoose) {
         }
         return this.host+this.thumbnailPath
     }
-    schema.methods.toResponseObject = function* (token) {
+    schema.methods.toResponseObject = async function (token) {
         var obj = this.toObject()
         obj.id = this._id
         obj._id = undefined

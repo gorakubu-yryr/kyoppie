@@ -1,6 +1,6 @@
 var models = require("../../models")
 var getRedisConnection = require("../../utils/getRedisConnection")
-module.exports = function* (token,text,files) {
+module.exports = async function (token,text,files) {
     // validate
     if (!text) return Promise.reject("text-is-require")
     if (!files) files = ""
@@ -13,19 +13,19 @@ module.exports = function* (token,text,files) {
         if (id.length != 24) return undefined
         return id
     })
-    files = yield models.files.find({
+    files = await models.files.find({
         _id:{$in:file_ids}
     })
     if (files.length > 1) return Promise.reject("file-too-many")
     post.files = files
     // 投稿を保存
-    yield post.save()
-    yield post.user.save()
+    await post.save()
+    await post.user.save()
     // ファイルがどこかで使われているフラグを立てる
     for (var i = 0;i < files.length;i++) {
         if (!files[i].isUse) {
             files[i].isUse = true
-            yield files[i].save()
+            await files[i].save()
         }
     }
     // リプライをチェック
@@ -35,7 +35,7 @@ module.exports = function* (token,text,files) {
     while (match = re.exec(post.text)) {
         if (-1 === users.indexOf(match[2])) users.push(match[2])
     }
-    users = yield models.users.find({screenName:{$in:users}})
+    users = await models.users.find({screenName:{$in:users}})
     var promises = []
     users.forEach(function(user) {
         var notification = new models.notifications
@@ -48,9 +48,9 @@ module.exports = function* (token,text,files) {
             notification.publish()
         }))
     })
-    yield Promise.all(promises)
+    await Promise.all(promises)
     // タイムラインのストリーミングに垂れ流す
-    var following = yield models.follows.find({toUser:token.user.id})
+    var following = await models.follows.find({toUser:token.user.id})
     var redis = getRedisConnection()
     redis.publish("kyoppie:posts-timeline:"+token.user.id,post.id)
     following.forEach(function(following) {

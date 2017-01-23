@@ -1,16 +1,16 @@
 var models = require("../../models")
-module.exports = function* (token,screenName,id) {
+module.exports = async function (token,screenName,id) {
     if (!screenName && !id) return Promise.reject("screenName-or-id-require")
     var user
     if (screenName) {
-        user = yield models.users.findOne({screenNameLower:screenName.toLowerCase()})
+        user = await models.users.findOne({screenNameLower:screenName.toLowerCase()})
     } else {
-        user = yield models.users.findById(id)
+        user = await models.users.findById(id)
     }
     if (!user) return Promise.reject("user-not-found")
     if (user.isSuspended) return Promise.reject("this-user-is-suspended")
     if (token.user.id == user.id) return Promise.reject("私が私を見つめてました")
-    var follow = yield models.follows.findOne({
+    var follow = await models.follows.findOne({
         fromUser:token.user.id,
         toUser:user.id
     })
@@ -18,17 +18,17 @@ module.exports = function* (token,screenName,id) {
     follow = new models.follows
     follow.fromUser = token.user.id
     follow.toUser = user.id
-    yield follow.save()
+    await follow.save()
     token.user.followingCount += 1
     user.followersCount += 1
-    yield token.user.save()
-    yield user.save()
+    await token.user.save()
+    await user.save()
     // 通知作成
     var notification = new models.notifications()
     notification.type = "follow"
     notification.receiveUser = user.id
     notification.targetUser = token.user.id
-    yield notification.save()
+    await notification.save()
     notification.publish()
     return Promise.resolve("ok")
 }
