@@ -19,54 +19,64 @@ console.log("Repository: https://github.com/kyoppie/kyoppie-api")
 
 app.use(bodyParser())
 
-// CORS
-app.use(async function (next) {
-    this.append("Access-Control-Allow-Origin","*")
-    this.append("Access-Control-Allow-Method","GET, POST, OPTIONS")
-    this.append("Access-Control-Allow-Headers","X-Kyoppie-Access-Token")
-    this.append("Access-Control-Max-Age","86400")
-    await next
+app.use(async function(ctx, next) {
+    try{
+        await next()
+    } catch(err) {
+        console.log(err)
+        ctx.status = 500
+        ctx.body = {result:false,error:"server-side-error"}
+    }
 })
-app.use(async function (next) {
-    if (this.request.method === "OPTIONS") {
-        this.status = 200
-        this.body = "ok"
+
+// CORS
+app.use(async function (ctx, next) {
+    ctx.append("Access-Control-Allow-Origin","*")
+    ctx.append("Access-Control-Allow-Method","GET, POST, OPTIONS")
+    ctx.append("Access-Control-Allow-Headers","X-Kyoppie-Access-Token")
+    ctx.append("Access-Control-Max-Age","86400")
+    await next()
+})
+app.use(async function (ctx, next) {
+    if (ctx.request.method === "OPTIONS") {
+        ctx.status = 200
+        ctx.body = "ok"
         return
     }
-    await next
+    await next()
 })
-app.use(async function (next) {
-    var origpath = this.request.path
-    this.path = this.path.replace(/\.msgpack$/,"")
-    this.path = this.path.replace(/\.yaml$/,"")
-    await next
-    this.body = JSON.parse(JSON.stringify(this.body))
+app.use(async function (ctx, next) {
+    var origpath = ctx.path
+    ctx.path = ctx.path.replace(/\.msgpack$/,"")
+    ctx.path = ctx.path.replace(/\.yaml$/,"")
+    await next()
+    ctx.body = JSON.parse(JSON.stringify(ctx.body))
     if (/.*\.msgpack$/.test(origpath)) { // msgpack hack
-        this.set("Content-Type","application/x-msgpack")
-        this.body = msgpack.encode(this.body)
+        ctx.set("Content-Type","application/x-msgpack")
+        ctx.body = msgpack.encode(ctx.body)
     } else if (/.*\.yaml$/.test(origpath)) { // yaml hack
-        this.set("Content-Type","text/yaml")
-        this.body = yaml.stringify(this.body)
+        ctx.set("Content-Type","text/yaml")
+        ctx.body = yaml.stringify(ctx.body)
     } else { // json
-        this.set("Content-Type","application/json")
-        this.body = JSON.stringify(this.body)
+        ctx.set("Content-Type","application/json")
+        ctx.body = JSON.stringify(ctx.body)
     }
 })
 // MongoDB Logger
-app.use(async function (next) {
-    if (this.request.method !== "POST") return await next
+app.use(async function (ctx, next) {
+    if (ctx.request.method !== "POST") return await next()
     var log = new models.logs()
-    log.ipaddr = this.request.header['x-forwarded-for'] || this.socket.remoteAddress
-    log.path = this.path
-    await next
-    log.response = JSON.stringify(this.body)
+    log.ipaddr = ctx.request.header['x-forwarded-for'] || ctx.socket.remoteAddress
+    log.path = ctx.path
+    await next()
+    log.response = JSON.stringify(ctx.body)
     await log.save()
 })
 // console logger
-app.use(async function (next) {
-    await next
-    var log_string = this.request.method+" "+this.request.path+" "+this.status+" "
-    if (this.body.result === false) log_string += this.body.error
+app.use(async function (ctx, next) {
+    await next()
+    var log_string = ctx.request.method+" "+ctx.request.path+" "+ctx.status+" "
+    if (ctx.body.result === false) log_string += ctx.body.error
     console.log(log_string)
 })
 // REST APIのrouter
@@ -77,30 +87,33 @@ routes.rest.forEach(function(route) {
     var method = route.method
     var path = route.name
     var authFunc = tokenAuth(route,login)
-    var checkSuspended = async function (next) {
-        if (this.request.method == "POST" && login && this.token.user.isSuspended) {
-            this.status = 403
-            this.body = {result:false,error:"this-user-is-suspended"}
+    var checkSuspended = async function (ctx, next) {
+        if (ctx.request.method == "POST" && login && ctx.token.user.isSuspended) {
+            ctx.status = 403
+            ctx.body = {result:false,error:"this-user-is-suspended"}
             return
         }
-        if (!route.allowNotAgree && login && !this.token.user.rulesAgree && rulesAgreePeriod()) {
-            this.status = 403
-            this.body = {result:false,error:"please-rules-agree"}
+        if (!route.allowNotAgree && login && !ctx.token.user.rulesAgree && rulesAgreePeriod()) {
+            ctx.status = 403
+            ctx.body = {result:false,error:"please-rules-agree"}
             return
         }
-        await next
+        await next()
     }
     app.use(_[method](path,authFunc))
     if (login) app.use(_[method](path,checkSuspended))
     if (route.file) {
         var multer_func = multer.single("file")
-        app.use(_[method](path,async function (next) {
-            await multer_func(this)
-            this.file = this.req.file
-            await next
+        app.use(_[method](path,async function (ctx, next) {
+            await multer_func(ctx)
+            ctx.file = ctx.req.file
+            await next()
         }))
     }
-    app.use(_[method](path,require("./handlers/web"+path)))
+    var handler = require("./handlers/web"+path)
+    app.use(_[method](path,async function(ctx){
+        await handler.bind(ctx)(ctx)
+    }))
 })
 // WebSocket APIのrouter
 var ws_route = {}
@@ -150,14 +163,9 @@ wss.on("connection",function(ws) {
         ws_route[url].callback(ws)
     }
 })
-app.use(async function () {
-    this.status = 404
-    this.body = {result:false,error:"not-found"}
-})
-app.on("error",function(err) {
-    console.log(err)
-    this.status = 500
-    this.body = {result:false,error:"server-side-error"}
+app.use(async function (ctx) {
+    ctx.status = 404
+    ctx.body = {result:false,error:"not-found"}
 })
 server.on("request",app.callback())
 server.listen(process.env.PORT || 4005,function() {

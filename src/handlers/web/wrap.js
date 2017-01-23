@@ -1,22 +1,23 @@
 
-module.exports = async function (promise,this_) {
+module.exports = async function (promise,ctx) {
+    console.log(promise)
     try {
         var r = await promise
         if (Array.isArray(r)) {
             for (var i = 0; i<r.length; i++) {
-                if (r[i].toResponseObject) r[i] = await r[i].toResponseObject(this_.token)
+                if (r[i].toResponseObject) r[i] = await r[i].toResponseObject(ctx.token)
             }
         }
-        if (r.toResponseObject) r = await r.toResponseObject(this_.token)
-        this_.body = {result:true,response:r}
+        if (r.toResponseObject) r = await r.toResponseObject(ctx.token)
+        ctx.body = {result:true,response:r}
     } catch (r) {
         if (typeof r === "object") {
             console.log(r)
-            this_.status = 503
-            this_.body = {result:false,error:"server-side-error"}
+            ctx.status = 503
+            ctx.body = {result:false,error:"server-side-error"}
         } else {
-            this_.status = 400
-            this_.body = {result:false,error:r}
+            ctx.status = 400
+            ctx.body = {result:false,error:r}
         }
     }
 }
