@@ -11,7 +11,7 @@ module.exports = function (route,login) {
                 ctx.token=token
             }
         }
-        if (login && !ctx_.token) {
+        if (login && !ctx.token) {
             ctx.status = 403
             ctx.body = {response:false,error:"please-login"}
         } else {
