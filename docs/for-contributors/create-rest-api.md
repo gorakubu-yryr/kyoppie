@@ -25,7 +25,7 @@ Redisに対応したい場合は`posts/create`の最後の方を参考にして�
 `{name:"エンドポイント",method:"(get|post)"}`
 - 認証必要ないなら`login:false`を追加。
 - Webからのみ呼び出せるAPIなら`isWeb:true`を追加。
-- 管理者のみ呼び出せるAPIなら`isAdmin:true`を追加。(**これとは別途src/endpoints`側でもフラグチェックが必要**)
+- 管理者のみ呼び出せるAPIなら`isAdmin:true`を追加。(**これとは別途`src/endpoints`側でもフラグチェックが必要**)
 
 ## 動作確認をする
 kyoppie-webのサーバーが立ってるならkyoppie-webのサーバーのページを開いた状態でJavaScriptコンソールで`$.api.get`または`$.api.post`でAPIコールができる。
