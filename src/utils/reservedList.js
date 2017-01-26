@@ -125,19 +125,12 @@ var black_list = [
     "kagoshima",
     "okinawa"
 ]
-module.exports = black_list
+module.exports = []
 black_list.forEach(function(black) {
+    module.exports.push(black)
     module.exports.push(black+"_official")
-})
-black_list.forEach(function(black) {
     module.exports.push(black+"official")
-})
-black_list.forEach(function(black) {
     module.exports.push("official"+black)
-})
-black_list.forEach(function(black) {
     module.exports.push("official_"+black)
-})
-black_list.forEach(function(black) {
     if (~black.indexOf("_")) module.exports.push(black.replace(/_/,""))
 })
