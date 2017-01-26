@@ -13,7 +13,7 @@ var reserved_list = [
     "pnutio",
     "kyoppie",
     "otomads",
-    "otomadscom",
+    "otomads_com",
     "niconico",
     "youtube",
     "misskey_tv",
@@ -160,21 +160,23 @@ var reserved_list = [
 var country_list = [
     "jp",
     "japan",
-    "us",
     "en",
-    "cn",
+    "us"
 ]
 module.exports = []
+var orig_reserved_list = reserved_list
+orig_reserved_list.forEach(function(reserved) {
+    if (~reserved.indexOf("_")) reserved_list.push(reserved.replace(/_/,""))
+    country_list.forEach(function(country) {
+        reserved_list.push(reserved+"_"+country)
+        reserved_list.push(reserved+country)
+        reserved_list.push(reserved+"_"+country+"_official")
+    })
+})
 reserved_list.forEach(function(reserved) {
     module.exports.push(reserved)
     module.exports.push(reserved+"_official")
     module.exports.push(reserved+"official")
     module.exports.push("official"+reserved)
     module.exports.push("official_"+reserved)
-    country_list.forEach(function(country) {
-        module.exports.push(reserved+"_"+country)
-        module.exports.push(reserved+country)
-        module.exports.push(reserved+"_"+country+"_official")
-    })
-    if (~reserved.indexOf("_")) module.exports.push(reserved.replace(/_/,""))
 })
