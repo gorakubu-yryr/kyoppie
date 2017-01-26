@@ -52,7 +52,9 @@ module.exports = {
         {name:"/notifications/show",method:"get"},
         {name:"/notifications/read",method:"post"},
 
-        {name:"/files/upload",method:"post",file:true}
+        {name:"/files/upload",method:"post",file:true},
+
+        {name:"/about/reserved_screen_name",method:"get",login:false},
     ],
     websocket:[
         {name:"/posts/timeline"},
