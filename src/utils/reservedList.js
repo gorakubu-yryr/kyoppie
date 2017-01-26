@@ -19,6 +19,7 @@ var reserved_list = [
     "misskey_tv",
     "amazon",
     "aws",
+    "biribiri",
     // program
     "linux",
     "mac",
@@ -53,6 +54,8 @@ var reserved_list = [
     "alphabet",
     "hatena",
     "sharp",
+    "microsoft",
+    "dwango",
     // tech
     "usb",
     // gaming
