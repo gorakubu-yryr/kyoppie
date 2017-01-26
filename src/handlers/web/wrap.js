@@ -7,6 +7,7 @@ module.exports = async function (promise,ctx) {
                 if (r[i].toResponseObject) r[i] = await r[i].toResponseObject(ctx.token)
             }
         }
+        if (r.then) r = await r
         if (r.toResponseObject) r = await r.toResponseObject(ctx.token)
         ctx.body = {result:true,response:r}
     } catch (r) {
