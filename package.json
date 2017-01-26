@@ -5,7 +5,7 @@
   "main": "src/main.js",
   "scripts": {
     "start": "node --harmony ./src/main.js",
-    "lint": "$(npm bin)/eslint ./src/**/*.js",
+    "lint": "find src/ -type f | grep .js | xargs $(npm bin)/eslint",
     "test": "mocha",
     "migrate": "cd src/migrate && node --harmony index.js run"
   },
