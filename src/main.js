@@ -20,9 +20,9 @@ console.log("Repository: https://github.com/kyoppie/kyoppie-api")
 app.use(bodyParser())
 
 app.use(async function(ctx, next) {
-    try{
+    try {
         await next()
-    } catch(err) {
+    } catch (err) {
         console.log(err)
         ctx.status = 500
         ctx.body = {result:false,error:"server-side-error"}
