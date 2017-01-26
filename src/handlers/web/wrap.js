@@ -1,6 +1,5 @@
 
 module.exports = async function (promise,ctx) {
-    console.log(promise)
     try {
         var r = await promise
         if (Array.isArray(r)) {

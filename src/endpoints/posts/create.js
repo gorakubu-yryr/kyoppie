@@ -44,7 +44,6 @@ module.exports = async function (token,text,files) {
         notification.targetUser = post.user.id
         notification.targetPost = post.id
         promises.push(notification.save().then(function() {
-            console.log(notification)
             notification.publish()
         }))
     })
