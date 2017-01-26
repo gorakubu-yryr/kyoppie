@@ -1,5 +1,6 @@
 var models = require("../../models")
 var isValidScreenName = require("../../utils/isValidScreenName")
+var reservedList = require("../../utils/reservedList")
 module.exports = async function (requestToken,name,screenName,password) {
     // バリデーション
     if (!requestToken) return Promise.reject("require-requestToken")
@@ -15,6 +16,8 @@ module.exports = async function (requestToken,name,screenName,password) {
     if (!request_token) return Promise.reject("requestToken-invalid")
     // Webじゃなかったら返す
     if (!request_token.app.isWeb) return Promise.reject("this-api-is-web-only")
+    // ブラックリストに入っているかどうか
+    if (~reservedList.indexOf(screenName.toLowerCase())) return Promise.reject("this-screen-name-is-reserved-list")
     // 既存ユーザーがいないか確認する
     var res = await models.users.findOne({screenNameLower:screenName.toLowerCase()})
     if (res) return Promise.reject("duplicate-screenName")
