@@ -31,9 +31,11 @@ module.exports = function(mongoose) {
         var this_ = this
         var promises = []
         toResponseObjects.forEach(function(name) {
+            if (!this_[name]) return
+            if (!this_[name].toResponseObject) return
             promises.push(async function () {
-                if (this_[name] && this_[name].toResponseObject) obj[name]=await this_[name].toResponseObject(token)
-            })
+                obj[name]=await this_[name].toResponseObject(token)
+            }())
         })
         await Promise.all(promises)
         return obj
