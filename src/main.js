@@ -111,7 +111,7 @@ routes.rest.forEach(function(route) {
         }))
     }
     var handler = require("./handlers/web"+path)
-    app.use(_[method](path,async function(ctx){
+    app.use(_[method](path,async function(ctx) {
         await handler.bind(ctx)(ctx)
     }))
 })

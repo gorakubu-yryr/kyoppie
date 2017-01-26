@@ -29,7 +29,7 @@ module.exports = async function (token,text,files) {
         }
     }
     // リプライをチェック
-    var re = /(^| |　)@([A-Za-z0-9_]+)/g
+    var re = /(^| |\u3000)@([A-Za-z0-9_]+)/g
     var match
     var users = []
     while (match = re.exec(post.text)) {
