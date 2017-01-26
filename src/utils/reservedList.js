@@ -1,8 +1,7 @@
-var black_list = [
+var reserved_list = [
     // internet services
     "google",
     "yahoo",
-    "yahoojapan",
     "bing",
     "baido",
     "twitter",
@@ -18,6 +17,8 @@ var black_list = [
     "niconico",
     "youtube",
     "misskey_tv",
+    "amazon",
+    "aws",
     // program
     "linux",
     "mac",
@@ -38,15 +39,46 @@ var black_list = [
     "apache",
     "apache2",
     "lighttpd",
-    // gaming
+    "norton",
+    "kaspersky",
+    "eset",
+    "virus_buster",
+    "avg",
+    "windows_defender",
+    // company
     "nintendo",
+    "sony",
+    "toshiba",
+    "fujitsu",
+    "alphabet",
+    "hatena",
+    "sharp",
+    // tech
+    "usb",
+    // gaming
     "wiiu",
     "wii",
+    "gamecube",
+    "nintendo_64",
+    "super_famicom",
+    "super_famicon",
+    "family_computer",
     "nintendo_switch",
     "playstation",
+    "playstation_2",
+    "playstation_3",
+    "playstation_4",
+    "ps",
+    "ps2",
+    "ps3",
+    "ps4",
+    "psp",
     "xbox",
     "xbox_one",
     "xbox_360",
+    "splatoon",
+    "finalfantasy",
+    "dragonquest",
     // US
     "potus",
     "united_states",
@@ -125,12 +157,24 @@ var black_list = [
     "kagoshima",
     "okinawa"
 ]
+var country_list = [
+    "jp",
+    "japan",
+    "us",
+    "en",
+    "cn",
+]
 module.exports = []
-black_list.forEach(function(black) {
-    module.exports.push(black)
-    module.exports.push(black+"_official")
-    module.exports.push(black+"official")
-    module.exports.push("official"+black)
-    module.exports.push("official_"+black)
-    if (~black.indexOf("_")) module.exports.push(black.replace(/_/,""))
+reserved_list.forEach(function(reserved) {
+    module.exports.push(reserved)
+    module.exports.push(reserved+"_official")
+    module.exports.push(reserved+"official")
+    module.exports.push("official"+reserved)
+    module.exports.push("official_"+reserved)
+    country_list.forEach(function(country) {
+        module.exports.push(reserved+"_"+country)
+        module.exports.push(reserved+country)
+        module.exports.push(reserved+"_"+country+"_official")
+    })
+    if (~reserved.indexOf("_")) module.exports.push(reserved.replace(/_/,""))
 })
