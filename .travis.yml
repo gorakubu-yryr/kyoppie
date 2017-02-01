@@ -1,8 +1,7 @@
 language: node_js
 node_js:
-    - "7.1.0"
-before_script:
-    - npm install -g eslint
+    - "7.0.0"
+    - "7.4.0"
 services:
     - mongodb
 script:

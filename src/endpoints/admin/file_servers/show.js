@@ -1,5 +1,5 @@
 var models = require("../../../models")
-module.exports = function* (token,id) {
+module.exports = async function (token,id) {
     if (!token.user.adminFlag.fileServer) return Promise.reject("damedesu")
-    return yield models.file_servers.findById(id)
+    return await models.file_servers.findById(id)
 }

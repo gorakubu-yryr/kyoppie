@@ -1,6 +1,6 @@
 var crypto = require("crypto")
 var fs = require("fs")
-module.exports = function(path) {
+module.exports = function (path) {
     return new Promise(function(resolve,reject) {
         var read_stream_1 = fs.ReadStream(path)
         var hashsum = crypto.createHash("sha256")

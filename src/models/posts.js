@@ -8,14 +8,14 @@ module.exports = function(mongoose) {
     },{
         timestamps:true
     })
-    schema.methods.toResponseObject = function* (token) {
+    schema.methods.toResponseObject = async function (token) {
         var obj = this.toObject()
         obj.id = this._id
         obj._id = undefined
         obj.__v = undefined
-        if (this.user.toResponseObject) obj.user=yield this.user.toResponseObject(token)
+        if (this.user.toResponseObject) obj.user=await this.user.toResponseObject(token)
         if (this.app && this.app.toResponseObject) {
-            obj.app=yield this.app.toResponseObject(token)
+            obj.app=await this.app.toResponseObject(token)
             delete obj.app.appKey
             delete obj.app.appSecret
         }
@@ -25,11 +25,11 @@ module.exports = function(mongoose) {
                     obj.files = []
                     break
                 }
-                obj.files[i] = yield this.files[i].toResponseObject(token)
+                obj.files[i] = await this.files[i].toResponseObject(token)
             }
         }
         if (token) {
-            obj.isFavorited = !!(yield mongoose.model("favorites").findOne({user:token.user.id,post:this.id}))
+            obj.isFavorited = !!(await mongoose.model("favorites").findOne({user:token.user.id,post:this.id}))
         }
         obj.html = obj.text
         obj.html = obj.html.split('&').join("&amp;")
@@ -37,8 +37,9 @@ module.exports = function(mongoose) {
         obj.html = obj.html.split(">").join("&gt;")
         // obj.html = obj.html.split('"').join("&quot;")
         obj.html = obj.html.split("\n").join("<br>")
-        obj.html = obj.html.replace(/(^| |　)@([A-Za-z0-9_]+)/g,'$1<a href="/u/$2">@$2</a>')
+        obj.html = obj.html.replace(/(^| |\u3000)@([A-Za-z0-9_]+)/g,'$1<a href="/u/$2">@$2</a>')
         obj.html = obj.html.replace(/(https?:\/\/[a-zA-Z0-9-\.]+(:[0-9]+)?(\/?[a-zA-Z0-9-\._~\!#$&'\(\)\*\+,\/:;=\?@\[\]]*))/g,'<a href="$1" rel="nofollow" target="_blank">$1</a>')
+        obj.html = obj.html.replace(/moz:\/\/a/,'<a href="https://www.mozilla.jp/">moz://a</a>')
         return obj
     }
     return mongoose.model("posts",schema)

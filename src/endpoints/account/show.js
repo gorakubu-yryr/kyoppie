@@ -1,3 +1,3 @@
-module.exports = function* (token) {
+module.exports = async function (token) {
     return token.user
 }

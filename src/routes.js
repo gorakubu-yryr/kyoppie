@@ -47,12 +47,15 @@ module.exports = {
         {name:"/admin/users/change_password",method:"post",isAdmin:true},
         {name:"/admin/users/suspend",method:"post",isAdmin:true},
         {name:"/admin/users/unsuspend",method:"post",isAdmin:true},
+        {name:"/admin/users/change_screen_name",method:"post",isAdmin:true},
 
         {name:"/notifications/list",method:"get"},
         {name:"/notifications/show",method:"get"},
         {name:"/notifications/read",method:"post"},
 
         {name:"/files/upload",method:"post",file:true},
+
+        {name:"/about/reserved_screen_name",method:"get",login:false},
 
         {name:"/talks/rooms/create",method:"post"},
         {name:"/talks/rooms/list",method:"get"},

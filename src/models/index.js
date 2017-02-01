@@ -1,6 +1,6 @@
 var mongoose = require("mongoose")
 var fs = require("fs")
-mongoose.connect("mongodb://localhost/kyoppie_api")
+mongoose.connect("mongodb://"+(process.env.MONGO_HOST || "localhost")+"/"+(process.env.MONGO_DBNAME || "kyoppie_api"))
 var files = fs.readdirSync(__dirname)
 var db={}
 files.forEach(function(file) {

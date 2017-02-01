@@ -1,7 +1,7 @@
 var models = require("../../models")
 var request = require("request")
 var crypto = require("crypto")
-module.exports = function* (buffer) {
+module.exports = async function (buffer) {
     function getFileServer() {
         return models.file_servers.findOne().then(function(server) {
             if (!server) return Promise.reject("not-found-fileserver")
@@ -11,10 +11,10 @@ module.exports = function* (buffer) {
     var _hash = crypto.createHash("sha256")
     _hash.update(buffer)
     var hash = _hash.digest("hex")
-    file = yield models.files.findOne({hash})
+    file = await models.files.findOne({hash})
     if (file) return file
-    var file_server = yield getFileServer()
-    var body = yield new Promise(function(resolve,reject) {
+    var file_server = await getFileServer()
+    var body = await new Promise(function(resolve,reject) {
         request.post({
             url:file_server.url+"/api/v1/upload",
             formData:{
@@ -42,5 +42,5 @@ module.exports = function* (buffer) {
     file.path = body.url
     file.hash = hash
     file.thumbnailPath = body.thumbnail
-    return yield file.save()
+    return await file.save()
 }

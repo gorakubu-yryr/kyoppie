@@ -23,8 +23,8 @@ module.exports = function(mongoose) {
         },
         isSuspended:{type:Boolean,default:false},
         avatar:{type:mongoose.Schema.Types.ObjectId,ref:"files"},
-        avatarUrl:String,
-        avatarThumbnailUrl:String,
+        avatarUrl:{type:String,default:"https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&f=y"},
+        avatarThumbnailUrl:{type:String,default:"https://www.gravatar.com/avatar/00000000000000000000000000000000.jpg?d=mm&f=y"},
         rulesAgree:{type:Boolean,defualt:false},
     },{
         timestamps:true
@@ -40,7 +40,7 @@ module.exports = function(mongoose) {
         var hashPassword = getHashedPassword(password,salt)
         return this.password === hashPassword
     }
-    schema.methods.toResponseObject = function* (token) {
+    schema.methods.toResponseObject = async function (token) {
         var obj = this.toObject()
         obj.id = this._id
         obj._id = undefined
@@ -49,11 +49,11 @@ module.exports = function(mongoose) {
         obj.passwordSalt = undefined
         obj.push = undefined
         if (obj.avatar && obj.avatar.toResponseObject) {
-            obj.avatar = yield this.avatar.toResponseObject(token)
+            obj.avatar = await this.avatar.toResponseObject(token)
         }
         if (token) {
-            obj.isFollowing = !!(yield mongoose.model("follows").findOne({fromUser:token.user.id,toUser:obj.id}))
-            obj.isFollowers = !!(yield mongoose.model("follows").findOne({toUser:token.user.id,fromUser:obj.id}))
+            obj.isFollowing = !!(await mongoose.model("follows").findOne({fromUser:token.user.id,toUser:obj.id}))
+            obj.isFollowers = !!(await mongoose.model("follows").findOne({toUser:token.user.id,fromUser:obj.id}))
         }
         return obj
     }

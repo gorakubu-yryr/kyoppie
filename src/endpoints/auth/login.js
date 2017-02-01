@@ -1,12 +1,12 @@
 var models = require("../../models")
 var getHashedPassword = require("../../utils/getHashedPassword")
-module.exports = function* (requestToken,screenName,password) {
+module.exports = async function (requestToken,screenName,password) {
     if (!requestToken) return Promise.reject("require-requestToken")
     if (!screenName || typeof screenName !== "string") return Promise.reject("require-screenName")
     if (!password || typeof password !== "string") return Promise.reject("require-password")
-    var request_token = yield models.request_tokens.findOne({token:requestToken})
+    var request_token = await models.request_tokens.findOne({token:requestToken})
     if (!request_token) return Promise.reject("requestToken-invalid")
-    var user = yield models.users.findOne({screenNameLower:screenName.toLowerCase()})
+    var user = await models.users.findOne({screenNameLower:screenName.toLowerCase()})
     if (!user) return Promise.reject("user-not-found")
     var salt = user.passwordSalt
     var hashPassword = getHashedPassword(password,salt)
@@ -17,5 +17,5 @@ module.exports = function* (requestToken,screenName,password) {
     pin_code.app = request_token.app
     pin_code.request_token = request_token.id
     pin_code.user = user
-    return yield pin_code.save()
+    return await pin_code.save()
 }
