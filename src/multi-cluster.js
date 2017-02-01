@@ -9,3 +9,8 @@ if (cluster.isMaster) {
 } else {
     require("./main")
 }
+
+cluster.on('exit', worker => {
+    console.log(`worker process ${worker.process.pid} died. restarting...`)
+    cluster.fork()
+})
