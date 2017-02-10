@@ -2,7 +2,7 @@ var models = require("../../models")
 var getRedisConnection = require("../../utils/getRedisConnection")
 module.exports = async function (token,text,files) {
     // validate
-    if (!text) return Promise.reject("text-is-require")
+    if (!text) throw "text-is-require"
     if (!files) files = ""
     var post = new models.posts()
     post.app = token.app
@@ -16,7 +16,7 @@ module.exports = async function (token,text,files) {
     files = await models.files.find({
         _id:{$in:file_ids}
     })
-    if (files.length > 1) return Promise.reject("file-too-many")
+    if (files.length > 1) throw "file-too-many"
     post.files = files
     // 投稿を保存
     await post.save()

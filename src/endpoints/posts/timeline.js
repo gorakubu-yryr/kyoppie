@@ -2,11 +2,11 @@ var models = require("../../models")
 var isValidDateString = require("../../utils/isValidDateString")
 var getSinceMaxDateObject = require("../../utils/getSinceMaxDateObject")
 module.exports = async function (token,sinceDate,maxDate,limit) {
-    if (token.user.isSuspended) return Promise.reject("this-user-is-suspended")
-    if (sinceDate && !isValidDateString(sinceDate)) return Promise.reject("invalid-sinceDate")
-    if (maxDate && !isValidDateString(maxDate)) return Promise.reject("invalid-maxDate")
+    if (token.user.isSuspended) throw "this-user-is-suspended"
+    if (sinceDate && !isValidDateString(sinceDate)) throw "invalid-sinceDate"
+    if (maxDate && !isValidDateString(maxDate)) throw "invalid-maxDate"
     if (isFinite(limit)) {
-        if (limit < 1) return Promise.reject("invalid-limit")
+        if (limit < 1) throw "invalid-limit"
     } else limit = 100
     var followings = await models.follows.find({
         fromUser:token.user.id

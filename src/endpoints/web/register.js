@@ -3,24 +3,24 @@ var isValidScreenName = require("../../utils/isValidScreenName")
 var reservedList = require("../../utils/reservedList")
 module.exports = async function (requestToken,name,screenName,password) {
     // バリデーション
-    if (!requestToken) return Promise.reject("require-requestToken")
-    if (!name || typeof name !== "string") return Promise.reject("require-name")
-    if (!screenName || typeof screenName !== "string") return Promise.reject("require-screenName")
-    if (!password || typeof password !== "string") return Promise.reject("require-password")
-    if (name.length<1 || name.length > 20) return Promise.reject("invalid-name")
-    if (!isValidScreenName(screenName)) return Promise.reject("invalid-screenName")
+    if (!requestToken) throw "require-requestToken"
+    if (!name || typeof name !== "string") throw "require-name"
+    if (!screenName || typeof screenName !== "string") throw "require-screenName"
+    if (!password || typeof password !== "string") throw "require-password"
+    if (name.length<1 || name.length > 20) throw "invalid-name"
+    if (!isValidScreenName(screenName)) throw "invalid-screenName"
     // リクエストトークンを探す
     var request_token = await models.request_tokens.findOne({
         token:requestToken
     }).populate("app")
-    if (!request_token) return Promise.reject("requestToken-invalid")
+    if (!request_token) throw "requestToken-invalid"
     // Webじゃなかったら返す
-    if (!request_token.app.isWeb) return Promise.reject("this-api-is-web-only")
+    if (!request_token.app.isWeb) throw "this-api-is-web-only"
     // ブラックリストに入っているかどうか
-    if (~reservedList.indexOf(screenName.toLowerCase())) return Promise.reject("this-screen-name-is-reserved")
+    if (~reservedList.indexOf(screenName.toLowerCase())) throw "this-screen-name-is-reserved"
     // 既存ユーザーがいないか確認する
     var res = await models.users.findOne({screenNameLower:screenName.toLowerCase()})
-    if (res) return Promise.reject("duplicate-screenName")
+    if (res) throw "duplicate-screenName"
     // userのもろもろをやる
     var user = new models.users()
     user.name = name

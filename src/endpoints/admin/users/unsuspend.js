@@ -1,9 +1,9 @@
 var models = require("../../../models")
 module.exports = async function (token,id) {
-    if (!token.user.adminFlag.userMng) return Promise.reject("no-permission")
-    if (!id) return Promise.reject("id-is-required")
+    if (!token.user.adminFlag.userMng) throw "no-permission"
+    if (!id) throw "id-is-required"
     var user = await models.users.findById(id)
-    if (!user) return Promise.reject("user-not-found")
+    if (!user) throw "user-not-found"
     user.isSuspended = false
     await user.save()
     return "ok"

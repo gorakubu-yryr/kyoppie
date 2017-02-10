@@ -4,7 +4,7 @@ var crypto = require("crypto")
 module.exports = async function (buffer) {
     function getFileServer() {
         return models.file_servers.findOne().then(function(server) {
-            if (!server) return Promise.reject("not-found-fileserver")
+            if (!server) throw "not-found-fileserver"
             return Promise.resolve(server)
         })
     }
@@ -34,7 +34,7 @@ module.exports = async function (buffer) {
         })
     })
     body = JSON.parse(body)
-    if (body.error) return Promise.reject(body.error)
+    if (body.error) throw body.error
     var file = new models.files()
     file.type = body.type
     file.server = file_server.id

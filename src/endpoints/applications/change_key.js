@@ -3,7 +3,7 @@ var newApplicationKey = require("../../utils/newApplicationKey")
 module.exports = async function (token,id) {
     var app = await models.apps.findById(id)
     if (app.user != token.user.id) {
-        return Promise.reject("damedesu")
+        throw "damedesu"
     }
     app.appKey = newApplicationKey()
     app.appSecret = newApplicationKey()
