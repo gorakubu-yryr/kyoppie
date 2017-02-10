@@ -22,7 +22,7 @@ module.exports = {
 
         {name:"/account/show",method:"get",allowNotAgree:true},
         {name:"/account/change_password",method:"post",isWeb:true},
-        {name:"/account/update_name",method:"post"},
+        {name:"/account/update/name",method:"post"},
         {name:"/account/update/avatar",method:"post"},
 
         {name:"/posts/create",method:"post"},
