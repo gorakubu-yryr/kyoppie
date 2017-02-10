@@ -5,7 +5,7 @@ module.exports = function (route,login) {
             var token = await models.access_tokens.findOne({
                 secret:ctx.request.headers["x-kyoppie-access-token"]
             }).populate("app user")
-            if (!token.app.isWeb && route.isWeb) throw "damedesu"
+            if (!token.app.isWeb && route.isWeb) throw "no-permission"
             if (!token.app.isAdmin && route.isAdmin) throw "damedesu-admin"
             if (token) {
                 ctx.token=token
