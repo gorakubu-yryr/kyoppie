@@ -6,7 +6,7 @@ module.exports = function(mongoose) {
     },{
         timestamps:true
     })
-    schema.methods.toResponseObject = function* (token) {
+    schema.methods.toResponseObject = async function (token) {
         var obj = this.toObject()
         obj.id = this._id
         obj._id = undefined
@@ -22,9 +22,9 @@ module.exports = function(mongoose) {
                         continue
                     }
                     // ユーザーを取得
-                    this.users[i] = yield mongoose.model("users").findById(obj.users[i])
+                    this.users[i] = await mongoose.model("users").findById(obj.users[i])
                 }
-                obj.users[i] = yield this.users[i].toResponseObject(token)
+                obj.users[i] = await this.users[i].toResponseObject(token)
             }
         }
         return obj

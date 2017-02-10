@@ -1,6 +1,6 @@
 var models = require("../../models")
-module.exports = function* (text) {
-    return yield models.users.find({
+module.exports = async function (text) {
+    return await models.users.find({
         isSuspended:false,
         $or:[
             {name: {$regex: text, $options: "i"}},
