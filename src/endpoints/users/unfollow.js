@@ -1,20 +1,20 @@
 var models = require("../../models")
 module.exports = async function (token,screenName,id) {
-    if (!screenName && !id) return Promise.reject("screenName-or-id-require")
+    if (!screenName && !id) throw "screenName-or-id-require"
     var user
     if (screenName) {
         user = await models.users.findOne({screenNameLower:screenName.toLowerCase()})
     } else {
         user = await models.users.findById(id)
     }
-    if (!user) return Promise.reject("user-not-found")
-    if (user.isSuspended) return Promise.reject("this-user-is-suspended")
-    if (token.user.id == user.id) return Promise.reject("私が私を見つめてました")
+    if (!user) throw "user-not-found"
+    if (user.isSuspended) throw "this-user-is-suspended"
+    if (token.user.id == user.id) throw "私が私を見つめてました"
     var follow = await models.follows.findOne({
         fromUser:token.user.id,
         toUser:user.id
     })
-    if (!follow) return Promise.reject("not-follow")
+    if (!follow) throw "not-follow"
     await models.follows.remove({
         fromUser: token.user.id,
         toUser: user.id

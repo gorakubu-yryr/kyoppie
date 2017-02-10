@@ -1,3 +1,4 @@
 node_modules/
 *.log
 web_config.json
+site_config.json

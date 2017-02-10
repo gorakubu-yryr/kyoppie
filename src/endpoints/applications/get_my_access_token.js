@@ -1,10 +1,10 @@
 var models = require("../../models")
 var crypto = require("crypto")
 module.exports = async function (token, appId) {
-    if (!appId) return Promise.reject("appId-is-require")
+    if (!appId) throw "appId-is-require"
     var app = await models.apps.findById(appId)
-    if (!app) return Promise.reject("app-not-found")
-    if (app.user != token.user.id) return Promise.reject("you-are-not-the-owner-of-this-app")
+    if (!app) throw "app-not-found"
+    if (app.user != token.user.id) throw "you-are-not-the-owner-of-this-app"
     var access_token = await models.access_tokens.findOne({
         user:token.user.id,
         app:app.id

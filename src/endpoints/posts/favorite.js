@@ -1,12 +1,12 @@
 var models = require("../../models")
 module.exports = async function (token,id) {
     // validate
-    if (!id) return Promise.reject("id-is-required")
+    if (!id) throw "id-is-required"
     var post = await models.posts.findById(id).populate("user")
-    if (!post) return Promise.reject("post-not-found")
-    if (post.user.isSuspended) return Promise.reject("post-not-found")
+    if (!post) throw "post-not-found"
+    if (post.user.isSuspended) throw "post-not-found"
     // 重複チェック
-    if (await models.favorites.findOne({post:post.id,user:token.user.id})) return Promise.reject("already-favorite")
+    if (await models.favorites.findOne({post:post.id,user:token.user.id})) throw "already-favorite"
     var favorite = new models.favorites()
     favorite.user = token.user
     favorite.post = post

@@ -1,5 +1,5 @@
-var main = require("../../../endpoints/account/update_name")
-var wrap = require("../wrap")
+var main = require("../../../../endpoints/account/update/name")
+var wrap = require("../../wrap")
 
 module.exports = async function () {
     await wrap(main(

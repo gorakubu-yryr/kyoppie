@@ -23,7 +23,7 @@ module.exports = {
 
         {name:"/account/show",method:"get",allowNotAgree:true},
         {name:"/account/change_password",method:"post",isWeb:true},
-        {name:"/account/update_name",method:"post"},
+        {name:"/account/update/name",method:"post"},
         {name:"/account/update/avatar",method:"post"},
 
         {name:"/posts/create",method:"post"},
@@ -48,6 +48,8 @@ module.exports = {
         {name:"/admin/users/suspend",method:"post",isAdmin:true},
         {name:"/admin/users/unsuspend",method:"post",isAdmin:true},
         {name:"/admin/users/change_screen_name",method:"post",isAdmin:true},
+        {name:"/admin/site_config/get",method:"get",isAdmin:true},
+        {name:"/admin/site_config/set",method:"post",isAdmin:true},
 
         {name:"/notifications/list",method:"get"},
         {name:"/notifications/show",method:"get"},
