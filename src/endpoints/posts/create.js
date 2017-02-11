@@ -1,6 +1,6 @@
 var models = require("../../models")
 var getRedisConnection = require("../../utils/getRedisConnection")
-module.exports = async function (token,text,files) {
+module.exports = async function (token,text,files,replyTo) {
     // validate
     if (!text) throw "text-is-require"
     if (!files) files = ""
@@ -18,6 +18,11 @@ module.exports = async function (token,text,files) {
     })
     if (files.length > 1) throw "file-too-many"
     post.files = files
+    if (replyTo) {
+        var replyToPost = await models.users.findById(replyTo)
+        if (!replyToPost) throw "replyToPost-not-found"
+        post.replyTo = replyToPost.id
+    }
     // 投稿を保存
     await post.save()
     await post.user.save()
