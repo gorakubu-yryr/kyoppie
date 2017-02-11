@@ -30,6 +30,7 @@ module.exports = {
         {name:"/posts/show",method:"get",login:false},
         {name:"/posts/public_timeline",method:"get",login:false},
         {name:"/posts/favorite",method:"post"},
+        {name:"/posts/repost",method:"post"},
 
         {name:"/applications/create",method:"post",isWeb:true},
         {name:"/applications/my",method:"get",isWeb:true},

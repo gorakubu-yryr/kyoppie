@@ -5,7 +5,8 @@ module.exports = function(mongoose) {
         user:{type:mongoose.Schema.Types.ObjectId,ref:"users"},
         files:[{type:mongoose.Schema.Types.ObjectId,ref:"files"}],
         favoriteCount:{type:Number,default:0},
-        replyTo:{type:mongoose.Schema.Types.ObjectId,ref:"posts"}
+        replyTo:{type:mongoose.Schema.Types.ObjectId,ref:"posts"},
+        repostTo:{type:mongoose.Schema.Types.ObjectId,ref:"posts"}
     },{
         timestamps:true
     })
