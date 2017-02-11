@@ -4,6 +4,7 @@ module.exports = async function (token,name) {
     var room = new models.talk_rooms()
     room.name = name
     room.users.push(token.user)
+    room.isUsed=true
     await room.save()
     return room
 }
