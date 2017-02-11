@@ -22,7 +22,7 @@ var getRedisConnection = require("./utils/getRedisConnection")
 var client = getRedisConnection()
 client.on("error", e => {
     client.quit()
-    console.log("process will exit because of redis is dead.")
+    console.error("process will exit because of redis is dead. (" + e.code + ")")
     process.exit()
 })
 client.on("connect", e => {
