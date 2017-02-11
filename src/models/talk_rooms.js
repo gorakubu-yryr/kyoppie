@@ -3,6 +3,7 @@ module.exports = function(mongoose) {
         name:{type:String,default:"talk room"},
         users:[{type:mongoose.Schema.Types.ObjectId,ref:"users"}],
         isOneToOne:Boolean,
+        isUsed:{type:Boolean,default:false}, // talks/rooms/from_userでの自動生成でないか、一回でもメッセージがやりとりされていればON
     },{
         timestamps:true
     })
