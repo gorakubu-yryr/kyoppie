@@ -10,7 +10,7 @@ module.exports = async function (token,id,text,files) {
     if (!~room.users.indexOf(token.user.id)) throw "room-not-found"
     // put datas
     var message = new models.talk_messages()
-    message.room = room.id;
+    message.room = room.id
     message.app = token.app
     message.user = token.user
     message.text = text.replace(/\n+/g,"\n")
