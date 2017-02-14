@@ -1,5 +1,5 @@
-var models = require("../../models")
-var getRedisConnection = require("../../utils/getRedisConnection")
+var models = require("../../../models")
+var getRedisConnection = require("../../../utils/getRedisConnection")
 module.exports = async function (token,id,text,files) {
     // validate
     if (!text) throw "text-is-require"

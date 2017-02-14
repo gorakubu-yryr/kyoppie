@@ -1,5 +1,5 @@
-var main = require("../../../endpoints/talks/rooms/say")
-var wrap = require("../wrap")
+var main = require("../../../../endpoints/talks/rooms/say")
+var wrap = require("../../wrap")
 
 module.exports = async function () {
     await wrap(main(
