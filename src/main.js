@@ -17,6 +17,18 @@ console.log("### Kyoppie API ###")
 console.log("###################")
 console.log("Repository: https://github.com/kyoppie/kyoppie-api")
 
+// redisの生存確認
+var getRedisConnection = require("./utils/getRedisConnection")
+var client = getRedisConnection()
+client.on("error", e => {
+    client.quit()
+    console.error("process will exit because of redis is dead. (" + e.code + ")")
+    process.exit()
+})
+client.on("connect", e => {
+    client.quit()
+})
+
 app.use(bodyParser())
 
 app.use(async function(ctx, next) {
