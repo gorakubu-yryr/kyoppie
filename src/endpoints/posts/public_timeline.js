@@ -9,6 +9,6 @@ module.exports = async function (sinceId,maxId,limit) {
     console.log(users)
     var query = {_id:getSinceMaxObject(sinceId,maxId)}
     if (users.length) query.$nor = users
-    var posts = await models.posts.find(query).populate("app user files replyTo").sort('-createdAt')
+    var posts = await models.posts.find(query).populate("app user files replyTo repostTo").sort('-createdAt')
     return posts
 }
