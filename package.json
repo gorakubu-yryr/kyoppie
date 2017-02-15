@@ -7,7 +7,8 @@
     "start": "node --harmony ./src/main.js",
     "lint": "find src/ -type f | grep .js | xargs $(npm bin)/eslint",
     "test": "mocha",
-    "migrate": "cd src/migrate && node --harmony index.js run"
+    "migrate": "cd src/migrate && node --harmony index.js run",
+    "docs-check": "node src/utils/docsCheck.js"
   },
   "repository": {
     "type": "git",

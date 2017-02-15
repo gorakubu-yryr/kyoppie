@@ -6,4 +6,5 @@ services:
     - mongodb
 script:
     - npm run lint
+    - npm run docs-check
     - npm run migrate

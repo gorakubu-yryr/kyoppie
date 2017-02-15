@@ -3,7 +3,7 @@
 ## エンドポイントを決める
 `posts/create`のようなエンドポイントを決めましょう。
 **基本的にissueからREST APIを作ることになると思うので、その場合にはissueに書いてあるエンドポイント名で作ってください**
-命名時には[このへん](https://github.com/kyoppie/kyoppie-api/blob/master/src/routes.js)とか参考にするといいかもしれません
+命名時には[このへん](/src/routes.js)とか参考にするといいかもしれません
 
 ## `src/endpoints/エンドポイント名.js`にファイルを作る
 ないディレクトリは作って構いません。
@@ -29,6 +29,9 @@ Redisに対応したい場合は`posts/create`の最後の方を参考にして�
 
 ## 動作確認をする
 kyoppie-webのサーバーが立ってるならkyoppie-webのサーバーのページを開いた状態でJavaScriptコンソールで`$.api.get`または`$.api.post`でAPIコールができる。
+
+## ドキュメントを書く
+`node src/utils/docsCheck.js create`で作成されるので`docs/api-endpoints/rest/`で新規作成されたファイルを探してドキュメントをいい感じに書く
 
 ## Pull Requestをする
 適当に投げてくれればOK
