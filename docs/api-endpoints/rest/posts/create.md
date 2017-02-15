@@ -4,7 +4,7 @@
 
 - [Params](#params)
 - [API Code](/src/endpoints/posts/create.js)
-- [Handle Code](/src/handlers/web/posts/create.js)
+- [API Handler Code](/src/handlers/web/posts/create.js)
 
 ## params
 

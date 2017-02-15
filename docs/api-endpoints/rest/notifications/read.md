@@ -4,7 +4,7 @@
 
 - [Params](#params)
 - [API Code](/src/endpoints/notifications/read.js)
-- [Handle Code](/src/handlers/web/notifications/read.js)
+- [API Handler Code](/src/handlers/web/notifications/read.js)
 
 ## params
 

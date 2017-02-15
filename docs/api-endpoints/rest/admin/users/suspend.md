@@ -5,7 +5,7 @@
 
 - [Params](#params)
 - [API Code](/src/endpoints/admin/users/suspend.js)
-- [Handle Code](/src/handlers/web/admin/users/suspend.js)
+- [API Handler Code](/src/handlers/web/admin/users/suspend.js)
 
 ## params
 

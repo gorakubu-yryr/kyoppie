@@ -7,7 +7,7 @@ Site Configを取得します。
 
 - [Params](#params)
 - [API Code](/src/endpoints/admin/site_config/get.js)
-- [Handle Code](/src/handlers/web/admin/site_config/get.js)
+- [API Handler Code](/src/handlers/web/admin/site_config/get.js)
 
 ## params
 

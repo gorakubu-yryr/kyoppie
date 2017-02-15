@@ -7,7 +7,7 @@
 
 - [Params](#params)
 - [API Code](/src/endpoints/admin/file_servers/add.js)
-- [Handle Code](/src/handlers/web/admin/file_servers/add.js)
+- [API Handler Code](/src/handlers/web/admin/file_servers/add.js)
 
 ## params
 

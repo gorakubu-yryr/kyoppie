@@ -3,7 +3,7 @@
 
 - [Params](#params)
 - [API Code](/src/endpoints/users/favorites.js)
-- [Handle Code](/src/handlers/web/users/favorites.js)
+- [API Handler Code](/src/handlers/web/users/favorites.js)
 
 ## params
 

@@ -3,7 +3,7 @@
 
 - [Params](#params)
 - [API Code](/src/endpoints/auth/login.js)
-- [Handle Code](/src/handlers/web/auth/login.js)
+- [API Handler Code](/src/handlers/web/auth/login.js)
 
 ## params
 

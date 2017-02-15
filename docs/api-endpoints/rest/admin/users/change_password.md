@@ -7,7 +7,7 @@
 
 - [Params](#params)
 - [API Code](/src/endpoints/admin/users/change_password.js)
-- [Handle Code](/src/handlers/web/admin/users/change_password.js)
+- [API Handler Code](/src/handlers/web/admin/users/change_password.js)
 
 ## params
 

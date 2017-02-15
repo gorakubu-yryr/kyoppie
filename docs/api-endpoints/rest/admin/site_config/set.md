@@ -7,7 +7,7 @@ Site Configを設定します。
 
 - [Params](#params)
 - [API Code](/src/endpoints/admin/site_config/set.js)
-- [Handle Code](/src/handlers/web/admin/site_config/set.js)
+- [API Handler Code](/src/handlers/web/admin/site_config/set.js)
 
 ## params
 

@@ -5,7 +5,7 @@
 
 - [Params](#params)
 - [API Code](/src/endpoints/applications/change_key.js)
-- [Handle Code](/src/handlers/web/applications/change_key.js)
+- [API Handler Code](/src/handlers/web/applications/change_key.js)
 
 ## params
 

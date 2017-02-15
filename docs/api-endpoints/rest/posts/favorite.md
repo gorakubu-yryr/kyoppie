@@ -4,7 +4,7 @@
 
 - [Params](#params)
 - [API Code](/src/endpoints/posts/favorite.js)
-- [Handle Code](/src/handlers/web/posts/favorite.js)
+- [API Handler Code](/src/handlers/web/posts/favorite.js)
 
 ## params
 

@@ -5,7 +5,7 @@
 
 - [Params](#params)
 - [API Code](/src/endpoints/admin/users/unsuspend.js)
-- [Handle Code](/src/handlers/web/admin/users/unsuspend.js)
+- [API Handler Code](/src/handlers/web/admin/users/unsuspend.js)
 
 ## params
 

@@ -4,7 +4,7 @@
 
 - [Params](#params)
 - [API Code](/src/endpoints/posts/timeline.js)
-- [Handle Code](/src/handlers/web/posts/timeline.js)
+- [API Handler Code](/src/handlers/web/posts/timeline.js)
 
 ## params
 

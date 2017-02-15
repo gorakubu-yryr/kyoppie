@@ -4,7 +4,7 @@
 
 - [Params](#params)
 - [API Code](/src/endpoints/users/unfollow.js)
-- [Handle Code](/src/handlers/web/users/unfollow.js)
+- [API Handler Code](/src/handlers/web/users/unfollow.js)
 
 ## params
 

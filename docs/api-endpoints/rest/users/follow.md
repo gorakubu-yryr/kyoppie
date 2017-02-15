@@ -4,7 +4,7 @@
 
 - [Params](#params)
 - [API Code](/src/endpoints/users/follow.js)
-- [Handle Code](/src/handlers/web/users/follow.js)
+- [API Handler Code](/src/handlers/web/users/follow.js)
 
 ## params
 

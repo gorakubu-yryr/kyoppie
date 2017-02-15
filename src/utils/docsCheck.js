@@ -32,7 +32,7 @@ ${route.isAdmin ? "- This API is Web and Admin User Only\n" : ""}\
 
 - [Params](#params)
 - [API Code](/src/endpoints${route.name}.js)
-- [Handle Code](/src/handlers/web${route.name}.js)
+- [API Handler Code](/src/handlers/web${route.name}.js)
 
 ## params
 

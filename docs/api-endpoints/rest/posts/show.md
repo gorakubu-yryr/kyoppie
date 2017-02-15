@@ -3,7 +3,7 @@
 
 - [Params](#params)
 - [API Code](/src/endpoints/posts/show.js)
-- [Handle Code](/src/handlers/web/posts/show.js)
+- [API Handler Code](/src/handlers/web/posts/show.js)
 
 ## params
 

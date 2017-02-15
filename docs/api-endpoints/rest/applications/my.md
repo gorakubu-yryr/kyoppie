@@ -5,7 +5,7 @@
 
 - [Params](#params)
 - [API Code](/src/endpoints/applications/my.js)
-- [Handle Code](/src/handlers/web/applications/my.js)
+- [API Handler Code](/src/handlers/web/applications/my.js)
 
 ## params
 

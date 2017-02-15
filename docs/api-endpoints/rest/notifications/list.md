@@ -4,7 +4,7 @@
 
 - [Params](#params)
 - [API Code](/src/endpoints/notifications/list.js)
-- [Handle Code](/src/handlers/web/notifications/list.js)
+- [API Handler Code](/src/handlers/web/notifications/list.js)
 
 ## params
 

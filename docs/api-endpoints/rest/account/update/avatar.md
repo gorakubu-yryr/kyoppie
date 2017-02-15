@@ -6,7 +6,7 @@
 
 - [Params](#params)
 - [API Code](/src/endpoints/account/update/avatar.js)
-- [Handle Code](/src/handlers/web/account/update/avatar.js)
+- [API Handler Code](/src/handlers/web/account/update/avatar.js)
 
 ## params
 

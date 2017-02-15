@@ -5,7 +5,7 @@
 
 - [Params](#params)
 - [API Code](/src/endpoints/applications/create.js)
-- [Handle Code](/src/handlers/web/applications/create.js)
+- [API Handler Code](/src/handlers/web/applications/create.js)
 
 ## params
 
