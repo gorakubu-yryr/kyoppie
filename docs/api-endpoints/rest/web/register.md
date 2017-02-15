@@ -2,8 +2,8 @@
 
 
 - [Params](#params)
-- [API Code](/kyoppie/kyoppie-api/blob/master/src/endpoints/web/register.js)
-- [Handle Code](/kyoppie/kyoppie-api/blob/master/src/handlers/web/web/register.js)
+- [API Code](/src/endpoints/web/register.js)
+- [Handle Code](/src/handlers/web/web/register.js)
 
 ## params
 

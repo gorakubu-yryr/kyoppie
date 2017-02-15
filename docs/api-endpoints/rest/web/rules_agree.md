@@ -4,8 +4,8 @@
 - This API is Web Only
 
 - [Params](#params)
-- [API Code](/kyoppie/kyoppie-api/blob/master/src/endpoints/web/rules_agree.js)
-- [Handle Code](/kyoppie/kyoppie-api/blob/master/src/handlers/web/web/rules_agree.js)
+- [API Code](/src/endpoints/web/rules_agree.js)
+- [Handle Code](/src/handlers/web/web/rules_agree.js)
 
 ## params
 

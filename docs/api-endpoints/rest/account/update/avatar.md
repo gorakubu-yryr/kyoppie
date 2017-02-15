@@ -5,8 +5,8 @@
 - This API is Auth Required
 
 - [Params](#params)
-- [API Code](/kyoppie/kyoppie-api/blob/master/src/endpoints/account/update/avatar.js)
-- [Handle Code](/kyoppie/kyoppie-api/blob/master/src/handlers/web/account/update/avatar.js)
+- [API Code](/src/endpoints/account/update/avatar.js)
+- [Handle Code](/src/handlers/web/account/update/avatar.js)
 
 ## params
 

@@ -2,8 +2,8 @@
 
 
 - [Params](#params)
-- [API Code](/kyoppie/kyoppie-api/blob/master/src/endpoints/posts/public_timeline.js)
-- [Handle Code](/kyoppie/kyoppie-api/blob/master/src/handlers/web/posts/public_timeline.js)
+- [API Code](/src/endpoints/posts/public_timeline.js)
+- [Handle Code](/src/handlers/web/posts/public_timeline.js)
 
 ## params
 

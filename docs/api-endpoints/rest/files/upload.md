@@ -3,8 +3,8 @@
 - This API is Auth Required
 
 - [Params](#params)
-- [API Code](/kyoppie/kyoppie-api/blob/master/src/endpoints/files/upload.js)
-- [Handle Code](/kyoppie/kyoppie-api/blob/master/src/handlers/web/files/upload.js)
+- [API Code](/src/endpoints/files/upload.js)
+- [Handle Code](/src/handlers/web/files/upload.js)
 
 ## params
 

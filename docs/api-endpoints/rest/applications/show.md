@@ -4,8 +4,8 @@
 - This API is Web Only
 
 - [Params](#params)
-- [API Code](/kyoppie/kyoppie-api/blob/master/src/endpoints/applications/show.js)
-- [Handle Code](/kyoppie/kyoppie-api/blob/master/src/handlers/web/applications/show.js)
+- [API Code](/src/endpoints/applications/show.js)
+- [Handle Code](/src/handlers/web/applications/show.js)
 
 ## params
 

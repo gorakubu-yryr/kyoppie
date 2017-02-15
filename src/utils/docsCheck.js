@@ -31,8 +31,8 @@ ${route.isWeb ? "- This API is Web Only\n" : ""}\
 ${route.isAdmin ? "- This API is Web and Admin User Only\n" : ""}\
 
 - [Params](#params)
-- [API Code](/kyoppie/kyoppie-api/blob/master/src/endpoints${route.name}.js)
-- [Handle Code](/kyoppie/kyoppie-api/blob/master/src/handlers/web${route.name}.js)
+- [API Code](/src/endpoints${route.name}.js)
+- [Handle Code](/src/handlers/web${route.name}.js)
 
 ## params
 

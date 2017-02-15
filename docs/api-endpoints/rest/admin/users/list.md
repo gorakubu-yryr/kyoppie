@@ -6,8 +6,8 @@
 - This API is Web and Admin User Only
 
 - [Params](#params)
-- [API Code](/kyoppie/kyoppie-api/blob/master/src/endpoints/admin/users/list.js)
-- [Handle Code](/kyoppie/kyoppie-api/blob/master/src/handlers/web/admin/users/list.js)
+- [API Code](/src/endpoints/admin/users/list.js)
+- [Handle Code](/src/handlers/web/admin/users/list.js)
 
 ## params
 

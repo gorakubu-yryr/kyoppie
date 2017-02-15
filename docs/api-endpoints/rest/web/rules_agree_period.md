@@ -2,8 +2,8 @@
 
 
 - [Params](#params)
-- [API Code](/kyoppie/kyoppie-api/blob/master/src/endpoints/web/rules_agree_period.js)
-- [Handle Code](/kyoppie/kyoppie-api/blob/master/src/handlers/web/web/rules_agree_period.js)
+- [API Code](/src/endpoints/web/rules_agree_period.js)
+- [Handle Code](/src/handlers/web/web/rules_agree_period.js)
 
 ## params
 

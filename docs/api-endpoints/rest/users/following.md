@@ -2,8 +2,8 @@
 
 
 - [Params](#params)
-- [API Code](/kyoppie/kyoppie-api/blob/master/src/endpoints/users/following.js)
-- [Handle Code](/kyoppie/kyoppie-api/blob/master/src/handlers/web/users/following.js)
+- [API Code](/src/endpoints/users/following.js)
+- [Handle Code](/src/handlers/web/users/following.js)
 
 ## params
 

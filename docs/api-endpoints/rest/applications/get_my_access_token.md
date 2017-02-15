@@ -4,8 +4,8 @@
 - This API is Web Only
 
 - [Params](#params)
-- [API Code](/kyoppie/kyoppie-api/blob/master/src/endpoints/applications/get_my_access_token.js)
-- [Handle Code](/kyoppie/kyoppie-api/blob/master/src/handlers/web/applications/get_my_access_token.js)
+- [API Code](/src/endpoints/applications/get_my_access_token.js)
+- [Handle Code](/src/handlers/web/applications/get_my_access_token.js)
 
 ## params
 

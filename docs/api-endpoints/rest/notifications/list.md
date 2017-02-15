@@ -3,8 +3,8 @@
 - This API is Auth Required
 
 - [Params](#params)
-- [API Code](/kyoppie/kyoppie-api/blob/master/src/endpoints/notifications/list.js)
-- [Handle Code](/kyoppie/kyoppie-api/blob/master/src/handlers/web/notifications/list.js)
+- [API Code](/src/endpoints/notifications/list.js)
+- [Handle Code](/src/handlers/web/notifications/list.js)
 
 ## params
 

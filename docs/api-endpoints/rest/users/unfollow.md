@@ -3,8 +3,8 @@
 - This API is Auth Required
 
 - [Params](#params)
-- [API Code](/kyoppie/kyoppie-api/blob/master/src/endpoints/users/unfollow.js)
-- [Handle Code](/kyoppie/kyoppie-api/blob/master/src/handlers/web/users/unfollow.js)
+- [API Code](/src/endpoints/users/unfollow.js)
+- [Handle Code](/src/handlers/web/users/unfollow.js)
 
 ## params
 

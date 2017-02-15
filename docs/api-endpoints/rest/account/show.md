@@ -5,8 +5,8 @@
 - This API is Auth Required
 
 - [Params](#params)
-- [API Code](/kyoppie/kyoppie-api/blob/master/src/endpoints/account/show.js)
-- [Handle Code](/kyoppie/kyoppie-api/blob/master/src/handlers/web/account/show.js)
+- [API Code](/src/endpoints/account/show.js)
+- [Handle Code](/src/handlers/web/account/show.js)
 
 ## params
 

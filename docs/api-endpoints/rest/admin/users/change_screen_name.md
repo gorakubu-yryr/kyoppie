@@ -6,8 +6,8 @@
 - This API is Web and Admin User Only
 
 - [Params](#params)
-- [API Code](/kyoppie/kyoppie-api/blob/master/src/endpoints/admin/users/change_screen_name.js)
-- [Handle Code](/kyoppie/kyoppie-api/blob/master/src/handlers/web/admin/users/change_screen_name.js)
+- [API Code](/src/endpoints/admin/users/change_screen_name.js)
+- [Handle Code](/src/handlers/web/admin/users/change_screen_name.js)
 
 ## params
 

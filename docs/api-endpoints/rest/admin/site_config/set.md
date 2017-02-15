@@ -6,8 +6,8 @@ Site Configを設定します。
 - This API is Web and Admin User Only
 
 - [Params](#params)
-- [API Code](/kyoppie/kyoppie-api/blob/master/src/endpoints/admin/site_config/set.js)
-- [Handle Code](/kyoppie/kyoppie-api/blob/master/src/handlers/web/admin/site_config/set.js)
+- [API Code](/src/endpoints/admin/site_config/set.js)
+- [Handle Code](/src/handlers/web/admin/site_config/set.js)
 
 ## params
 

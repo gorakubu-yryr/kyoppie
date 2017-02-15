@@ -2,8 +2,8 @@
 
 
 - [Params](#params)
-- [API Code](/kyoppie/kyoppie-api/blob/master/src/endpoints/auth/login.js)
-- [Handle Code](/kyoppie/kyoppie-api/blob/master/src/handlers/web/auth/login.js)
+- [API Code](/src/endpoints/auth/login.js)
+- [Handle Code](/src/handlers/web/auth/login.js)
 
 ## params
 
