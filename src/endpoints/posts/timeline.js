@@ -1,10 +1,7 @@
 var models = require("../../models")
-var isValidDateString = require("../../utils/isValidDateString")
-var getSinceMaxDateObject = require("../../utils/getSinceMaxDateObject")
-module.exports = async function (token,sinceDate,maxDate,limit) {
+var getSinceMaxObject = require("../../utils/getSinceMaxObject")
+module.exports = async function (token,sinceId,maxId,limit) {
     if (token.user.isSuspended) throw "this-user-is-suspended"
-    if (sinceDate && !isValidDateString(sinceDate)) throw "invalid-sinceDate"
-    if (maxDate && !isValidDateString(maxDate)) throw "invalid-maxDate"
     if (isFinite(limit)) {
         if (limit < 1) throw "invalid-limit"
     } else limit = 100
@@ -15,7 +12,7 @@ module.exports = async function (token,sinceDate,maxDate,limit) {
     followings.push(token.user.id)
     var posts = await models.posts.find({
         user:{$in:followings},
-        createdAt:getSinceMaxDateObject(sinceDate,maxDate)
+        id:getSinceMaxObject(sinceId,maxId)
     }).populate("app user files").sort('-createdAt').limit(limit)
     return posts.filter(post => !post.user.isSuspended)
 }

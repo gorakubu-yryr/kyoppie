@@ -1,16 +1,13 @@
 var models = require("../../models")
-var isValidDateString = require("../../utils/isValidDateString")
-var getSinceMaxDateObject = require("../../utils/getSinceMaxDateObject")
-module.exports = async function (token,sinceDate,maxDate,limit) {
-    if (sinceDate && !isValidDateString(sinceDate)) throw "invalid-sinceDate"
-    if (maxDate && !isValidDateString(maxDate)) throw "invalid-maxDate"
+var getSinceMaxObject = require("../../utils/getSinceMaxObject")
+module.exports = async function (token,sinceId,maxId,limit) {
     if (isFinite(limit)) {
         if (limit < 1) throw "invalid-limit"
     } else limit = 100
     var notifications = await models.notifications.find({
         isRead:false,
         receiveUser:token.user.id,
-        createdAt:getSinceMaxDateObject(sinceDate,maxDate)
+        id:getSinceMaxObject(sinceId,maxId)
     }).populate("targetApp targetUser targetPost").sort('-createdAt').limit(limit)
     return notifications
 }

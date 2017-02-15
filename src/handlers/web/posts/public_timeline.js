@@ -3,8 +3,8 @@ var wrap = require("../wrap")
 
 module.exports = async function () {
     await wrap(main(
-        this.request.query.sinceDate,
-        this.request.query.maxDate,
+        this.request.query.sinceId,
+        this.request.query.maxId,
         this.request.query.limit
     ),this)
 }
