@@ -27,10 +27,9 @@ routes.rest.forEach(function(route) { // REST API
             var template = `\
 # ${route.method.toUpperCase()} ${route.name}
 
-${route.login != false ? "- This API is Auth Required\n" : ""}\
-${route.isWeb ? "- This API is Web Only\n" : ""}\
-${route.isAdmin ? "- This API is Web and Admin User Only\n" : ""}\
-
+${route.login != false ? "- This API is Auth Required\n\n" : ""}\
+${route.isWeb ? "- This API is Web Only\n\n" : ""}\
+${route.isAdmin ? "- This API is Web and Admin User Only\n\n" : ""}\
 - [Params](#params)
 - [API Code](/src/endpoints${route.name}.js)
 - [API Handler Code](/src/handlers/web${route.name}.js)
@@ -39,7 +38,7 @@ ${route.isAdmin ? "- This API is Web and Admin User Only\n" : ""}\
 
 `
             try {
-                var params_string = `
+                var params_string = `\
 name|description
 ---|---
 `
@@ -59,7 +58,7 @@ name|description
                 if (params_flag) {
                     template += params_string
                 } else {
-                    template += "This API is No Parameters."
+                    template += "This API is No Parameters.\n"
                 }
             } catch (e) {
                 // 知らず
@@ -81,8 +80,7 @@ routes.websocket.forEach(function(route) {
             var template = `\
 # ${route.name}
 
-${route.login != false ? "- This API is Auth Required\n" : ""}\
-
+${route.login != false ? "- This API is Auth Required\n\n" : ""}\
 - [Params](#params)
 - [API Handler Code](/src/handlers/ws${route.name}.js)
 
