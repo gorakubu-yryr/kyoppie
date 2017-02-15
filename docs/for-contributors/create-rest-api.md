@@ -30,5 +30,8 @@ Redisに対応したい場合は`posts/create`の最後の方を参考にして�
 ## 動作確認をする
 kyoppie-webのサーバーが立ってるならkyoppie-webのサーバーのページを開いた状態でJavaScriptコンソールで`$.api.get`または`$.api.post`でAPIコールができる。
 
+## ドキュメントを書く
+`node src/utils/docsCheck.js create`で作成されるので`docs/api-endpoints/rest/`で新規作成されたファイルを探してドキュメントをいい感じに書く
+
 ## Pull Requestをする
 適当に投げてくれればOK

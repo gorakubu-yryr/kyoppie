@@ -2,7 +2,8 @@ var routes = require("../routes")
 var fs = require("fs")
 const DOC_PATH=__dirname+"/../../docs/api-endpoints/"
 var notfound_flag = false
-var create_doc_flag = true
+var create_doc_flag = process.argv.length > 2 && ~process.argv.indexOf("create")
+if (create_doc_flag) console.log("create flag on")
 
 // path内のディレクトリがあるかどうかを見てなかったらディレクトリを作る
 function pathCheck (pathstring) {
@@ -22,7 +23,7 @@ routes.rest.forEach(function(route) { // REST API
         notfound_flag = true
         if (create_doc_flag) {
             pathCheck(path)
-            console.log(route)
+            console.log(route.name)
             var template = `\
 # ${route.method.toUpperCase()} ${route.name}
 
@@ -76,7 +77,7 @@ routes.websocket.forEach(function(route) {
         notfound_flag = true
         if (create_doc_flag) {
             pathCheck(path)
-            console.log(route)
+            console.log(route.name)
             var template = `\
 # ${route.name}
 
