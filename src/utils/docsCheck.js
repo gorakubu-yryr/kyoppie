@@ -71,9 +71,25 @@ name|description
     }
 })
 routes.websocket.forEach(function(route) {
-    if (!fs.existsSync(DOC_PATH+"websocket"+route.name+".md")) {
+    var path = DOC_PATH+"websocket"+route.name+".md"
+    if (!fs.existsSync(path)) {
         notfound_flag = true
-        console.log("Document Not Found: docs/api-endpoints/websocket"+route.name+".md")
+        if (create_doc_flag) {
+            pathCheck(path)
+            console.log(route)
+            var template = `\
+# ${route.name}
+
+${route.login != false ? "- This API is Auth Required\n" : ""}\
+
+- [Params](#params)
+- [API Handler Code](/src/handlers/ws${route.name}.js)
+
+`
+            fs.writeFileSync(path,template)
+        } else {
+            console.log("Document Not Found: docs/api-endpoints/rest"+route.name+".md")
+        }
     }
 })
 
