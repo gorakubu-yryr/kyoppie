@@ -1,5 +1,7 @@
 # POST /admin/users/suspend
 
+ユーザーを凍結します。
+
 - This API is Auth Required
 - This API is Web and Admin User Only
 
@@ -12,4 +14,4 @@
 
 name|description
 ---|---
-id|
+id|凍結するユーザーのID

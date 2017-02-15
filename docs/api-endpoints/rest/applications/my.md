@@ -1,5 +1,7 @@
 # GET /applications/my
 
+自分がownerなアプリケーションの一覧を取得します。
+
 - This API is Auth Required
 - This API is Web Only
 

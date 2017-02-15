@@ -1,5 +1,7 @@
 # POST /web/rules_agree
 
+利用規約に同意
+
 - This API is Auth Required
 - This API is Web Only
 
@@ -12,4 +14,4 @@
 
 name|description
 ---|---
-password|
+password|アカウントのパスワード

@@ -14,5 +14,5 @@
 
 name|description
 ---|---
-screenName|
-id|
+screenName|取得したいユーザーのスクリーンネーム
+id|取得したいユーザーのID

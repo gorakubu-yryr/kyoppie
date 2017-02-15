@@ -1,5 +1,7 @@
 # POST /posts/favorite
 
+指定された投稿をふぁぼります。
+
 - This API is Auth Required
 
 - [Params](#params)
@@ -11,4 +13,4 @@
 
 name|description
 ---|---
-id|
+id|ふぁぼる投稿のID。

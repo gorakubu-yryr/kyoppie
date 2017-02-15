@@ -1,5 +1,7 @@
 # POST /applications/get_my_access_token
 
+指定されたアプリケーション名義で、自分のアクセストークンを取得します。
+
 - This API is Auth Required
 - This API is Web Only
 
@@ -12,4 +14,4 @@
 
 name|description
 ---|---
-id|
+id|自分のアクセストークンを取得するアプリケーションのID

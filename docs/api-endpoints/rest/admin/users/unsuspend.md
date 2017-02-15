@@ -1,5 +1,7 @@
 # POST /admin/users/unsuspend
 
+ユーザーの凍結を解除します。
+
 - This API is Auth Required
 - This API is Web and Admin User Only
 
@@ -12,4 +14,4 @@
 
 name|description
 ---|---
-id|
+id|凍結を解除するユーザーのID

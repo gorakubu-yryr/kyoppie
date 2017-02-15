@@ -1,5 +1,7 @@
 # POST /applications/create
 
+アプリケーションを作成します。
+
 - This API is Auth Required
 - This API is Web Only
 
@@ -12,4 +14,4 @@
 
 name|description
 ---|---
-name|
+name|アプリケーションの名前

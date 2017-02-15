@@ -1,5 +1,6 @@
 # GET /users/timeline
 
+指定したユーザーの投稿一覧を取得します。
 
 - [Params](#params)
 - [API Code](/src/endpoints/users/timeline.js)
@@ -10,5 +11,5 @@
 
 name|description
 ---|---
-screenName|
-id|
+screenName|取得したいユーザーのスクリーンネーム
+id|取得したいユーザーのID

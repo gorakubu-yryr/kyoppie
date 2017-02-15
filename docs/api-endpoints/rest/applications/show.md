@@ -1,5 +1,7 @@
 # GET /applications/show
 
+指定されたアプリケーションの情報を返します。
+
 - This API is Auth Required
 - This API is Web Only
 
@@ -12,4 +14,4 @@
 
 name|description
 ---|---
-id|
+id|アプリケーションのID

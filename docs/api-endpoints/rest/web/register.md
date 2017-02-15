@@ -1,5 +1,6 @@
 # POST /web/register
 
+アカウントを作成します。
 
 - [Params](#params)
 - [API Code](/src/endpoints/web/register.js)

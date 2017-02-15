@@ -1,5 +1,7 @@
 # POST /applications/change_key
 
+指定されたアプリケーションのキーを再生成します
+
 - This API is Auth Required
 - This API is Web Only
 
@@ -12,4 +14,4 @@
 
 name|description
 ---|---
-id|
+id|キーを再生成するアプリケーションのID

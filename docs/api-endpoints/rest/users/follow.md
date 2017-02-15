@@ -1,5 +1,7 @@
 # POST /users/follow
 
+指定されたユーザーをフォローします。
+
 - This API is Auth Required
 
 - [Params](#params)
@@ -11,5 +13,6 @@
 
 name|description
 ---|---
-screenName|
-id|
+screenName|フォローしたいユーザーのスクリーンネーム
+id|フォローしたいユーザーのID
+

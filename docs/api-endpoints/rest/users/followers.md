@@ -1,5 +1,6 @@
 # GET /users/followers
 
+指定されたユーザーのフォロワー一覧を返します。
 
 - [Params](#params)
 - [API Code](/src/endpoints/users/followers.js)
@@ -10,5 +11,6 @@
 
 name|description
 ---|---
-screenName|
-id|
+screenName|取得したいユーザーのスクリーンネーム
+id|取得したいユーザーのID
+

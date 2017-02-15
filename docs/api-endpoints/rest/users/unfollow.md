@@ -1,5 +1,7 @@
 # POST /users/unfollow
 
+指定されたユーザーをフォロー解除します。
+
 - This API is Auth Required
 
 - [Params](#params)
@@ -11,5 +13,5 @@
 
 name|description
 ---|---
-screenName|
-id|
+screenName|フォローを解除したいユーザーのスクリーンネーム
+id|フォローを解除したいユーザーのID

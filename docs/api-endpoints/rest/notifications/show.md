@@ -1,5 +1,7 @@
 # GET /notifications/show
 
+通知の情報を取得します。
+
 - This API is Auth Required
 
 - [Params](#params)
@@ -11,4 +13,4 @@
 
 name|description
 ---|---
-id|
+id|情報を取得したい通知のID。

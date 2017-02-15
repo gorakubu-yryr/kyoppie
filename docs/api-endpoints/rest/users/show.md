@@ -1,5 +1,6 @@
 # GET /users/show
 
+ユーザーの情報を取得します。
 
 - [Params](#params)
 - [API Code](/src/endpoints/users/show.js)
@@ -10,5 +11,5 @@
 
 name|description
 ---|---
-screenName|
-id|
+screenName|取得したいユーザーのスクリーンネーム
+id|取得したいユーザーのID

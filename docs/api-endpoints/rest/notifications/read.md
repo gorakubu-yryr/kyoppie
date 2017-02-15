@@ -1,5 +1,7 @@
 # POST /notifications/read
 
+通知を既読にします。
+
 - This API is Auth Required
 
 - [Params](#params)
@@ -11,4 +13,4 @@
 
 name|description
 ---|---
-id|
+id|対象の通知のID。

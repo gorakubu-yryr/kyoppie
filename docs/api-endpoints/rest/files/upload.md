@@ -1,5 +1,8 @@
 # POST /files/upload
 
+ファイルをアップロードします。
+現在、画像と動画がサポートされています。
+
 - This API is Auth Required
 
 - [Params](#params)
@@ -11,4 +14,4 @@
 
 name|description
 ---|---
-file|
+file|ファイル
