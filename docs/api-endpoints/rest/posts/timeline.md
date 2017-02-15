@@ -2,14 +2,13 @@
 
 (現時点では)自分と、自分がフォローしているユーザーの投稿が時系列に並んでいるタイムラインを取得します。
 
-- This API is Auth Required
+- This API requires Auth
 
 - [Params](#params)
 - [API Code](/src/endpoints/posts/timeline.js)
 - [API Handler Code](/src/handlers/web/posts/timeline.js)
 
 ## params
-
 
 name|description
 ---|---

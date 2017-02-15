@@ -2,8 +2,8 @@
 
 Site Configを取得します。
 
-- This API is Auth Required
-- This API is Web and Admin User Only
+- This API requires Auth
+- This API can only be called from Admin User at Web
 
 - [Params](#params)
 - [API Code](/src/endpoints/admin/site_config/get.js)
@@ -11,4 +11,4 @@ Site Configを取得します。
 
 ## params
 
-This API is No Parameters.
+This API has no parameters.

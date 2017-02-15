@@ -2,15 +2,14 @@
 
 Site Configを設定します。
 
-- This API is Auth Required
-- This API is Web and Admin User Only
+- This API requires Auth
+- This API can only be called from Admin User at Web
 
 - [Params](#params)
 - [API Code](/src/endpoints/admin/site_config/set.js)
 - [API Handler Code](/src/handlers/web/admin/site_config/set.js)
 
 ## params
-
 
 name|description
 ---|---

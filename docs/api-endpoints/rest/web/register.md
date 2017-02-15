@@ -8,7 +8,6 @@
 
 ## params
 
-
 name|description
 ---|---
 requestToken|

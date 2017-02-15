@@ -2,15 +2,14 @@
 
 指定されたアプリケーションのキーを再生成します
 
-- This API is Auth Required
-- This API is Web Only
+- This API requires Auth
+- This API can only be called from Web
 
 - [Params](#params)
 - [API Code](/src/endpoints/applications/change_key.js)
 - [API Handler Code](/src/handlers/web/applications/change_key.js)
 
 ## params
-
 
 name|description
 ---|---
