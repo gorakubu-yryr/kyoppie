@@ -45,7 +45,7 @@ module.exports = function(mongoose) {
         obj.html = obj.html.split("\n").join("<br>")
         obj.html = obj.html.replace(/(^| |\u3000)@([A-Za-z0-9_]+)/g,'$1<a href="/u/$2">@$2</a>')
         obj.html = obj.html.replace(/(https?:\/\/[a-zA-Z0-9-\.]+(:[0-9]+)?(\/?[a-zA-Z0-9-\._~\!#$&'\(\)\*\+,\/:;=\?@\[\]]*))/g,'<a href="$1" rel="nofollow" target="_blank">$1</a>')
-        obj.html = obj.html.replace(/moz:\/\/a/,'<a href="https://www.mozilla.jp/">moz://a</a>')
+        obj.html = obj.html.replace(/moz:\/\/a/,'<a href="https://www.mozilla.org/">moz://a</a>')
         return obj
     }
     return mongoose.model("posts",schema)
