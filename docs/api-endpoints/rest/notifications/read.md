@@ -2,14 +2,13 @@
 
 通知を既読にします。
 
-- This API is Auth Required
+- This API requires Auth
 
 - [Params](#params)
 - [API Code](/src/endpoints/notifications/read.js)
 - [API Handler Code](/src/handlers/web/notifications/read.js)
 
 ## params
-
 
 name|description
 ---|---

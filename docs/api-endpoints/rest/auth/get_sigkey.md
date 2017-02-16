@@ -9,7 +9,6 @@ signatureを取得します。
 
 ## params
 
-
 name|description
 ---|---
 appKey|アプリケーションのappKey。

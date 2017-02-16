@@ -9,7 +9,6 @@
 
 ## params
 
-
 name|description
 ---|---
 appKey|アプリケーションのappKey。
