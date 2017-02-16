@@ -19,7 +19,7 @@ module.exports = async function (token,text,files,replyTo) {
     if (files.length > 1) throw "file-too-many"
     post.files = files
     if (replyTo) {
-        var replyToPost = await models.users.findById(replyTo)
+        var replyToPost = await models.posts.findById(replyTo)
         if (!replyToPost) throw "replyToPost-not-found"
         post.replyTo = replyToPost.id
     }
