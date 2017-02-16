@@ -7,7 +7,7 @@ module.exports = async function (token,sinceId,maxId,limit) {
     var notifications = await models.notifications.find({
         isRead:false,
         receiveUser:token.user.id,
-        id:getSinceMaxObject(sinceId,maxId)
+        _id:getSinceMaxObject(sinceId,maxId)
     }).populate("targetApp targetUser targetPost").sort('-createdAt').limit(limit)
     return notifications
 }

@@ -7,7 +7,7 @@ module.exports = async function (sinceId,maxId,limit) {
     var users = await models.users.find({isSuspended:true}).select("_id")
     users = users.map(user => {return {user:user._id}})
     console.log(users)
-    var query = {id:getSinceMaxObject(sinceId,maxId)}
+    var query = {_id:getSinceMaxObject(sinceId,maxId)}
     if (users.length) query.$nor = users
     var posts = await models.posts.find(query).populate("app user files replyTo").sort('-createdAt')
     return posts
