@@ -17,6 +17,6 @@ module.exports = async function (screenName,id) {
     })
     posts = await models.posts.find({
         _id:{$in:posts}
-    }).populate("user app files")
+    }).populate("user app files replyTo")
     return posts
 }

@@ -5,6 +5,7 @@ module.exports = async function () {
     await wrap(main(
         this.token,
         this.request.body.text,
-        this.request.body.files
+        this.request.body.files,
+        this.request.body.replyTo
     ),this)
 }
