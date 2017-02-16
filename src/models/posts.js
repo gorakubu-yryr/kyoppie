@@ -15,6 +15,10 @@ module.exports = function(mongoose) {
         obj._id = undefined
         obj.__v = undefined
         if (this.user.toResponseObject) obj.user=await this.user.toResponseObject(token)
+        else {
+            this.user = await mongoose.model("users").findById(this.user)
+            if (this.user) obj.user = await this.user.toResponseObject(token)
+        }
         if (this.app && this.app.toResponseObject) {
             obj.app=await this.app.toResponseObject(token)
             delete obj.app.appKey
@@ -32,6 +36,7 @@ module.exports = function(mongoose) {
         if (token) {
             obj.isFavorited = !!(await mongoose.model("favorites").findOne({user:token.user.id,post:this.id}))
         }
+        if (this.replyTo && this.replyTo.toResponseObject) obj.replyTo = await this.replyTo.toResponseObject()
         obj.html = obj.text
         obj.html = obj.html.split('&').join("&amp;")
         obj.html = obj.html.split("<").join("&lt;")
