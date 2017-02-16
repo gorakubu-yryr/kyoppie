@@ -4,6 +4,7 @@ node_js:
     - "7.4.0"
 services:
     - mongodb
+    - redis
 script:
     - npm run lint
     - npm run docs-check
