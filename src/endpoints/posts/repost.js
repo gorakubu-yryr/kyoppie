@@ -6,6 +6,11 @@ module.exports = async function (token,id) {
     var post = await models.posts.findById(id)
     if (!post) throw "post-not-found"
     if (post.repostTo) throw "no-repost-repost"
+    var already = await models.posts.findOne({
+        user: token.user.id,
+        repostTo: post.id
+    })
+    if (already) throw "already-reposted"
     // put datas
     var repost = new models.posts()
     repost.app = token.app
