@@ -26,11 +26,11 @@ module.exports = async function (token,id) {
     // タイムラインのストリーミングに垂れ流す
     var following = await models.follows.find({toUser:token.user.id})
     var redis = getRedisConnection()
-    redis.publish("kyoppie:reposts-timeline:"+token.user.id,repost.id)
+    redis.publish("kyoppie:posts-timeline:"+token.user.id,repost.id)
     following.forEach(function(following) {
-        redis.publish("kyoppie:reposts-timeline:"+following.fromUser,repost.id)
+        redis.publish("kyoppie:posts-timeline:"+following.fromUser,repost.id)
     })
-    redis.publish("kyoppie:reposts-public_timeline",repost.id)
+    redis.publish("kyoppie:posts-public_timeline",repost.id)
     redis.quit()
     return repost
 }
