@@ -2,7 +2,7 @@
 
 自分が参加しているトークルームの一覧を取得します
 
-- This API is Auth Required
+- This API requires Auth
 
 - [Params](#params)
 - [API Code](/src/endpoints/talks/rooms/list.js)
@@ -10,4 +10,4 @@
 
 ## params
 
-This API is No Parameters.
+This API has no parameters.

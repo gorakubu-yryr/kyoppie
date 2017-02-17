@@ -2,7 +2,7 @@
 
 トークルームからユーザーを離脱させます
 
-- This API is Auth Required
+- This API requires Auth
 
 - [Params](#params)
 - [API Code](/src/endpoints/talks/rooms/members/remove.js)

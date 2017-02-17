@@ -2,7 +2,7 @@
 
 指定されたユーザーとの一対一用トークルームを返します
 
-- This API is Auth Required
+- This API requires Auth
 
 - [Params](#params)
 - [API Code](/src/endpoints/talks/rooms/from_user.js)
