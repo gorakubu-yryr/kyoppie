@@ -12,7 +12,7 @@ module.exports = async function (token,sinceId,maxId,limit) {
     followings.push(token.user.id)
     var posts = await models.posts.find({
         user:{$in:followings},
-        id:getSinceMaxObject(sinceId,maxId)
-    }).populate("app user files").sort('-createdAt').limit(limit)
+        _id:getSinceMaxObject(sinceId,maxId)
+    }).populate("app user files replyTo").sort('-createdAt').limit(limit)
     return posts.filter(post => !post.user.isSuspended)
 }

@@ -8,7 +8,6 @@
 
 ## params
 
-
 name|description
 ---|---
 id|情報を取得する投稿のID。

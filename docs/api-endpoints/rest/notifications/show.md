@@ -2,14 +2,13 @@
 
 通知の情報を取得します。
 
-- This API is Auth Required
+- This API requires Auth
 
 - [Params](#params)
 - [API Code](/src/endpoints/notifications/show.js)
 - [API Handler Code](/src/handlers/web/notifications/show.js)
 
 ## params
-
 
 name|description
 ---|---

@@ -8,4 +8,4 @@
 
 ## params
 
-This API is No Parameters.
+This API has no parameters.

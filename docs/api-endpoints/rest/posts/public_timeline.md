@@ -8,7 +8,6 @@
 
 ## params
 
-
 name|description
 ---|---
 sinceId|このパラメータを指定すると、指定された投稿IDより新しい投稿が取得できます。
