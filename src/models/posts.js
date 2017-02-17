@@ -52,6 +52,11 @@ module.exports = function(mongoose) {
             })
             obj.html = obj.html.replace(/moz:\/\/a/,'<a href="https:&#x2F;&#x2F;www.mozilla.org/">moz:&#x2F;&#x2F;a</a>')
         }
+        if (obj.repostTo && this.repostTo.toResponseObject) obj.repostTo = await this.repostTo.toResponseObject()
+        if (obj.repostTo) {
+            delete obj.favoriteCount
+            delete obj.repostCount
+        }
         return obj
     }
     return mongoose.model("posts",schema)
