@@ -12,9 +12,12 @@ module.exports = async function (token,id) {
     repost.user = token.user
     repost.repostTo = post.id
     repost.user.postsCount++
+    // increase post's repostCount
+    post.repostCount++
     // save
     await repost.save()
     await repost.user.save()
+    await post.save()
     // タイムラインのストリーミングに垂れ流す
     var following = await models.follows.find({toUser:token.user.id})
     var redis = getRedisConnection()
