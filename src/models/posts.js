@@ -37,6 +37,7 @@ module.exports = function(mongoose) {
         }
         if (token) {
             obj.isFavorited = !!(await mongoose.model("favorites").findOne({user:token.user.id,post:this.id}))
+            obj.isReposted = Boolean(await mongoose.model("posts").findOne({user:token.user.id,repostTo:this.id}))
         }
         if (this.replyTo && this.replyTo.toResponseObject) obj.replyTo = await this.replyTo.toResponseObject()
         if (obj.text) {
