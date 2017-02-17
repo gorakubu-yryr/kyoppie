@@ -24,12 +24,13 @@ routes.rest.forEach(function(route) { // REST API
         if (create_doc_flag) {
             pathCheck(path)
             console.log(route.name)
-            var template = `\
-# ${route.method.toUpperCase()} ${route.name}
-
-${route.login != false ? "- This API requires Auth\n\n" : ""}\
-${route.isWeb ? "- This API can only be called from Web\n\n" : ""}\
-${route.isAdmin ? "- This API can only be called from Admin User at Web\n\n" : ""}\
+            var template = `# ${route.method.toUpperCase()} ${route.name}\n`
+            var addition = ""
+            if (route.login != false) addition += "\n- This API requires Auth"
+            if (route.isWeb) addition += "\n- This API can only be called from Web"
+            if (route.isAdmin) addition += "\n- This API can only be called from Admin User at Web"
+            if (addition) template += addition + "\n"
+            template += `
 - [Params](#params)
 - [API Code](/src/endpoints${route.name}.js)
 - [API Handler Code](/src/handlers/web${route.name}.js)
