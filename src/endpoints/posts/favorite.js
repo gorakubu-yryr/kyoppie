@@ -24,5 +24,5 @@ module.exports = async function (token,id) {
     } catch (e) {
         console.log("notification-error")
     }
-    return {status:"ok"}
+    return post
 }
