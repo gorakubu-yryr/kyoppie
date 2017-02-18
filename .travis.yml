@@ -5,9 +5,12 @@ node_js:
 cache:
     directories:
         - node_modules/
+        - $(npm config get prefix)
 services:
     - mongodb
     - redis
+before_script:
+    - npm install -g jasmime-node
 script:
     - npm run lint
     - npm run docs-check
