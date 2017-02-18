@@ -10,9 +10,10 @@ services:
     - mongodb
     - redis
 before_script:
-    - npm install -g jasmime-node
+    - npm install -g forever
 script:
     - npm run lint
     - npm run docs-check
     - npm run migrate
+    - forever start -c "node --harmony" src/main.js
     - npm run test
