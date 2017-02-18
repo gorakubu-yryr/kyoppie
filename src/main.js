@@ -126,6 +126,10 @@ routes.rest.forEach(function(route) {
     app.use(_[method](path,async function(ctx) {
         await handler.bind(ctx)(ctx)
     }))
+    app.use(_.all(path,async function(ctx) {
+        ctx.status = 405
+        ctx.body = {result:false,error:"invalid-method"}
+    }))
 })
 // WebSocket APIのrouter
 var ws_route = {}
