@@ -11,7 +11,7 @@ module.exports = async function (screenName,id) {
     if (user.isSuspended) throw "this-user-is-suspended"
     var posts = await models.posts.find({
         user:user.id
-    }).populate("app files replyTo").sort('-createdAt')
+    }).populate("app files replyTo repostTo").sort('-createdAt')
     posts = posts.map(function(post) {
         post.user = user
         return post

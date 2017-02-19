@@ -5,7 +5,9 @@ module.exports = function(mongoose) {
         user:{type:mongoose.Schema.Types.ObjectId,ref:"users"},
         files:[{type:mongoose.Schema.Types.ObjectId,ref:"files"}],
         favoriteCount:{type:Number,default:0},
-        replyTo:{type:mongoose.Schema.Types.ObjectId,ref:"posts"}
+        replyTo:{type:mongoose.Schema.Types.ObjectId,ref:"posts"},
+        repostTo:{type:mongoose.Schema.Types.ObjectId,ref:"posts"},
+        repostCount:{type:Number,default:0}
     },{
         timestamps:true
     })
@@ -33,8 +35,9 @@ module.exports = function(mongoose) {
                 obj.files[i] = await this.files[i].toResponseObject(token)
             }
         }
-        if (token) {
+        if (token && !obj.repostTo) {
             obj.isFavorited = !!(await mongoose.model("favorites").findOne({user:token.user.id,post:this.id}))
+            obj.isReposted = !!(await mongoose.model("posts").findOne({user:token.user.id,repostTo:this.id}))
         }
         if (this.replyTo && this.replyTo.toResponseObject) obj.replyTo = await this.replyTo.toResponseObject()
         if (obj.text) {
@@ -49,6 +52,11 @@ module.exports = function(mongoose) {
                 return ('<a href="'+match+'" rel="nofollow" target="_blank">'+match+'</a>').replace(/\/\//g,"&#x2F;&#x2F;")
             })
             obj.html = obj.html.replace(/moz:\/\/a/,'<a href="https:&#x2F;&#x2F;www.mozilla.org/">moz:&#x2F;&#x2F;a</a>')
+        }
+        if (obj.repostTo && this.repostTo.toResponseObject) obj.repostTo = await this.repostTo.toResponseObject(token)
+        if (obj.repostTo) {
+            delete obj.favoriteCount
+            delete obj.repostCount
         }
         return obj
     }
