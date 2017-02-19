@@ -11,14 +11,14 @@ module.exports = async function (token,id) {
         repostTo: post.id
     })
     if (already) throw "already-reposted"
+    // increase post's repostCount
+    post.repostCount++
     // put datas
     var repost = new models.posts()
     repost.app = token.app
     repost.user = token.user
-    repost.repostTo = post.id
+    repost.repostTo = post
     repost.user.postsCount++
-    // increase post's repostCount
-    post.repostCount++
     // save
     await repost.save()
     await repost.user.save()
