@@ -11,7 +11,6 @@ var yaml = require("yamljs")
 var bodyParser = require("koa-bodyparser")
 var _ = require("koa-route")
 var rulesAgreePeriod = require("./endpoints/web/rules_agree_period")
-UNDEFINEDFUNCTION()
 
 console.log("###################")
 console.log("### Kyoppie API ###")
