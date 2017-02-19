@@ -16,4 +16,5 @@ script:
     - npm run docs-check
     - npm run migrate
     - forever start -c "node --harmony" --minUptime 5000 src/main.js
+    - sleep 5
     - npm run test
