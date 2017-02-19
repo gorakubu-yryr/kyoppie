@@ -35,9 +35,9 @@ module.exports = function(mongoose) {
                 obj.files[i] = await this.files[i].toResponseObject(token)
             }
         }
-        if (token) {
+        if (token && !obj.repostTo) {
             obj.isFavorited = !!(await mongoose.model("favorites").findOne({user:token.user.id,post:this.id}))
-            obj.isReposted = Boolean(await mongoose.model("posts").findOne({user:token.user.id,repostTo:this.id}))
+            obj.isReposted = !!(await mongoose.model("posts").findOne({user:token.user.id,repostTo:this.id}))
         }
         if (this.replyTo && this.replyTo.toResponseObject) obj.replyTo = await this.replyTo.toResponseObject()
         if (obj.text) {
@@ -53,7 +53,7 @@ module.exports = function(mongoose) {
             })
             obj.html = obj.html.replace(/moz:\/\/a/,'<a href="https:&#x2F;&#x2F;www.mozilla.org/">moz:&#x2F;&#x2F;a</a>')
         }
-        if (obj.repostTo && this.repostTo.toResponseObject) obj.repostTo = await this.repostTo.toResponseObject()
+        if (obj.repostTo && this.repostTo.toResponseObject) obj.repostTo = await this.repostTo.toResponseObject(token)
         if (obj.repostTo) {
             delete obj.favoriteCount
             delete obj.repostCount
