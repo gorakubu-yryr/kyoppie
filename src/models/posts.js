@@ -39,7 +39,10 @@ module.exports = function(mongoose) {
             obj.isFavorited = !!(await mongoose.model("favorites").findOne({user:token.user.id,post:this.id}))
             obj.isReposted = !!(await mongoose.model("posts").findOne({user:token.user.id,repostTo:this.id}))
         }
-        if (this.replyTo && this.replyTo.toResponseObject) obj.replyTo = await this.replyTo.toResponseObject()
+        if (this.replyTo) {
+            if (!this.replyTo.toResponseObject) this.replyTo = await mongoose.model("posts").findById(this.replyTo)
+            if (this.replyTo.toResponseObject) obj.replyTo = await this.replyTo.toResponseObject()
+        }
         if (obj.text) {
             obj.html = obj.text
             obj.html = obj.html.split('&').join("&amp;")
