@@ -78,7 +78,7 @@ app.use(async function (ctx, next) {
 app.use(async function (ctx, next) {
     if (ctx.request.method !== "POST") return await next()
     var log = new models.logs()
-    log.ipaddr = ctx.request.header['x-forwarded-for'] || ctx.socket.remoteAddress
+    log.ipaddr = (ctx.request.header['x-forwarded-for'] ? ctx.request.header['x-forwarded-for']+ ", " : "") + ctx.socket.remoteAddress
     log.path = ctx.path
     await next()
     log.response = JSON.stringify(ctx.body)
