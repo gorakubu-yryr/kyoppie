@@ -3,6 +3,7 @@ var getSinceMaxObject = require("../../utils/getSinceMaxObject")
 module.exports = async function (token,sinceId,maxId,limit) {
     if (token.user.isSuspended) throw "this-user-is-suspended"
     if (isFinite(limit)) {
+        if (typeof limit !== "number") limit = Number(limit)
         if (limit < 1) throw "invalid-limit"
     } else limit = 100
     var followings = await models.follows.find({
