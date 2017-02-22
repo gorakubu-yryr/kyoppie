@@ -5,7 +5,7 @@ module.exports = async function (token,id,text,files) {
     if (!text) throw "text-is-require"
     if (!id) throw "room-id-is-require"
     if (!files) files = ""
-    var room = models.talk_rooms.findById(id)
+    var room = await models.talk_rooms.findById(id)
     if (!room) throw "room-not-found"
     if (!~room.users.indexOf(token.user.id)) throw "room-not-found"
     // put datas
