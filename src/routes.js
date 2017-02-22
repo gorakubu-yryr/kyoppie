@@ -48,6 +48,8 @@ module.exports = {
         {name:"/admin/users/suspend",method:"post",isAdmin:true},
         {name:"/admin/users/unsuspend",method:"post",isAdmin:true},
         {name:"/admin/users/change_screen_name",method:"post",isAdmin:true},
+        {name:"/admin/users/verified",method:"post",isAdmin:true},
+        {name:"/admin/users/unverified",method:"post",isAdmin:true},
         {name:"/admin/site_config/get",method:"get",isAdmin:true},
         {name:"/admin/site_config/set",method:"post",isAdmin:true},
 
