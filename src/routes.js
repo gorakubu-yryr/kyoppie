@@ -66,6 +66,7 @@ module.exports = {
         {name:"/talks/rooms/members/remove",method:"post"},
         {name:"/talks/rooms/from_user",method:"get"},
         {name:"/talks/rooms/timeline",method:"get"},
+        {name:"/talks/rooms/say",method:"post"},
     ],
     websocket:[
         {name:"/posts/timeline"},
